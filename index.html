@@ -1,23 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
     <title>Mesoamerican Languages</title>
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="description" content="Attested Mesoamerican language sites colored by language family.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.30.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.30.0/mapbox-gl.js"></script>
-
-    <!-- style sheets -->
     <link rel="stylesheet" href="css/main.css" />
-
-    <!-- javascript -->
     <script defer src="js/main.js"></script>
-
-
 </head>
 <body>
-    <div id="map"></div>
+    <main class="map-shell">
+        <div id="map" aria-label="Interactive map of attested Mesoamerican language sites"></div>
+        <aside class="map-key" aria-labelledby="map-title">
+            <p class="eyebrow">Oregon Survey</p>
+            <h1 id="map-title">Attested language sites</h1>
+            <p id="map-status" class="map-status" aria-live="polite">Loading sites…</p>
+            <div class="key-divider"></div>
+            <h2>Language family</h2>
+            <ul id="family-legend" class="family-legend"></ul>
+        </aside>
+    </main>
 </body>
 
 </html>
