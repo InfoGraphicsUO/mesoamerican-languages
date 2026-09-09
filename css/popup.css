@@ -1,0 +1,74 @@
+/* hover boxes, markup comes from js/popup.js */
+.mapboxgl-popup {
+    font-family: var(--font);
+}
+
+.mapboxgl-popup-content {
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    backdrop-filter: var(--blur);
+}
+
+/* tip is drawn with borders, recolour whichever side is showing for the anchor */
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip {
+    border-bottom-color: var(--surface);
+}
+
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip {
+    border-top-color: var(--surface);
+}
+
+.mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
+    border-right-color: var(--surface);
+}
+
+.mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
+    border-left-color: var(--surface);
+}
+
+.popup {
+    min-width: 12rem;
+}
+
+.popup h2 {
+    margin: 0;
+    font-size: var(--text-lg);
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.popup-subtitle {
+    margin: 0.2rem 0 0;
+    font-size: var(--text-sm);
+}
+
+.popup-details {
+    margin: 0.5rem 0 0;
+}
+
+.popup-details div {
+    display: flex;
+    gap: var(--space-xs);
+    font-size: var(--text-xs);
+    line-height: 1.35;
+}
+
+.popup-details dt {
+    color: var(--text-muted);
+}
+
+.popup-details dt::after {
+    content: ":";
+}
+
+.popup-details dd {
+    margin: 0;
+    color: var(--text-soft);
+}
