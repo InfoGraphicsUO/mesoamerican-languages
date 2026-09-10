@@ -38,7 +38,7 @@
 }
 
 /* icon or flat colour, sized to the li grid column */
-.swatch {
+.legendSymbol {
     display: block;
     width: 1rem;
     height: 1rem;

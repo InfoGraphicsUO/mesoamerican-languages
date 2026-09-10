@@ -2,17 +2,44 @@ import { map } from './map.js';
 import { html } from './ui.js';
 
 // hover boxes for map features, layers supply the content via render(feature)
+// exports detailList, hoverBox, hoverPopup
 
-// rows: [[label, value]] with empty values dropped
+// creates the detailed info section of a popup
+// rows example:
+// [
+//     ['Family', 'Mayan'], 
+//     ['Country', 'Mexico']
+// ]
 export function detailList(rows) {
-    const kept = rows.filter(([, value]) => value !== undefined && value !== null && value !== '');
-    if (!kept.length) return html``;
-    return html`<dl class="popup-details">${kept.map(([label, value]) => html`
-        <div><dt>${label}</dt><dd>${value}</dd></div>
-    `)}</dl>`;
+
+    // remove rows that dont have useful info
+    const kept = rows.filter(
+        ([, value]) =>  // ignore first item (label), store second item (value)
+            value !== undefined && 
+            value !== null && 
+            value !== ''
+    );
+
+    
+    if (!kept.length) return html``; // if every row empty, return empty html fragment and not list
+
+    // return the detail list in html
+    return html`
+        <dl class="popup-details">
+            ${kept.map(([label, value]) => html`
+                <div>
+                    <dt>${label}</dt>
+                    <dd>${value}</dd>
+                </div>
+            `)}
+        </dl>
+    `;
 }
 
-// title, optional subtitle, detail rows
+// create complete popup content
+// title: main heading
+// subtitle: optional secondary text
+// rows: optional detail rows
 export function hoverBox({ title, subtitle, rows = [] }) {
     return html`
         <article class="popup">
@@ -23,8 +50,10 @@ export function hoverBox({ title, subtitle, rows = [] }) {
     `;
 }
 
-// one reusable popup that follows the pointer over `layerId`
-// render(feature) returns an html`` fragment or string
+// connect popup to a map layer
+// layerId: id of map layer to watch
+// render: func that converts map feature to popup html
+// options: optional mapbox popup settings
 export function hoverPopup(layerId, render, options = {}) {
     const popup = new mapboxgl.Popup({
         offset: 10,
@@ -34,6 +63,7 @@ export function hoverPopup(layerId, render, options = {}) {
         ...options
     });
 
+    //listens for mouse move and display popup
     map.on('mousemove', layerId, (event) => {
         const feature = event.features?.[0];
         if (!feature) return;
@@ -43,6 +73,7 @@ export function hoverPopup(layerId, render, options = {}) {
             .addTo(map);
     });
 
+    // adhysts style  of cursor when hovering
     map.on('mouseenter', layerId, () => { map.getCanvas().style.cursor = 'pointer'; });
     map.on('mouseleave', layerId, () => {
         map.getCanvas().style.cursor = '';

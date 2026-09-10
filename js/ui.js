@@ -1,40 +1,47 @@
 import { MAPBOX_TOKEN, map } from './map.js';
 
-// small shared ui bits: html templating and the search box
+// shared ui tools for safe html, css values, and map search
+// exports escape, raw, html, cssVar, startSearchBox
 
+// turns any value into safe text before it gets added to html
+// null/undefined = empty string
 export function escape(value) {
     return String(value ?? '')
         .replaceAll('&', '&amp;')
         .replaceAll('<', '&lt;')
         .replaceAll('>', '&gt;')
         .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#039;');
+        .replaceAll("'", '&#039;'); // replace chars that browser might read as markup
 }
 
-// wraps an already-safe string so `html` leaves it alone
-// String(fragment) gives back the markup
+// marks string as safe html so html`` leaves it alone
+// String(fragment) still gives back finished markup
 export function raw(value) {
     const markup = String(value ?? '');
     return { __html: markup, toString: () => markup };
 }
 
-// tagged template, escapes every interpolation unless its a raw()/html`` fragment
-// arrays are joined so nested html`` calls can be mapped directly
+// tagged template func, regular values get escaped before going into html
+// raw()/html`` fragments and lists of fragments can be nested w/o getting escaped again
 export function html(strings, ...values) {
     const render = (value) => {
-        if (Array.isArray(value)) return value.map(render).join('');
-        if (value && typeof value === 'object' && '__html' in value) return value.__html;
-        return escape(value);
+        if (Array.isArray(value)) return value.map(render).join(''); // render list items and combine into one string
+        if (value && typeof value === 'object' && '__html' in value) return value.__html; // already safe, dont escape twice
+        return escape(value); // anything else becomes safe text
     };
+
+    // combine static template parts w/ each rendered value, return as another safe fragment
     return raw(strings.reduce((out, part, i) => out + part + (i < values.length ? render(values[i]) : ''), ''));
 }
 
-// reads a design token off :root, eg cssVar('--surface')
+// gets one css setting from :root
+// name example: '--surface'
 export function cssVar(name) {
     return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 }
 
-// search-js renders in a shadow root so page css cant reach it, map our tokens onto its theme api
+// search-js lives in shadow root so regular site css cant style it
+// maps our css settings into its theme api
 function searchTheme() {
     return {
         variables: {
@@ -53,30 +60,36 @@ function searchTheme() {
             fontWeightBold: '600',
             fontWeightSemibold: '500'
         },
-        // josefin sans sits high on its baseline so centred text reads as too far up, nudge it down
+        // josefin sans sits high, move input text down so it looks centered
         cssText: '.Input { padding-top: 0.2em; }'
     };
 }
 
-// mapbox search-js web component, script is deferred so wait for window load
-export function mountSearch(selector = '#search') {
+// creates mapbox search box and connects it to our map
+// selector: element where search box gets added
+export function startSearchBox(selector = '#search') {
     const mount = () => {
-        const container = document.querySelector(selector);
-        const SearchBox = globalThis.mapboxsearch?.MapboxSearchBox || globalThis.MapboxSearchBox;
-        if (!container || !SearchBox) return;
+        // find place to add search and whichever global name search-js supplied
+        const container = document.querySelector(selector); // search box container in page html
+        const SearchBox = globalThis.mapboxsearch?.MapboxSearchBox || globalThis.MapboxSearchBox; // fallback for other build
 
+        if (!container || !SearchBox) return; // if html or deferred library missing, dont mount
+
+        // build search box
         const box = new SearchBox();
         box.accessToken = MAPBOX_TOKEN;
         box.theme = searchTheme();
         box.placeholder = 'Search locations';
-        box.options = { language: 'en', proximity: map.getCenter().toArray() };
-        box.componentOptions = { allowReverse: true, flipCoordinates: true };
-        box.mapboxgl = mapboxgl;
-        box.marker = true;
-        container.append(box);
-        box.bindMap(map);
+        box.options = { language: 'en', proximity: map.getCenter().toArray() }; // english results near current map
+        box.componentOptions = { allowReverse: true, flipCoordinates: true }; // allow coordinate search in either order
+        box.mapboxgl = mapboxgl; // give search box our mapbox library
+        box.marker = true; // show marker when result gets picked
+
+        container.append(box); // display finished search box
+        box.bindMap(map); // move our map when user picks a result
     };
 
+    // deferred script is ready after window load, or run now if page already finished
     if (document.readyState === 'complete') mount();
     else window.addEventListener('load', mount, { once: true });
 }

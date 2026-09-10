@@ -1,15 +1,17 @@
 import { ready } from './map.js';
-import { mountSearch } from './ui.js';
-import { renderLegend } from './legend.js';
+import { startSearchBox } from './ui.js';
+import { makeLegend } from './legend.js';
 import { addMapLayers } from './map-layers.js';
 
-mountSearch();
+// coordinates js files on site load
 
-ready.then(async () => {
+startSearchBox();
+
+ready.then(async () => { // waits for map to finish loading
     try {
-        renderLegend(document.querySelector('#legend'), {
+        makeLegend(document.querySelector('#legend'), {
             title: 'Attested language sites',
-            sections: await addMapLayers()
+            sections: await addMapLayers() // add map layers before legend
         });
     } catch (error) {
         console.error(error);
