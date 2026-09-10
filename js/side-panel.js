@@ -13,6 +13,7 @@ const IDS = {
 };
 
 const RESULT_TYPES = new Set(['family', 'group', 'language', 'place']);
+const RESULT_KEYS = { family: 'F', group: 'G', language: 'L', place: 'P' };
 const normalize = (value) => String(value ?? '')
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
     .replace(/[’']/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
@@ -107,6 +108,12 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
             row.className = `side-panel-row side-panel-${generic} side-panel-row--${type}`;
             row.dataset.resultId = String(resultId);
             row.style.setProperty('--result-depth', depth);
+            row.setAttribute('aria-label', `${type}: ${node.label}${countries ? `, ${countries}` : ''}`);
+            const resultKey = document.createElement('span');
+            resultKey.className = 'side-panel-result-key';
+            resultKey.textContent = RESULT_KEYS[type] || 'R';
+            resultKey.setAttribute('aria-hidden', 'true');
+            row.append(resultKey);
             const label = document.createElement('span');
             label.className = 'side-panel-row-label';
             appendHighlighted(label, node.label, query);

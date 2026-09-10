@@ -78,6 +78,7 @@
 
 .side-panel-section + .side-panel-section { border-top: 1px solid var(--border); }
 .side-panel-accordion {
+    position: relative;
     display: grid;
     grid-template-columns: 1.1rem minmax(0, 1fr) auto;
     align-items: center;
@@ -94,6 +95,28 @@
 }
 .side-panel-accordion:hover { background: rgb(25 34 29 / 5%); }
 .side-panel-accordion-label { min-width: 0; overflow-wrap: anywhere; }
+.side-panel-help { display: inline-flex; align-items: center; margin-inline-start: .3rem; color: var(--text-muted); vertical-align: .05em; }
+.side-panel-help > i { width: auto; font-size: .8rem; }
+.side-panel-help-tooltip {
+    position: absolute;
+    z-index: 6;
+    top: calc(100% - .1rem);
+    right: var(--space-lg);
+    left: var(--space-lg);
+    padding: .55rem .65rem;
+    border: 1px solid var(--border);
+    color: var(--text);
+    background: rgb(255 255 252 / 98%);
+    font: 500 var(--text-xs)/1.35 var(--font);
+    letter-spacing: 0;
+    text-align: left;
+    text-transform: none;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+.side-panel-help:hover .side-panel-help-tooltip,
+.side-panel-accordion:focus-visible .side-panel-help-tooltip { opacity: 1; visibility: visible; }
 .side-panel-chevron { font-size: 1.1em; line-height: .65; transform: translateY(-.08em); transition: transform var(--motion-duration) var(--motion-ease); }
 .side-panel-accordion.is-open .side-panel-chevron { transform: rotate(180deg) translateY(.08em); }
 
@@ -131,7 +154,7 @@
 }
 .side-panel-row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-columns: .8rem minmax(0, 1fr) auto auto;
     align-items: baseline;
     column-gap: var(--space-sm);
     width: 100%;
@@ -166,6 +189,7 @@
 .side-panel-row--place { margin-top: .15rem; }
 .side-panel-row:hover { background-color: rgb(25 34 29 / 7%); }
 .side-panel-row:focus-visible { position: relative; z-index: 1; }
+.side-panel-result-key { color: var(--text-muted); font-size: var(--text-xs); font-style: normal; font-weight: 600; letter-spacing: 0; line-height: 1.2; text-align: center; text-transform: uppercase; }
 .side-panel-row-label { min-width: 0; overflow-wrap: anywhere; }
 .side-panel-country { min-width: 0; max-width: 12rem; color: var(--text-muted); font-size: var(--text-xs); font-style: normal; font-weight: 400; letter-spacing: 0; overflow: hidden; text-align: right; text-overflow: ellipsis; text-transform: none; white-space: nowrap; }
 .side-panel-row > .side-panel-chevron { justify-self: end; transition: transform var(--motion-duration) var(--motion-ease); }
@@ -180,7 +204,7 @@
     .side-panel-header { padding-inline-start: var(--space-md); }
 }
 
-@media (max-height: 500px) and (max-width: 600px) {
+@media (max-height: 500px) {
     /* Compact only the panel chrome so the open search section retains a result viewport. */
     .side-panel-header { flex-basis: 2.3rem; min-height: 2.3rem; }
     .side-panel-accordion { min-height: 2.3rem; padding-block: .25rem; }

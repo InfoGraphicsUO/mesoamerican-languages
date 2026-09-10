@@ -41,11 +41,18 @@
                     </button>
                 </div>
                 <section class="side-panel-section">
-                    <button class="side-panel-accordion" type="button" id="language-search-toggle" aria-expanded="false" aria-controls="language-search-region">
+                    <button class="side-panel-accordion" type="button" id="language-search-toggle" aria-expanded="false" aria-controls="language-search-region" aria-describedby="language-result-key-description">
                         <i class="side-panel-section-icon fa-sharp fa-light fa-atlas" aria-hidden="true"></i>
-                        <span class="side-panel-accordion-label">Explore the language map</span>
+                        <span class="side-panel-accordion-label">
+                            Explore the language map
+                            <span class="side-panel-help" aria-hidden="true">
+                                <i class="fa-sharp fa-light fa-circle-question"></i>
+                                <span class="side-panel-help-tooltip">F = family, G = group, L = language, P = place. Expand headings to browse; select any row to frame its locations.</span>
+                            </span>
+                        </span>
                         <i class="side-panel-chevron fa-sharp fa-light fa-chevron-down" aria-hidden="true"></i>
                     </button>
+                    <span id="language-result-key-description" class="visually-hidden">Result keys: F means family, G means group, L means language, and P means place. Expand headings to browse, or select a row to frame its mapped locations.</span>
                     <div id="language-search-region" class="side-panel-region" role="region" aria-labelledby="language-search-toggle" aria-hidden="true" hidden inert>
                         <label class="visually-hidden" for="language-search-input">Search languages, families, and places</label>
                         <div class="side-panel-query">
