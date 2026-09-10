@@ -2,7 +2,7 @@ import { map } from './map.js';
 import { html } from './ui.js';
 
 // hover boxes for map features, layers supply the content via render(feature)
-// exports detailList, hoverBox, hoverPopup
+// exports detailList, hoverBox, hoverPopup, clickPopup
 
 // creates the detailed info section of a popup
 // rows example:
@@ -79,6 +79,37 @@ export function hoverPopup(layerId, render, options = {}) {
         map.getCanvas().style.cursor = '';
         popup.remove();
     });
+
+    return popup;
+}
+
+// connect a click popup to a map layer
+// layerId: layer to watch for clicks
+// render: func that converts the click event and features to popup html
+// options: optional Mapbox popup settings
+export function clickPopup(layerId, render, options = {}) {
+    const popup = new mapboxgl.Popup({
+        offset: 10,
+        maxWidth: '320px',
+        closeButton: true,
+        closeOnClick: true,
+        ...options
+    });
+
+    map.on('click', layerId, (event) => {
+        const content = render(event, event.features || []);
+        if (!content) return;
+
+        popup
+            .setLngLat(event.lngLat)
+            .setHTML(String(content))
+            .addTo(map);
+    });
+
+    // Clickable areas are invisible, so the normal pointer cursor provides
+    // the only map-level affordance that a suggestion is available here.
+    map.on('mouseenter', layerId, () => { map.getCanvas().style.cursor = 'pointer'; });
+    map.on('mouseleave', layerId, () => { map.getCanvas().style.cursor = ''; });
 
     return popup;
 }

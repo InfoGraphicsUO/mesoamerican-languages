@@ -1,5 +1,6 @@
 import { map, MAP, ICON_SIZE, PATHS, labelLayerId, addGeojsonSource, loadIcons } from './map.js';
-import { hoverPopup, hoverBox } from './popup.js';
+import { HULL_FAMILY_NAMES, buildFamilyHullCollection } from './family-hulls.js';
+import { hoverPopup, clickPopup, hoverBox } from './popup.js';
 
 // dict to hold each language family and their color
 export const FAMILIES = [
@@ -120,11 +121,45 @@ function siteLegend(data) {
     ];
 }
 
+function familyHullColorExpression() {
+    const expression = ['match', ['get', 'family']];
+
+    for (const { name, color } of FAMILIES) {
+        if (HULL_FAMILY_NAMES.includes(name)) expression.push(name, color);
+    }
+
+    expression.push('#000000');
+    return expression;
+}
+
+function familyHullPopup(event, features) {
+    // Keep a site click focused on the existing site interaction when the
+    // invisible family area sits underneath its marker.
+    if (map.queryRenderedFeatures(event.point, { layers: ['sites'] }).length) return '';
+
+    const visibleFeatures = map.queryRenderedFeatures(event.point, {
+        layers: ['family-hulls-fill']
+    });
+    const familyNames = [...new Set((visibleFeatures.length ? visibleFeatures : features)
+        .map((feature) => feature.properties?.family)
+        .filter((family) => HULL_FAMILY_NAMES.includes(family)))]
+        .sort((first, second) => HULL_FAMILY_NAMES.indexOf(first) - HULL_FAMILY_NAMES.indexOf(second));
+
+    if (!familyNames.length) return '';
+
+    return hoverBox({
+        title: familyNames.length === 1 ? 'Suggested language family' : 'Possible language families',
+        subtitle: 'Approximate area based on mapped language sites',
+        rows: [['Family', familyNames.join(', ')]]
+    });
+}
+
 export async function addMapLayers() {
     const sections = []; // init empty list  for legend sections
 
     // load the geojson file containing language locations, add to map as datasource
     const sites = await addGeojsonSource('sites', `${PATHS.data}/attested-sites-with-family.geojson`);
+    const hulls = buildFamilyHullCollection(sites);
 
     // load all marker images and record which ones load succesfully
     const loadedSiteIcons = await loadIcons(siteIcons);
@@ -157,8 +192,24 @@ export async function addMapLayers() {
         }
     }, 'sites'); // directly behind the symbols, while still below labels
 
+    map.addSource('family-hulls', {
+        type: 'geojson',
+        data: hulls
+    });
+
+    map.addLayer({
+        id: 'family-hulls-fill',
+        type: 'fill',
+        source: 'family-hulls',
+        paint: {
+            'fill-color': familyHullColorExpression(),
+            'fill-opacity': 0.001
+        }
+    }, 'sites-highlight'); // invisible hit areas stay behind markers and highlights
+
     hoverPopup('sites', sitePopup); // connect sitePopup func to layer, for hovering
+    clickPopup('family-hulls-fill', familyHullPopup); // suggest families on empty-area clicks
     sections.push(...siteLegend(sites)); // create legend info and add sections
 
-    return { sites, sections }; // callers need both source data and legend metadata
+    return { sites, hulls, sections }; // callers need source data and legend metadata
 }
