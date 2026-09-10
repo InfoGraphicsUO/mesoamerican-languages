@@ -1,5 +1,19 @@
 /* mapbox search box, mounted by js/ui.js */
-#search mapbox-search-box {
+#location-search mapbox-search-box {
     display: block;
     width: 100%;
+    min-width: 0;
+    --search-box-shadow: none;
+    --search-box-border: 1px solid var(--border);
+    --search-box-border-radius: var(--radius);
+    --search-box-background: var(--surface);
+    --search-box-font-family: var(--font);
+}
+
+#location-search {
+    width: 100%;
+    min-width: 0;
+    margin-top: .1rem;
+    color: var(--text-muted);
+    font-size: var(--text-sm);
 }

@@ -12,6 +12,8 @@
     /* squared off everywhere for now, flip this one value to bring corners back */
     --radius: 0;
     --blur: blur(0.45rem);
+    --motion-duration: 180ms;
+    --motion-ease: cubic-bezier(.2, 0, 0, 1);
 
     --space-xs: 0.35rem;
     --space-sm: 0.55rem;
@@ -27,14 +29,14 @@
     /* floating ui layout, the panel and zoom control position off these */
     --gutter: 1rem;
     --gutter-bottom: 2.5rem;
-    --panel-width: min(19rem, calc(100vw - 2 * var(--gutter)));
+    --panel-width: min(24rem, calc(100vw - 2 * var(--gutter)));
 }
 
 @media (max-width: 600px) {
     :root {
         --gutter: 0.75rem;
         --gutter-bottom: 2.25rem;
-        --panel-width: min(17rem, calc(100vw - 4.75rem));
+        --panel-width: min(20rem, calc(100vw - 4.75rem));
         --text-xl: 1.35rem;
     }
 }
@@ -76,8 +78,32 @@ body {
     left: var(--gutter);
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
     gap: var(--space-sm);
     width: var(--panel-width);
+    height: calc(100vh - var(--gutter) - var(--gutter-bottom));
+    min-height: 0;
+    pointer-events: none;
+}
+
+.panel > * {
+    pointer-events: auto;
+}
+
+/* The open location panel grows into the available column above the legend. */
+.panel > #side-panel {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.panel > #legend {
+    flex: 0 0 auto;
+}
+
+.panel :focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 2px;
 }
 
 /* floating box used for the legend and any future panels */
@@ -144,4 +170,24 @@ body {
 
 .mapboxgl-ctrl-top-left .mapboxgl-ctrl {
     margin: 0;
+}
+
+@media (max-height: 500px) {
+    .panel {
+        height: calc(100vh - var(--gutter) - var(--gutter-bottom));
+        max-height: calc(100vh - var(--gutter) - var(--gutter-bottom));
+    }
+
+    /* Keep the legend independent of panel state while reserving the upper column. */
+    .panel > #legend {
+        max-height: clamp(8rem, calc(100vh - 21rem), 16rem);
+        overflow: auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --motion-duration: 0ms;
+        --motion-ease: linear;
+    }
 }

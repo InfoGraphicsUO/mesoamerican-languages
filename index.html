@@ -12,10 +12,14 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://kit.fontawesome.com" crossorigin>
+    <script defer src="https://kit.fontawesome.com/be4ea184d4.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="css/side-panel.css">
     <link rel="stylesheet" href="css/legend.css">
     <link rel="stylesheet" href="css/popup.css">
 
@@ -26,7 +30,42 @@
     <main class="app">
         <div id="map" aria-label="Interactive map of Mesoamerican languages"></div>
         <div class="panel">
-            <div id="search" aria-label="Search for a location"></div>
+            <button id="side-panel-toggle" type="button" aria-expanded="false" aria-controls="side-panel" aria-label="Open map tools">
+                <i class="fa-sharp fa-regular fa-bars-filter" aria-hidden="true"></i>
+            </button>
+            <aside id="side-panel" class="hoverBox side-panel" aria-label="Map tools" aria-hidden="true" hidden inert>
+                <div class="side-panel-header">
+                    <span class="side-panel-title">Filters</span>
+                    <button id="side-panel-close" class="side-panel-close" type="button" aria-label="Close map tools">
+                        <i class="fa-sharp fa-light fa-xmark" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <section class="side-panel-section">
+                    <button class="side-panel-accordion" type="button" id="language-search-toggle" aria-expanded="false" aria-controls="language-search-region">
+                        <i class="side-panel-section-icon fa-sharp fa-light fa-atlas" aria-hidden="true"></i>
+                        <span class="side-panel-accordion-label">Explore the language map</span>
+                        <i class="side-panel-chevron fa-sharp fa-light fa-chevron-down" aria-hidden="true"></i>
+                    </button>
+                    <div id="language-search-region" class="side-panel-region" role="region" aria-labelledby="language-search-toggle" aria-hidden="true" hidden inert>
+                        <label class="visually-hidden" for="language-search-input">Search languages, families, and places</label>
+                        <div class="side-panel-query">
+                            <i class="fa-sharp fa-light fa-magnifying-glass" aria-hidden="true"></i>
+                            <input id="language-search-input" type="search" autocomplete="off" placeholder="Search languages, families, places…">
+                        </div>
+                        <div id="language-search-results" class="side-panel-results"></div>
+                    </div>
+                </section>
+                <section class="side-panel-section">
+                    <button class="side-panel-accordion" type="button" id="location-search-toggle" aria-expanded="false" aria-controls="location-search-region">
+                        <i class="side-panel-section-icon fa-sharp fa-light fa-location-dot" aria-hidden="true"></i>
+                        <span class="side-panel-accordion-label">Zoom to location</span>
+                        <i class="side-panel-chevron fa-sharp fa-light fa-chevron-down" aria-hidden="true"></i>
+                    </button>
+                    <div id="location-search-region" class="side-panel-region" role="region" aria-labelledby="location-search-toggle" aria-hidden="true" hidden inert>
+                        <div id="location-search" aria-label="Search for a location"></div>
+                    </div>
+                </section>
+            </aside>
             <aside id="legend" class="hoverBox legend" aria-label="Map legend"></aside>
         </div>
     </main>

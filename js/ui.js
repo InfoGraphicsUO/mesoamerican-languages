@@ -50,7 +50,7 @@ function searchTheme() {
             padding: '0.6em',
             borderRadius: cssVar('--radius'),
             border: `1px solid ${cssVar('--border')}`,
-            boxShadow: cssVar('--shadow'),
+            boxShadow: 'none',
             colorBackground: cssVar('--surface'),
             colorBackgroundHover: 'rgb(25 34 29 / 6%)',
             colorBackgroundActive: 'rgb(25 34 29 / 12%)',
@@ -67,29 +67,44 @@ function searchTheme() {
 
 // creates mapbox search box and connects it to our map
 // selector: element where search box gets added
-export function startSearchBox(selector = '#search') {
-    const mount = () => {
-        // find place to add search and whichever global name search-js supplied
-        const container = document.querySelector(selector); // search box container in page html
-        const SearchBox = globalThis.mapboxsearch?.MapboxSearchBox || globalThis.MapboxSearchBox; // fallback for other build
+const searchMounts = new Map();
+export function startSearchBox(selector = '#location-search') {
+    if (searchMounts.has(selector)) return searchMounts.get(selector);
+    const promise = new Promise((resolve) => {
+        const mount = () => {
+            // find place to add search and whichever global name search-js supplied
+            const container = document.querySelector(selector); // search box container in page html
+            const SearchBox = globalThis.mapboxsearch?.MapboxSearchBox || globalThis.MapboxSearchBox; // fallback for other build
 
-        if (!container || !SearchBox) return; // if html or deferred library missing, dont mount
+            if (!container || !SearchBox) {
+                if (container) container.textContent = 'Location search unavailable';
+                resolve(null);
+                return;
+            }
+            if (container.querySelector('mapbox-search-box')) {
+                resolve(container.querySelector('mapbox-search-box'));
+                return;
+            }
 
-        // build search box
-        const box = new SearchBox();
-        box.accessToken = MAPBOX_TOKEN;
-        box.theme = searchTheme();
-        box.placeholder = 'Search locations';
-        box.options = { language: 'en', proximity: map.getCenter().toArray() }; // english results near current map
-        box.componentOptions = { allowReverse: true, flipCoordinates: true }; // allow coordinate search in either order
-        box.mapboxgl = mapboxgl; // give search box our mapbox library
-        box.marker = true; // show marker when result gets picked
+            // build search box
+            const box = new SearchBox();
+            box.accessToken = MAPBOX_TOKEN;
+            box.theme = searchTheme();
+            box.placeholder = 'Search locations';
+            box.options = { language: 'en', proximity: map.getCenter().toArray() }; // english results near current map
+            box.componentOptions = { allowReverse: true, flipCoordinates: true }; // allow coordinate search in either order
+            box.mapboxgl = mapboxgl; // give search box our mapbox library
+            box.marker = true; // show marker when result gets picked
 
-        container.append(box); // display finished search box
-        box.bindMap(map); // move our map when user picks a result
-    };
+            container.append(box); // display finished search box
+            box.bindMap(map); // move our map when user picks a result
+            resolve(box);
+        };
 
     // deferred script is ready after window load, or run now if page already finished
-    if (document.readyState === 'complete') mount();
-    else window.addEventListener('load', mount, { once: true });
+        if (document.readyState === 'complete') mount();
+        else window.addEventListener('load', mount, { once: true });
+    });
+    searchMounts.set(selector, promise);
+    return promise;
 }

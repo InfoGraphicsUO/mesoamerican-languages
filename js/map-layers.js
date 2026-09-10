@@ -1,8 +1,8 @@
-import { map, ICON_SIZE, PATHS, labelLayerId, addGeojsonSource, loadIcons } from './map.js';
+import { map, MAP, ICON_SIZE, PATHS, labelLayerId, addGeojsonSource, loadIcons } from './map.js';
 import { hoverPopup, hoverBox } from './popup.js';
 
 // dict to hold each language family and their color
-const FAMILIES = [
+export const FAMILIES = [
     { name: 'Mayan', slug: 'mayan', color: '#4ec340' },
     { name: 'Otomanguean', slug: 'otomanguean', color: '#2eacc9' },
     { name: 'Purépecha', slug: 'purepecha', color: '#a36b27' },
@@ -78,18 +78,43 @@ function siteLegend(data) {
     // collects language families that appear in map data
     const present = new Set(data.features.map((f) => f.properties?.family || 'Unclassified'));
 
+    const itemsFor = (predicate) => data.features
+        .filter(predicate)
+        .reduce((result, feature) => {
+            result.featureIds.push(feature.id);
+            const coordinates = feature.geometry?.coordinates;
+            if (Array.isArray(coordinates) && coordinates.length >= 2) {
+                const key = `${coordinates[0]},${coordinates[1]}`;
+                if (!result.coordinateKeys.has(key)) {
+                    result.coordinateKeys.add(key);
+                    result.coordinates.push(coordinates.slice(0, 2));
+                }
+            }
+            return result;
+        }, { featureIds: [], coordinates: [], coordinateKeys: new Set() });
+
+    const withMatches = (item, predicate) => {
+        const matches = itemsFor(predicate);
+        return { ...item, featureIds: matches.featureIds, coordinates: matches.coordinates };
+    };
+
     return [
         {
             title: 'Language family',
             items: FAMILIES
                 .filter(({ name }) => present.has(name)) // show only families found in data
-                .map(({ name, slug }) => ({ label: name, icon: iconUrl(slug, SHAPES.other) }))
+                .map(({ name, slug }) => withMatches(
+                    { label: name, icon: iconUrl(slug, SHAPES.other) },
+                    (feature) => (feature.properties?.family || 'Unclassified') === name
+                ))
         },
         {
             title: 'Reported origin place',
             items: [
-                { label: 'True', icon: iconUrl('unclassified', SHAPES.origin) }, // plus icon
-                { label: 'False', icon: iconUrl('unclassified', SHAPES.other) } // circle icon
+                withMatches({ label: 'True', icon: iconUrl('unclassified', SHAPES.origin) },
+                    (feature) => feature.properties?.reportedOriginPlace === true), // plus icon
+                withMatches({ label: 'False', icon: iconUrl('unclassified', SHAPES.other) },
+                    (feature) => feature.properties?.reportedOriginPlace !== true) // circle icon
             ]
         }
     ];
@@ -104,7 +129,8 @@ export async function addMapLayers() {
     // load all marker images and record which ones load succesfully
     const loadedSiteIcons = await loadIcons(siteIcons);
 
-    // add language sites layer
+    // Register symbols at the label boundary first, then insert the glow
+    // immediately below them.  This keeps both layers below map labels.
     map.addLayer({
         id: 'sites',
         type: 'symbol',
@@ -118,8 +144,21 @@ export async function addMapLayers() {
         paint: { 'icon-opacity': 0.9 }
     }, labelLayerId()); // place new layer before map text label layer, visual hirarchy
 
+    map.addLayer({
+        id: 'sites-highlight',
+        type: 'circle',
+        source: 'sites',
+        filter: ['==', ['id'], -1],
+        paint: {
+            'circle-radius': ['interpolate', ['linear'], ['zoom'], MAP.minZoom, 12, 8, 16, 12, 20],
+            'circle-color': '#d9a400',
+            'circle-blur': 0.65,
+            'circle-opacity': 0.9
+        }
+    }, 'sites'); // directly behind the symbols, while still below labels
+
     hoverPopup('sites', sitePopup); // connect sitePopup func to layer, for hovering
     sections.push(...siteLegend(sites)); // create legend info and add sections
 
-    return sections; // return legend sections
+    return { sites, sections }; // callers need both source data and legend metadata
 }

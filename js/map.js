@@ -64,6 +64,15 @@ export async function addGeojsonSource(id, url) {
 
     const data = await response.json(); // concert json text into js object
 
+    // Mapbox feature-state and the focus layer both need predictable ids.  The
+    // source data has no reliable ids, so use the feature's stable collection
+    // position before handing the object to Mapbox (and to the legend/search).
+    if (Array.isArray(data.features)) {
+        data.features.forEach((feature, index) => {
+            feature.id = index + 1;
+        });
+    }
+
     // register data w/ mapbox as a geojson source
     map.addSource(id, {
         type: 'geojson',

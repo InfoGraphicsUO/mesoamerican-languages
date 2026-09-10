@@ -29,12 +29,29 @@
 }
 
 .legend li {
+    min-height: 1.35rem;
+}
+
+.legendItem {
     display: grid;
     grid-template-columns: 0.85rem 1fr;
     align-items: center;
     gap: 0.6rem;
+    width: 100%;
     min-height: 1.35rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
     font-size: var(--text-md);
+    text-align: left;
+    cursor: pointer;
+}
+
+.legendItem:hover,
+.legendItem:focus-visible {
+    background: rgb(25 34 29 / 7%);
 }
 
 /* icon or flat colour, sized to the li grid column */
