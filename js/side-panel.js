@@ -14,6 +14,7 @@ const IDS = {
 
 const RESULT_TYPES = new Set(['family', 'group', 'language', 'place']);
 const RESULT_KEYS = { family: 'F', group: 'G', language: 'L', place: 'P' };
+const RESULT_FRAME_GUTTER = 48;
 const normalize = (value) => String(value ?? '')
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
     .replace(/[’']/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
@@ -256,7 +257,9 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
                 childGroup.setAttribute('aria-hidden', String(!open));
             }
         }
-        if (node?.coordinates?.length) mapFocus?.frame?.(node.coordinates, panel);
+        if (node?.coordinates?.length) {
+            mapFocus?.frame?.(node.coordinates, panel, RESULT_FRAME_GUTTER);
+        }
     });
 
     render();
