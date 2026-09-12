@@ -1,4 +1,22 @@
 /* legend panel, markup comes from js/legend.js */
+.legend {
+    position: relative;
+    opacity: 0;
+    transform: translateX(calc(-100% - var(--space-lg)));
+    transition: opacity var(--motion-duration) var(--motion-ease), transform var(--motion-duration) var(--motion-ease);
+}
+
+.legend.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.legend button { transition: none; }
+
+.legend[hidden] {
+    display: none;
+}
+
 .legend h1 {
     margin: 0;
     font-size: var(--text-xl);
@@ -67,4 +85,8 @@
         overflow: auto;
         padding: 1rem;
     }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .legend { transition-duration: 0ms; }
 }

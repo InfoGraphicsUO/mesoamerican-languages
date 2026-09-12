@@ -1,17 +1,21 @@
-import { ready } from './map.js';
+import { map, ready } from './map.js';
 import { makeLegend } from './legend.js';
 import { addMapLayers } from './map-layers.js';
 import { createSearchIndex } from './search-index.js';
 import { createMapFocus } from './map-focus.js';
 import { initSidePanel } from './side-panel.js';
+import { initLanguageControl, localized, setLanguage } from './language.js';
 
 // coordinates js files on site load
 
-ready.then(async () => { // waits for map to finish loading
+setLanguage('en');
+initLanguageControl(map);
+
+ready.then(async () => { // wait for map before adding sources, layers, search, and legend
     let mapData = { sites: null, sections: [] };
 
     try {
-        mapData = await addMapLayers(); // add map layers before the controls
+        mapData = await addMapLayers(); // search and legend need the data returned here
     } catch (error) {
         console.error('Unable to add map layers:', error);
     }
@@ -32,7 +36,7 @@ ready.then(async () => { // waits for map to finish loading
 
     try {
         makeLegend(document.querySelector('#legend'), {
-            title: 'Attested language sites',
+            title: localized('Legend', 'Leyenda'),
             sections: mapData.sections || [],
             mapFocus
         });

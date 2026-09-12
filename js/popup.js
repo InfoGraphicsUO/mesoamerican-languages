@@ -1,7 +1,8 @@
 import { map } from './map.js';
-import { html } from './ui.js';
+import { applyMapboxLanguage } from './language.js';
+import { html, languageText } from './ui.js';
 
-// hover boxes for map features, layers supply the content via render(feature)
+// hover boxes for map features, with each layer supplying render(feature)
 // exports detailList, hoverBox, hoverPopup, clickPopup
 
 // creates the detailed info section of a popup
@@ -28,8 +29,8 @@ export function detailList(rows) {
         <dl class="popup-details">
             ${kept.map(([label, value]) => html`
                 <div>
-                    <dt>${label}</dt>
-                    <dd>${value}</dd>
+                    <dt>${languageText(label)}</dt>
+                    <dd>${languageText(value)}</dd>
                 </div>
             `)}
         </dl>
@@ -43,8 +44,8 @@ export function detailList(rows) {
 export function hoverBox({ title, subtitle, rows = [] }) {
     return html`
         <article class="popup">
-            <h2>${title}</h2>
-            ${subtitle ? html`<p class="popup-subtitle">${subtitle}</p>` : ''}
+            <h2>${languageText(title)}</h2>
+            ${subtitle ? html`<p class="popup-subtitle">${languageText(subtitle)}</p>` : ''}
             ${detailList(rows)}
         </article>
     `;
@@ -63,7 +64,7 @@ export function hoverPopup(layerId, render, options = {}) {
         ...options
     });
 
-    //listens for mouse move and display popup
+    // listen for mouse movement and display the layer's popup
     map.on('mousemove', layerId, (event) => {
         const feature = event.features?.[0];
         if (!feature) return;
@@ -73,7 +74,7 @@ export function hoverPopup(layerId, render, options = {}) {
             .addTo(map);
     });
 
-    // adhysts style  of cursor when hovering
+    // show the pointer cursor so the hover area feels interactive
     map.on('mouseenter', layerId, () => { map.getCanvas().style.cursor = 'pointer'; });
     map.on('mouseleave', layerId, () => {
         map.getCanvas().style.cursor = '';
@@ -104,10 +105,10 @@ export function clickPopup(layerId, render, options = {}) {
             .setLngLat(event.lngLat)
             .setHTML(String(content))
             .addTo(map);
+        applyMapboxLanguage(popup.getElement());
     });
 
-    // Clickable areas are invisible, so the normal pointer cursor provides
-    // the only map-level affordance that a suggestion is available here.
+    // these clickable areas are invisible, so the pointer is the only map-level hint
     map.on('mouseenter', layerId, () => { map.getCanvas().style.cursor = 'pointer'; });
     map.on('mouseleave', layerId, () => { map.getCanvas().style.cursor = ''; });
 

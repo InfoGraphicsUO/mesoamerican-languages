@@ -10,7 +10,16 @@
     background: var(--surface);
     box-shadow: var(--shadow);
     backdrop-filter: var(--blur);
+    transform-origin: center bottom;
+    animation: popup-enter var(--motion-duration) var(--motion-ease) both;
 }
+
+@keyframes popup-enter {
+    from { opacity: 0; transform: translateY(.3rem) scale(.985); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.mapboxgl-popup-close-button { transition: none; }
 
 /* tip is drawn with borders, recolour whichever side is showing for the anchor */
 .mapboxgl-popup-anchor-top .mapboxgl-popup-tip,

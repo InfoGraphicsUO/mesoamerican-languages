@@ -1,11 +1,12 @@
-import { html } from './ui.js';
+import { html, languageText } from './ui.js';
 
 export function makeLegend(container, { title, sections, mapFocus } = {}) {
     // in: container element, title, and legend sections
-    // out: finished HTML for each section and list of respective items
+    // out: fills the container w/ the title and finished legend sections
     if (!container) return;
+    const content = container.querySelector('.legend-content') || container;
 
-    // create each legend symbol for each legend element
+    // create the symbol for each legend item
     const legendSymbol = ({ icon, color }) => { // icon = image, color = colored square, nothing = empty
         if (icon) return html`<img class="legendSymbol" src="${icon}" alt="">`;
         if (color) return html`<span class="legendSymbol" style="background:${color}"></span>`;
@@ -16,19 +17,19 @@ export function makeLegend(container, { title, sections, mapFocus } = {}) {
     const items = [];
     const itemButton = (item) => {
         const index = items.push(item) - 1;
-        return html`<button class="legendItem" type="button" data-legend-item="${index}" aria-label="${item.label}">
-            ${legendSymbol(item)}<span>${item.label}</span>
+        return html`<button class="legendItem" type="button" data-legend-item="${index}">
+            ${legendSymbol(item)}<span>${languageText(item.label)}</span>
         </button>`;
     };
 
-    // build each section of the legend
-    container.innerHTML = String(html`
-        ${title ? html`<h1>${title}</h1>` : ''}
+    // build each visible section of the legend
+    content.innerHTML = String(html`
+        ${title ? html`<h1>${languageText(title)}</h1>` : ''}
         ${(sections || []).filter((section) => section.items?.length).map((section) => html
             /* start legend section */
             `
             <section>
-                <h2>${section.title}</h2>
+                <h2>${languageText(section.title)}</h2>
                 <ul>${section.items.map((item) => html`
                     <li>${itemButton(item)}</li>
                 `)}</ul>
@@ -37,7 +38,7 @@ export function makeLegend(container, { title, sections, mapFocus } = {}) {
         /* end legend section */)}
     `);
 
-    // One delegated set of handlers keeps every legend row keyboard and pointer accessible.
+    // one delegated set of handlers keeps every legend row usable by keyboard and pointer
     const focusItem = (button) => {
         const item = items[Number(button?.dataset.legendItem)];
         if (!item || !mapFocus) return;
@@ -63,6 +64,7 @@ export function makeLegend(container, { title, sections, mapFocus } = {}) {
         if (!button || !item || !mapFocus?.frame || !item.coordinates) return;
         mapFocus.frame(item.coordinates, document.querySelector('#side-panel'));
     });
+
 }
 
 /*

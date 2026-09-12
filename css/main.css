@@ -1,4 +1,3 @@
-/* design tokens, every other stylesheet reads from these */
 :root {
     --font: "Josefin Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
@@ -6,14 +5,15 @@
     --text-soft: #272c29;
     --text-muted: #727974;
     --surface: rgb(255 255 252 / 94%);
+    --panel-surface: rgb(255 255 252 / 82%);
     --border: rgb(25 34 29 / 14%);
     --shadow: 0 0.35rem 1.4rem rgb(19 27 23 / 16%);
 
-    /* squared off everywhere for now, flip this one value to bring corners back */
     --radius: 0;
     --blur: blur(0.45rem);
-    --motion-duration: 180ms;
-    --motion-ease: cubic-bezier(.2, 0, 0, 1);
+    --panel-blur: blur(0.8rem) saturate(115%);
+    --motion-duration: 240ms;
+    --motion-ease: cubic-bezier(.22, .61, .36, 1);
 
     --space-xs: 0.35rem;
     --space-sm: 0.55rem;
@@ -60,6 +60,12 @@ body {
     font-synthesis: none;
 }
 
+/* keep both translations together, the class on html decides which one shows */
+html.lang-en .es,
+html.lang-es .en {
+    display: none !important;
+}
+
 .app {
     position: relative;
     overflow: hidden;
@@ -90,7 +96,11 @@ body {
     pointer-events: auto;
 }
 
-/* The open location panel grows into the available column above the legend. */
+.panel:not(.has-open-side-panel) {
+    justify-content: flex-start;
+}
+
+/* filters fill the open sidebar, legend stays in its own box below */
 .panel > #side-panel {
     flex: 1 1 auto;
     min-height: 0;
@@ -111,17 +121,18 @@ body {
     padding: var(--space-lg);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    background: var(--surface);
+    background: var(--panel-surface);
     box-shadow: var(--shadow);
-    backdrop-filter: var(--blur);
+    -webkit-backdrop-filter: var(--panel-blur);
+    backdrop-filter: var(--panel-blur);
 }
 
-/* mapbox overrides, make the built-in controls look like .hoverBox */
+/* make Mapbox controls match our floating boxes */
 .mapboxgl-map {
     font-family: var(--font);
 }
 
-/* :not(:empty) matches mapbox's own selector, otherwise their 2px grey ring wins */
+/* match Mapbox's :not(:empty) selector or its grey outline wins */
 .mapboxgl-ctrl-group,
 .mapboxgl-ctrl-group:not(:empty) {
     border: 1px solid var(--border);
@@ -160,16 +171,129 @@ body {
     color: var(--text-soft);
 }
 
-/* park the zoom buttons to the right of the panel instead of top-left */
+/* keep zoom and language beside the open sidebar */
 .mapboxgl-ctrl-top-left {
     top: auto;
     right: auto;
     bottom: var(--gutter-bottom);
     left: calc(var(--gutter) + var(--panel-width) + var(--space-sm));
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+}
+
+@media (min-width: 601px) {
+    .mapboxgl-ctrl-top-left {
+        transition: left var(--motion-duration) var(--motion-ease);
+    }
+
+    .app.is-collapsing-side-panel .mapboxgl-ctrl-top-left {
+        left: var(--gutter);
+    }
+}
+
+/* when the sidebar hides, pull zoom and language to the left edge */
+.app:not(.has-open-side-panel) .mapboxgl-ctrl-top-left {
+    left: var(--gutter);
 }
 
 .mapboxgl-ctrl-top-left .mapboxgl-ctrl {
+    float: none;
     margin: 0;
+}
+
+/* one language button w/ both choices always visible */
+.mapboxgl-ctrl-group .language-toggle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 9.5rem;
+    height: 2rem;
+    padding: 0;
+    overflow: hidden;
+    color: var(--text);
+    background: transparent;
+    font: 600 var(--text-xs)/1 var(--font);
+    cursor: pointer;
+}
+
+.language-option {
+    display: grid;
+    height: 100%;
+    padding: 0 .55rem;
+    place-items: center;
+    background: transparent;
+    transition: color var(--motion-duration) var(--motion-ease), background var(--motion-duration) var(--motion-ease);
+}
+
+/* clicks can animate state changes, but pointer feedback should stay immediate */
+.mapboxgl-ctrl-group button,
+.mapboxgl-popup-close-button {
+    transition: none;
+}
+
+.language-option + .language-option {
+    border-left: 1px solid var(--border);
+}
+
+html.lang-en .language-option-en,
+html.lang-es .language-option-es {
+    color: white;
+    background: var(--text);
+}
+
+@media (max-width: 600px) {
+    /* move the controls on small screens so both language names still fit */
+    .mapboxgl-ctrl-top-left {
+        top: var(--gutter);
+        right: var(--gutter);
+        bottom: auto;
+        left: auto;
+        align-items: flex-end;
+    }
+
+    .app:not(.has-open-side-panel) .mapboxgl-ctrl-top-left {
+        top: auto;
+        right: auto;
+        bottom: var(--gutter-bottom);
+        left: var(--gutter);
+        align-items: flex-start;
+    }
+
+    /* keep language inside the filter header while the sidebar is open */
+    .panel.has-open-side-panel > #legend {
+        max-height: 12rem;
+        overflow: auto;
+    }
+
+    .app.has-open-side-panel .side-panel-header {
+        flex-basis: 5.75rem;
+        min-height: 5.75rem;
+        align-items: flex-start;
+        padding-top: var(--space-md);
+    }
+
+    .app.has-open-side-panel .mapboxgl-ctrl-top-left {
+        z-index: 3;
+    }
+
+    .app.has-open-side-panel .language-control {
+        position: fixed;
+        top: calc(var(--gutter) + 3.25rem);
+        left: calc(var(--gutter) + var(--space-md));
+        width: calc(var(--panel-width) - 2 * var(--space-md));
+    }
+
+    .app.has-open-side-panel .language-toggle {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) and (max-height: 500px) {
+    /* shrink the legend on short screens so both filter headings still fit */
+    .panel.has-open-side-panel > #legend {
+        max-height: 8rem;
+    }
 }
 
 @media (max-height: 500px) {
@@ -178,7 +302,7 @@ body {
         max-height: calc(100vh - var(--gutter) - var(--gutter-bottom));
     }
 
-    /* Keep the legend independent of panel state while reserving the upper column. */
+    /* limit legend height on short screens so filters still have room */
     .panel > #legend {
         max-height: clamp(8rem, calc(100vh - 21rem), 16rem);
         overflow: auto;
@@ -189,5 +313,10 @@ body {
     :root {
         --motion-duration: 0ms;
         --motion-ease: linear;
+    }
+
+    .panel-toggle,
+    .mapboxgl-popup-content {
+        animation: none !important;
     }
 }

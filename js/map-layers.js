@@ -1,15 +1,16 @@
 import { map, MAP, ICON_SIZE, PATHS, labelLayerId, addGeojsonSource, loadIcons } from './map.js';
 import { HULL_FAMILY_NAMES, buildFamilyHullCollection } from './family-hulls.js';
 import { hoverPopup, clickPopup, hoverBox } from './popup.js';
+import { COUNTRY_LABELS, FAMILY_LABELS, localized, localizedLookup, textFor } from './language.js';
 
 // dict to hold each language family and their color
 export const FAMILIES = [
-    { name: 'Mayan', slug: 'mayan', color: '#4ec340' },
-    { name: 'Otomanguean', slug: 'otomanguean', color: '#2eacc9' },
-    { name: 'Purépecha', slug: 'purepecha', color: '#a36b27' },
-    { name: 'Sign Language', slug: 'sign-language', color: '#3935c6' },
-    { name: 'Uto-Aztecan', slug: 'uto-aztecan', color: '#2b72cb' },
-    { name: 'Unclassified', slug: 'unclassified', color: '#777a80' }
+    { name: 'Mayan', label: FAMILY_LABELS.Mayan, slug: 'mayan', color: '#4ec340' },
+    { name: 'Otomanguean', label: FAMILY_LABELS.Otomanguean, slug: 'otomanguean', color: '#2eacc9' },
+    { name: 'Purépecha', label: FAMILY_LABELS.Purépecha, slug: 'purepecha', color: '#a36b27' },
+    { name: 'Sign Language', label: FAMILY_LABELS['Sign Language'], slug: 'sign-language', color: '#3935c6' },
+    { name: 'Uto-Aztecan', label: FAMILY_LABELS['Uto-Aztecan'], slug: 'uto-aztecan', color: '#2b72cb' },
+    { name: 'Unclassified', label: FAMILY_LABELS.Unclassified, slug: 'unclassified', color: '#777a80' }
 ];
 
 // marker shape is decided by reportedOriginPlace. plus = true, circle = false/missing
@@ -28,15 +29,16 @@ function sitePopup(feature) {
     // build the popup HTML
     // includes alternatives if no data exist (||)
     return hoverBox({
-        title: p.name || 'Attested site', 
-        subtitle: p.language || 'Language not recorded',
+        title: p.name || localized('Attested site', 'Sitio documentado'),
+        subtitle: p.language || localized('Language not recorded', 'Lengua no registrada'),
         rows: [
-            ['Family', p.family === 'Unclassified' ? '' : p.family], // hides word from family row
-            ['Group', p.group],
+            [localized('Family', 'Familia'), p.family === 'Unclassified'
+                ? '' : localizedLookup(p.family, FAMILY_LABELS)], // dont show Unclassified as a useful detail
+            [localized('Group', 'Grupo'), p.group],
             ['ISO 639-3', p.isoCode],
             ['Glottocode', p.glottocode],
-            ['Area', p.adminArea],
-            ['Country', p.country]
+            [localized('Area', 'Área'), p.adminArea],
+            [localized('Country', 'País'), localizedLookup(p.country, COUNTRY_LABELS)]
         ]
     });
 }
@@ -79,6 +81,7 @@ function siteLegend(data) {
     // collects language families that appear in map data
     const present = new Set(data.features.map((f) => f.properties?.family || 'Unclassified'));
 
+    // collect ids and unique coordinates for one legend item
     const itemsFor = (predicate) => data.features
         .filter(predicate)
         .reduce((result, feature) => {
@@ -101,20 +104,20 @@ function siteLegend(data) {
 
     return [
         {
-            title: 'Language family',
+            title: localized('Language family', 'Familia lingüística'),
             items: FAMILIES
                 .filter(({ name }) => present.has(name)) // show only families found in data
-                .map(({ name, slug }) => withMatches(
-                    { label: name, icon: iconUrl(slug, SHAPES.other) },
+                .map(({ name, label, slug }) => withMatches(
+                    { label, icon: iconUrl(slug, SHAPES.other) },
                     (feature) => (feature.properties?.family || 'Unclassified') === name
                 ))
         },
         {
-            title: 'Reported origin place',
+            title: localized('Reported origin place', 'Lugar de origen reportado'),
             items: [
-                withMatches({ label: 'True', icon: iconUrl('unclassified', SHAPES.origin) },
+                withMatches({ label: localized('True', 'Sí'), icon: iconUrl('unclassified', SHAPES.origin) },
                     (feature) => feature.properties?.reportedOriginPlace === true), // plus icon
-                withMatches({ label: 'False', icon: iconUrl('unclassified', SHAPES.other) },
+                withMatches({ label: localized('False', 'No'), icon: iconUrl('unclassified', SHAPES.other) },
                     (feature) => feature.properties?.reportedOriginPlace !== true) // circle icon
             ]
         }
@@ -122,6 +125,7 @@ function siteLegend(data) {
 }
 
 function familyHullColorExpression() {
+    // turn each family name into the fill color used by its suggested area
     const expression = ['match', ['get', 'family']];
 
     for (const { name, color } of FAMILIES) {
@@ -133,10 +137,10 @@ function familyHullColorExpression() {
 }
 
 function familyHullPopup(event, features) {
-    // Keep a site click focused on the existing site interaction when the
-    // invisible family area sits underneath its marker.
+    // keep site clicks going to the marker when the invisible hull sits under it
     if (map.queryRenderedFeatures(event.point, { layers: ['sites'] }).length) return '';
 
+    // use visible hull features first, with the clicked features as a fallback
     const visibleFeatures = map.queryRenderedFeatures(event.point, {
         layers: ['family-hulls-fill']
     });
@@ -147,25 +151,34 @@ function familyHullPopup(event, features) {
 
     if (!familyNames.length) return '';
 
+    const localizedFamilyNames = localized(
+        familyNames.map((name) => textFor(localizedLookup(name, FAMILY_LABELS), 'en')).join(', '),
+        familyNames.map((name) => textFor(localizedLookup(name, FAMILY_LABELS), 'es')).join(', ')
+    );
+
     return hoverBox({
-        title: familyNames.length === 1 ? 'Suggested language family' : 'Possible language families',
-        subtitle: 'Approximate area based on mapped language sites',
-        rows: [['Family', familyNames.join(', ')]]
+        title: familyNames.length === 1
+            ? localized('Suggested language family', 'Familia lingüística sugerida')
+            : localized('Possible language families', 'Posibles familias lingüísticas'),
+        subtitle: localized(
+            'Approximate area based on mapped language sites',
+            'Área aproximada basada en los sitios de lenguas del mapa'
+        ),
+        rows: [[localized('Family', 'Familia'), localizedFamilyNames]]
     });
 }
 
 export async function addMapLayers() {
-    const sections = []; // init empty list  for legend sections
+    const sections = []; // init empty list for legend sections
 
     // load the geojson file containing language locations, add to map as datasource
     const sites = await addGeojsonSource('sites', `${PATHS.data}/attested-sites-with-family.geojson`);
     const hulls = buildFamilyHullCollection(sites);
 
-    // load all marker images and record which ones load succesfully
+    // load all marker images and record which ones load successfully
     const loadedSiteIcons = await loadIcons(siteIcons);
 
-    // Register symbols at the label boundary first, then insert the glow
-    // immediately below them.  This keeps both layers below map labels.
+    // add the site markers at the label boundary so they stay below map labels
     map.addLayer({
         id: 'sites',
         type: 'symbol',
@@ -177,8 +190,9 @@ export async function addMapLayers() {
             'icon-ignore-placement': true
         },
         paint: { 'icon-opacity': 0.9 }
-    }, labelLayerId()); // place new layer before map text label layer, visual hirarchy
+    }, labelLayerId()); // place new layer below map text labels in the visual order
 
+    // put the highlight directly behind the markers
     map.addLayer({
         id: 'sites-highlight',
         type: 'circle',
@@ -192,6 +206,7 @@ export async function addMapLayers() {
         }
     }, 'sites'); // directly behind the symbols, while still below labels
 
+    // invisible fill areas make family hulls clickable without covering markers
     map.addSource('family-hulls', {
         type: 'geojson',
         data: hulls
