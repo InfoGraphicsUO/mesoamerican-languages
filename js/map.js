@@ -36,6 +36,8 @@ export const map = new mapboxgl.Map({
     maxBounds: MAP.bounds,
     projection: 'mercator',
     pitchWithRotate: false,
+    attributionControl: true,
+    customAttribution: '<a href="https://infographics.uoregon.edu" target="_blank" rel="noopener noreferrer">UO InfoGraphics Lab</a>',
 });
 
 // add zoom controls without the compass (rotation is disabled below)
