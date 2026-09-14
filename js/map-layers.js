@@ -223,6 +223,7 @@ export async function addMapLayers() {
     }, 'sites-highlight'); // invisible hit areas stay behind markers and highlights
 
     hoverPopup('sites', sitePopup); // connect sitePopup func to layer, for hovering
+    clickPopup('sites', (_event, features) => features[0] ? sitePopup(features[0]) : '', { touchOnly: true });
     clickPopup('family-hulls-fill', familyHullPopup); // suggest families on empty-area clicks
     sections.push(...siteLegend(sites)); // create legend info and add sections
 

@@ -1,4 +1,4 @@
-import { applyLocalizedAttributes, isLocalizedText, localized, textFor } from './language.js';
+import { applyLocalizedAttributes, isLocalizedText, localized, onLanguageChange, textFor, toggleLanguage } from './language.js';
 import { languageText, startSearchBox } from './ui.js';
 
 // ids connect the controller to the matching buttons and regions in index.html
@@ -111,8 +111,14 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
     const searchRegion = document.getElementById(IDS.searchRegion);
     const locationToggle = document.getElementById(IDS.locationToggle);
     const locationRegion = document.getElementById(IDS.locationRegion);
+    const mobileMedia = window.matchMedia('(max-width: 600px)');
+    const mobileHeader = panel.querySelector('.mobile-sheet-header');
+    const grip = document.getElementById('mobile-sheet-grip');
+    const expandButton = document.getElementById('mobile-sheet-expand');
+    const minimizeButton = document.getElementById('mobile-sheet-minimize');
+    const mobileLanguageButton = document.getElementById('mobile-language-toggle');
     if (![panel, legend, toggle, closeButton, input, results, searchToggle, searchRegion,
-        locationToggle, locationRegion].every(Boolean)) return null;
+        locationToggle, locationRegion, mobileHeader, grip, expandButton, minimizeButton, mobileLanguageButton].every(Boolean)) return null;
 
     const rendered = [];
     const stickyRows = [];
@@ -128,7 +134,17 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
         ? new ResizeObserver(updateStickyOffsets)
         : null;
     let transitionId = 0;
-    const clear = () => mapFocus?.clearHighlight?.();
+    let selectionFrameId = 0;
+    let selectedFeatureIds = [];
+    let mobileState = 'half';
+    const clear = () => {
+        selectedFeatureIds = [];
+        mapFocus?.clearHighlight?.();
+    };
+    const restoreSelection = () => {
+        if (selectedFeatureIds.length) mapFocus?.highlight?.(selectedFeatureIds);
+        else mapFocus?.clearHighlight?.();
+    };
     // css owns the animation length, js uses the same value before hiding elements
     const duration = () => {
         const value = getComputedStyle(panel).getPropertyValue('--motion-duration').trim();
@@ -139,6 +155,21 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
     const search = () => {
         try { return searchIndex?.search?.(input.value) || []; }
         catch (error) { console.error(error); return []; }
+    };
+
+    const syncRowSemantics = () => {
+        for (const row of results.querySelectorAll('.side-panel-row[data-child-id]')) {
+            const expand = row.parentElement.querySelector('.side-panel-row-expand');
+            if (mobileMedia.matches) {
+                row.removeAttribute('aria-controls');
+                row.removeAttribute('aria-expanded');
+                expand.hidden = false;
+            } else {
+                row.setAttribute('aria-controls', row.dataset.childId);
+                row.setAttribute('aria-expanded', expand.getAttribute('aria-expanded'));
+                expand.hidden = true;
+            }
+        }
     };
 
     // each node is a family, group, language, or place from createSearchIndex
@@ -163,6 +194,9 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
             const type = RESULT_TYPES.has(node.kind) ? node.kind : 'heading';
             const generic = isPlace ? 'place' : 'heading';
             const displayLabel = node.displayLabel ?? node.label;
+            const rowShell = document.createElement('div');
+            rowShell.className = 'side-panel-row-shell';
+            rowShell.style.setProperty('--result-depth', depth);
             const row = document.createElement('button');
             row.type = 'button';
             row.className = `side-panel-row side-panel-${generic} side-panel-row--${type}`;
@@ -173,9 +207,9 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
             row.setAttribute('data-es-aria-label', `${textFor(typeLabel, 'es')}: ${textFor(displayLabel, 'es')}${countries ? `, ${countries}` : ''}`);
             applyLocalizedAttributes(row);
             const nextStickyAncestors = STICKY_RESULT_TYPES.has(type)
-                ? [...stickyAncestors, row]
+                ? [...stickyAncestors, rowShell]
                 : stickyAncestors;
-            if (STICKY_RESULT_TYPES.has(type)) stickyRows.push({ row, ancestors: stickyAncestors });
+            if (STICKY_RESULT_TYPES.has(type)) stickyRows.push({ row: rowShell, ancestors: stickyAncestors });
             // the small letter key lets users scan the result type quickly
             const resultKey = document.createElement('span');
             resultKey.className = 'side-panel-result-key';
@@ -192,7 +226,10 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
                 metadata.textContent = countries;
                 row.append(metadata);
             }
-            if (node.familyColor || node.color) row.style.setProperty('--family-color', node.familyColor || node.color);
+            if (node.familyColor || node.color) {
+                row.style.setProperty('--family-color', node.familyColor || node.color);
+                rowShell.style.setProperty('--family-color', node.familyColor || node.color);
+            }
             if (node.countryCode || node.countryShort) row.dataset.country = node.countryCode || node.countryShort;
 
             let childGroup;
@@ -203,18 +240,29 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
                 childGroup.id = childId;
                 childGroup.className = 'side-panel-children';
                 childGroup.setAttribute('role', 'group');
-                row.setAttribute('aria-controls', childId);
+                row.dataset.childId = childId;
                 const open = Boolean(query);
-                row.setAttribute('aria-expanded', String(open));
                 const chevron = document.createElement('i');
                 chevron.className = 'side-panel-chevron fa-sharp fa-light fa-chevron-down';
                 chevron.setAttribute('aria-hidden', 'true');
                 row.append(chevron);
+                const expand = document.createElement('button');
+                expand.type = 'button';
+                expand.className = 'side-panel-row-expand';
+                expand.dataset.resultId = String(resultId);
+                expand.setAttribute('aria-controls', childId);
+                expand.setAttribute('aria-expanded', String(open));
+                expand.setAttribute('data-en-aria-label', `${open ? 'Collapse' : 'Expand'} ${textFor(displayLabel, 'en')}`);
+                expand.setAttribute('data-es-aria-label', `${open ? 'Contraer' : 'Ampliar'} ${textFor(displayLabel, 'es')}`);
+                applyLocalizedAttributes(expand);
+                expand.innerHTML = '<i class="side-panel-chevron fa-sharp fa-light fa-chevron-down" aria-hidden="true"></i>';
+                rowShell.append(expand);
                 childGroup.hidden = !open;
                 childGroup.inert = !open;
                 childGroup.setAttribute('aria-hidden', String(!open));
             }
-            parent.append(row);
+            rowShell.prepend(row);
+            parent.append(rowShell);
             if (childGroup) {
                 parent.append(childGroup);
                 (node.children || []).forEach((child) =>
@@ -235,6 +283,7 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
         updateStickyOffsets();
         stickyResizeObserver?.observe(results);
         stickyRows.forEach(({ row }) => stickyResizeObserver?.observe(row));
+        syncRowSemantics();
     };
 
     const setSection = (button, region, open) => {
@@ -253,7 +302,67 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
         }
     };
 
+    const mobileSections = [...panel.querySelectorAll('.side-panel-section')];
+    const setMobileControlLabel = (button, en, es) => {
+        button.setAttribute('data-en-aria-label', en);
+        button.setAttribute('data-es-aria-label', es);
+        applyLocalizedAttributes(button);
+    };
+    const setMobileState = (nextState) => {
+        if (!mobileMedia.matches) return;
+        mobileState = nextState;
+        panelColumn.dataset.mobileSheetState = nextState;
+        const peeking = nextState === 'peek';
+        mobileSections.forEach((section) => { section.inert = peeking; });
+        grip.setAttribute('aria-expanded', String(!peeking));
+        expandButton.setAttribute('aria-expanded', String(nextState === 'expanded'));
+        expandButton.disabled = nextState === 'expanded';
+        minimizeButton.disabled = peeking;
+        setMobileControlLabel(grip,
+            peeking ? 'Open map tools' : nextState === 'half' ? 'Expand map tools' : 'Reduce map tools',
+            peeking ? 'Abrir herramientas del mapa' : nextState === 'half' ? 'Ampliar herramientas del mapa' : 'Reducir herramientas del mapa');
+    };
+    const updateMobileViewport = () => {
+        const viewport = window.visualViewport;
+        const height = viewport?.height || window.innerHeight;
+        const bottomOffset = Math.max(0, window.innerHeight - height - (viewport?.offsetTop || 0));
+        app?.style.setProperty('--mobile-viewport-height', `${height}px`);
+        app?.style.setProperty('--mobile-viewport-bottom-offset', `${bottomOffset}px`);
+        app?.classList.toggle('is-short-visual-viewport', height <= 500);
+        app?.classList.toggle('has-mobile-keyboard', bottomOffset > 100);
+    };
+
+    const frameMobileSelection = (node) => {
+        const requestId = ++selectionFrameId;
+        const wasPeeking = mobileState === 'peek';
+        selectedFeatureIds = node.featureIds || [];
+        setMobileState('peek');
+        const coordinates = node.coordinates;
+        const panelForFrame = panelColumn;
+        let framed = false;
+        const frame = () => {
+            if (framed) return;
+            framed = true;
+            panelForFrame.removeEventListener('transitionend', onTransitionEnd);
+            if (requestId !== selectionFrameId) return;
+            mapFocus?.frame?.(coordinates, panelForFrame, RESULT_FRAME_GUTTER);
+            mapFocus?.highlight?.(selectedFeatureIds);
+        };
+        const onTransitionEnd = (event) => {
+            if (event.target === panelForFrame && event.propertyName === 'height') frame();
+        };
+        panelForFrame.addEventListener('transitionend', onTransitionEnd);
+        if (wasPeeking) requestAnimationFrame(frame);
+        else window.setTimeout(frame, duration() + 50);
+        document.querySelector('.mapboxgl-canvas')?.focus();
+    };
+
     const close = () => {
+        if (mobileMedia.matches) {
+            setMobileState('peek');
+            grip.focus();
+            return;
+        }
         // hide both side panels together, then return focus to the launcher
         const closingTransition = ++transitionId;
         clear();
@@ -297,6 +406,7 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
             panel.classList.add('is-visible');
             legend.classList.add('is-visible');
         });
+        if (mobileMedia.matches) setMobileState('half');
     };
 
     const activateSection = (which) => {
@@ -316,6 +426,114 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
     closeButton.addEventListener('click', close);
     searchToggle.addEventListener('click', () => activateSection('search'));
     locationToggle.addEventListener('click', () => activateSection('location'));
+    const cycleGrip = () => setMobileState(mobileState === 'peek' ? 'half' : mobileState === 'half' ? 'expanded' : 'half');
+    let suppressGripClick = false;
+    grip.addEventListener('click', () => {
+        if (suppressGripClick) { suppressGripClick = false; return; }
+        cycleGrip();
+    });
+    mobileHeader.addEventListener('click', (event) => {
+        if (suppressGripClick) return;
+        if (mobileMedia.matches && mobileState === 'peek' && !event.target.closest('button')) setMobileState('half');
+    });
+    expandButton.addEventListener('click', () => { setMobileState('expanded'); grip.focus(); });
+    minimizeButton.addEventListener('click', () => { setMobileState('peek'); grip.focus(); });
+    mobileLanguageButton.addEventListener('click', toggleLanguage);
+    onLanguageChange((language) => {
+        const spanish = language === 'es';
+        mobileLanguageButton.setAttribute('aria-checked', String(spanish));
+        mobileLanguageButton.setAttribute('aria-label', spanish ? 'Modo español' : 'Spanish mode');
+        mobileLanguageButton.title = spanish ? 'Cambiar a inglés' : 'Switch to Spanish';
+    }, { immediate: true });
+
+    const safeAreaBottom = () => {
+        const probe = document.createElement('span');
+        probe.style.cssText = 'position:absolute;visibility:hidden;padding-bottom:env(safe-area-inset-bottom)';
+        panel.append(probe);
+        const inset = Number.parseFloat(getComputedStyle(probe).paddingBottom) || 0;
+        probe.remove();
+        return inset;
+    };
+    let drag = null;
+    grip.addEventListener('pointerdown', (event) => {
+        if (!mobileMedia.matches || event.button !== 0) return;
+        drag = {
+            pointerId: event.pointerId,
+            startY: event.clientY,
+            startHeight: panelColumn.getBoundingClientRect().height,
+            peekHeight: 72 + safeAreaBottom(),
+            moved: false
+        };
+        grip.setPointerCapture(event.pointerId);
+    });
+    grip.addEventListener('pointermove', (event) => {
+        if (!drag || drag.pointerId !== event.pointerId) return;
+        const delta = event.clientY - drag.startY;
+        if (Math.abs(delta) < 6 && !drag.moved) return;
+        drag.moved = true;
+        const viewportHeight = window.visualViewport?.height || window.innerHeight;
+        const minHeight = Math.min(drag.peekHeight, viewportHeight - 56);
+        const maxHeight = Math.max(minHeight, viewportHeight - (viewportHeight <= 500 ? 36 : 112));
+        const nextHeight = Math.max(minHeight, Math.min(maxHeight, drag.startHeight - delta));
+        panelColumn.classList.add('is-dragging');
+        panelColumn.style.setProperty('--mobile-sheet-drag-height', `${nextHeight}px`);
+        app?.style.setProperty('--mobile-sheet-live-height', `${nextHeight}px`);
+    });
+    const endGripDrag = (event) => {
+        if (!drag || drag.pointerId !== event.pointerId) return;
+        const moved = drag.moved;
+        const releasedHeight = panelColumn.getBoundingClientRect().height;
+        panelColumn.classList.remove('is-dragging');
+        panelColumn.style.removeProperty('--mobile-sheet-drag-height');
+        app?.style.removeProperty('--mobile-sheet-live-height');
+        if (event.type === 'pointercancel') setMobileState(mobileState);
+        else if (moved) {
+            const viewportHeight = window.visualViewport?.height || window.innerHeight;
+            const heights = [
+                { state: 'peek', height: Math.min(drag.peekHeight, viewportHeight - 56) },
+                { state: 'half', height: Math.min(Math.max(viewportHeight * .5, 320), viewportHeight - 112) },
+                { state: 'expanded', height: viewportHeight <= 500
+                    ? viewportHeight - 36
+                    : Math.min(viewportHeight * .88, viewportHeight - 112) }
+            ];
+            const nearest = heights.reduce((best, candidate) =>
+                Math.abs(candidate.height - releasedHeight) < Math.abs(best.height - releasedHeight) ? candidate : best);
+            setMobileState(nearest.state);
+            suppressGripClick = true;
+            requestAnimationFrame(() => { suppressGripClick = false; });
+        }
+        drag = null;
+    };
+    grip.addEventListener('pointerup', endGripDrag);
+    grip.addEventListener('pointercancel', endGripDrag);
+    panel.addEventListener('keydown', (event) => {
+        if (mobileMedia.matches && event.key === 'Escape' && mobileState !== 'peek') {
+            event.preventDefault();
+            setMobileState('peek');
+            grip.focus();
+        }
+    });
+    input.addEventListener('focus', () => setMobileState('expanded'));
+    locationRegion.addEventListener('focusin', () => setMobileState('expanded'));
+    document.getElementById('map')?.addEventListener('click', (event) => {
+        if (mobileMedia.matches && event.target.classList.contains('mapboxgl-canvas')) setMobileState('peek');
+    });
+    const syncMode = () => {
+        updateMobileViewport();
+        if (mobileMedia.matches) {
+            if (panel.hidden || panel.inert || !panel.classList.contains('is-visible')) open();
+            else setMobileState('half');
+        } else {
+            panelColumn.removeAttribute('data-mobile-sheet-state');
+            mobileSections.forEach((section) => { section.inert = false; });
+            if (panel.hidden) open();
+        }
+        syncRowSemantics();
+    };
+    mobileMedia.addEventListener('change', syncMode);
+    window.addEventListener('resize', updateMobileViewport);
+    window.visualViewport?.addEventListener('resize', updateMobileViewport);
+    window.visualViewport?.addEventListener('scroll', updateMobileViewport);
     // both visual panels share this controller, so they are always open or hidden together
     // one search section also stays active while the sidebar is open
     input.addEventListener('input', () => { clear(); render(); });
@@ -329,32 +547,51 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
     results.addEventListener('pointerover', focusResult);
     results.addEventListener('focusin', focusResult);
     results.addEventListener('pointerout', (event) => {
-        if (!event.relatedTarget?.closest?.('[data-result-id]')) clear();
+        if (!event.relatedTarget?.closest?.('[data-result-id]')) restoreSelection();
     });
     results.addEventListener('focusout', (event) => {
-        if (!results.contains(event.relatedTarget)) clear();
+        if (!results.contains(event.relatedTarget)) restoreSelection();
     });
+    const toggleChildGroup = (row, node) => {
+        const expand = row.parentElement.querySelector('.side-panel-row-expand');
+        const childGroup = document.getElementById(row.dataset.childId);
+        if (!expand || !childGroup) return;
+        const open = expand.getAttribute('aria-expanded') !== 'true';
+        expand.setAttribute('aria-expanded', String(open));
+        if (!mobileMedia.matches) row.setAttribute('aria-expanded', String(open));
+        const name = node.displayLabel ?? node.label;
+        expand.setAttribute('data-en-aria-label', `${open ? 'Collapse' : 'Expand'} ${textFor(name, 'en')}`);
+        expand.setAttribute('data-es-aria-label', `${open ? 'Contraer' : 'Ampliar'} ${textFor(name, 'es')}`);
+        applyLocalizedAttributes(expand);
+        childGroup.hidden = !open;
+        childGroup.inert = !open;
+        childGroup.setAttribute('aria-hidden', String(!open));
+    };
     results.addEventListener('click', (event) => {
-        // heading rows open their children, every row with coordinates can frame the map
         const button = event.target.closest('[data-result-id]');
         const node = button && rendered[Number(button.dataset.resultId)];
-        if (button?.hasAttribute('aria-controls')) {
-            const childGroup = document.getElementById(button.getAttribute('aria-controls'));
-            const open = button.getAttribute('aria-expanded') !== 'true';
-            button.setAttribute('aria-expanded', String(open));
-            if (childGroup) {
-                childGroup.hidden = !open;
-                childGroup.inert = !open;
-                childGroup.setAttribute('aria-hidden', String(!open));
-            }
+        if (!button || !node) return;
+        const row = button.classList.contains('side-panel-row-expand') ? button.previousElementSibling : button;
+        if (button.classList.contains('side-panel-row-expand')) {
+            toggleChildGroup(row, node);
+            return;
         }
-        if (node?.coordinates?.length) {
-            mapFocus?.frame?.(node.coordinates, panel, RESULT_FRAME_GUTTER);
+        if (mobileMedia.matches) {
+            if (node.coordinates?.length) frameMobileSelection(node);
+            else if (row.dataset.childId) toggleChildGroup(row, node);
+            return;
         }
+        if (row.dataset.childId) toggleChildGroup(row, node);
+        if (node.coordinates?.length) mapFocus?.frame?.(node.coordinates, panel, RESULT_FRAME_GUTTER);
     });
 
     render();
-    startSearchBox('#location-search');
+    startSearchBox('#location-search').then((box) => {
+        box?.addEventListener('retrieve', () => {
+            if (mobileMedia.matches) setMobileState('peek');
+        });
+    });
     open();
+    syncMode();
     return { open, close };
 }

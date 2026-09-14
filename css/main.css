@@ -35,8 +35,8 @@
 @media (max-width: 600px) {
     :root {
         --gutter: 0.75rem;
-        --gutter-bottom: 2.25rem;
-        --panel-width: min(20rem, calc(100vw - 4.75rem));
+        --gutter-bottom: 0;
+        --panel-width: 100vw;
         --text-xl: 1.35rem;
     }
 }
@@ -243,60 +243,101 @@ html.lang-es .language-option-es {
 }
 
 @media (max-width: 600px) {
-    /* move the controls on small screens so both language names still fit */
-    .mapboxgl-ctrl-top-left {
-        top: var(--gutter);
-        right: var(--gutter);
+    .app {
+        --mobile-viewport-height: 100dvh;
+        --mobile-viewport-bottom-offset: 0px;
+        --mobile-sheet-height: min(max(calc(var(--mobile-viewport-height) * .5), 20rem), calc(var(--mobile-viewport-height) - 7rem));
+    }
+
+    .app:has(.panel[data-mobile-sheet-state="peek"]) {
+        --mobile-sheet-height: min(calc(4.5rem + env(safe-area-inset-bottom)), calc(var(--mobile-viewport-height) - 3.5rem));
+    }
+
+    .app:has(.panel[data-mobile-sheet-state="expanded"]) {
+        --mobile-sheet-height: min(calc(var(--mobile-viewport-height) * .88), calc(var(--mobile-viewport-height) - 7rem));
+    }
+
+    .panel,
+    .panel:not(.has-open-side-panel) {
+        position: absolute;
+        z-index: 3;
+        inset: auto 0 var(--mobile-viewport-bottom-offset);
+        justify-content: flex-end;
+        gap: 0;
+        width: 100%;
+        height: var(--mobile-sheet-height);
+        min-height: 0;
+        max-height: none;
+        padding: 0;
+        transition: height var(--motion-duration) var(--motion-ease);
+    }
+
+    .panel > #side-panel {
+        flex: 1 1 auto;
+        min-height: 0;
+        border-right: 0;
+        border-bottom: 0;
+        border-left: 0;
+        border-radius: 1.125rem 1.125rem 0 0;
+        background: rgb(255 255 252 / 90%);
+        box-shadow: 0 -.4rem 1.5rem rgb(19 27 23 / 15%);
+    }
+
+    .panel.is-dragging {
+        height: var(--mobile-sheet-drag-height) !important;
+        transition: none;
+    }
+
+    .panel > #legend,
+    .panel > #side-panel-toggle {
+        display: none !important;
+    }
+
+    .mapboxgl-ctrl-top-left,
+    .app:not(.has-open-side-panel) .mapboxgl-ctrl-top-left {
+        top: calc(var(--gutter) + env(safe-area-inset-top));
+        right: calc(var(--gutter) + env(safe-area-inset-right));
         bottom: auto;
         left: auto;
         align-items: flex-end;
     }
 
-    .app:not(.has-open-side-panel) .mapboxgl-ctrl-top-left {
-        top: auto;
-        right: auto;
-        bottom: var(--gutter-bottom);
-        left: var(--gutter);
-        align-items: flex-start;
+    .language-control {
+        display: none !important;
     }
 
-    /* keep language inside the filter header while the sidebar is open */
-    .panel.has-open-side-panel > #legend {
-        max-height: 12rem;
-        overflow: auto;
+    .app:has(.panel[data-mobile-sheet-state="expanded"]) .mapboxgl-ctrl-top-left,
+    #map:has(.mapboxgl-popup) .mapboxgl-ctrl-top-left {
+        display: none;
     }
 
-    .app.has-open-side-panel .side-panel-header {
-        flex-basis: 5.75rem;
-        min-height: 5.75rem;
-        align-items: flex-start;
-        padding-top: var(--space-md);
+    .mapboxgl-ctrl-bottom-left,
+    .mapboxgl-ctrl-bottom-right {
+        bottom: calc(var(--mobile-viewport-bottom-offset) + var(--mobile-sheet-live-height, var(--mobile-sheet-height)) + .45rem);
+        transition: bottom var(--motion-duration) var(--motion-ease);
     }
 
-    .app.has-open-side-panel .mapboxgl-ctrl-top-left {
-        z-index: 3;
+    .mapboxgl-ctrl-bottom-left {
+        left: calc(var(--gutter) + env(safe-area-inset-left));
     }
 
-    .app.has-open-side-panel .language-control {
-        position: fixed;
-        top: calc(var(--gutter) + 3.25rem);
-        left: calc(var(--gutter) + var(--space-md));
-        width: calc(var(--panel-width) - 2 * var(--space-md));
+    .mapboxgl-ctrl-bottom-right {
+        right: calc(var(--gutter) + env(safe-area-inset-right));
     }
 
-    .app.has-open-side-panel .language-toggle {
-        width: 100%;
+    .app:has(.panel.is-dragging) .mapboxgl-ctrl-bottom-left,
+    .app:has(.panel.is-dragging) .mapboxgl-ctrl-bottom-right {
+        transition: none;
     }
 }
 
-@media (max-width: 600px) and (max-height: 500px) {
-    /* shrink the legend on short screens so both filter headings still fit */
-    .panel.has-open-side-panel > #legend {
-        max-height: 8rem;
+@media (max-width: 600px) {
+    .app.is-short-visual-viewport:has(.panel[data-mobile-sheet-state="expanded"]) {
+        --mobile-sheet-height: calc(var(--mobile-viewport-height) - 2.25rem);
     }
 }
 
-@media (max-height: 500px) {
+@media (min-width: 601px) and (max-height: 500px) {
     .panel {
         height: calc(100vh - var(--gutter) - var(--gutter-bottom));
         max-height: calc(100vh - var(--gutter) - var(--gutter-bottom));

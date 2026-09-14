@@ -80,11 +80,7 @@
 }
 
 @media (max-width: 600px) {
-    .legend {
-        max-height: calc(100vh - 5.5rem);
-        overflow: auto;
-        padding: 1rem;
-    }
+    .legend { display: none !important; }
 }
 
 @media (prefers-reduced-motion: reduce) {

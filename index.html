@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title data-en-text="Mesoamerican Languages" data-es-text="Lenguas mesoamericanas">Mesoamerican Languages</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.30.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.30.0/mapbox-gl.js"></script>
@@ -41,6 +41,33 @@
             <aside id="side-panel" class="hoverBox side-panel is-visible"
                 data-en-aria-label="Map tools" data-es-aria-label="Herramientas del mapa"
                 aria-label="Map tools" aria-hidden="false">
+                <div class="mobile-sheet-header">
+                    <button id="mobile-sheet-grip" class="mobile-sheet-grip" type="button" aria-controls="side-panel"
+                        data-en-aria-label="Expand map tools" data-es-aria-label="Ampliar herramientas del mapa"
+                        aria-label="Expand map tools">
+                        <span class="mobile-sheet-grip-line" aria-hidden="true"></span>
+                    </button>
+                    <div class="mobile-sheet-bar">
+                        <span class="mobile-sheet-title">
+                            <span class="en" lang="en">Map tools</span><span class="es" lang="es">Herramientas</span>
+                        </span>
+                        <button id="mobile-language-toggle" class="mobile-language-toggle" type="button" role="switch" aria-checked="false"
+                            aria-label="Spanish mode" title="Switch to Spanish">
+                            <span class="mobile-language-option mobile-language-option-en">EN</span>
+                            <span class="mobile-language-option mobile-language-option-es">ES</span>
+                        </button>
+                        <button id="mobile-sheet-expand" class="mobile-sheet-action" type="button" aria-controls="side-panel"
+                            data-en-aria-label="Expand map tools" data-es-aria-label="Ampliar herramientas del mapa"
+                            aria-label="Expand map tools">
+                            <i class="fa-sharp fa-light fa-chevron-up" aria-hidden="true"></i>
+                        </button>
+                        <button id="mobile-sheet-minimize" class="mobile-sheet-action" type="button" aria-controls="side-panel"
+                            data-en-aria-label="Minimize map tools" data-es-aria-label="Minimizar herramientas del mapa"
+                            aria-label="Minimize map tools">
+                            <i class="fa-sharp fa-light fa-chevron-down" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
                 <div class="side-panel-header">
                     <span class="side-panel-title">
                         <span class="en" lang="en">Filters</span><span class="es" lang="es">Filtros</span>
@@ -78,6 +105,14 @@
                                 data-en-placeholder="Search languages, families, places…"
                                 data-es-placeholder="Buscar lenguas, familias, lugares…"
                                 placeholder="Search languages, families, places…">
+                        </div>
+                        <div class="mobile-marker-key" role="group"
+                            data-en-aria-label="Map marker shapes" data-es-aria-label="Formas de los símbolos del mapa"
+                            aria-label="Map marker shapes">
+                            <span class="mobile-marker-key-item"><img src="img/markers/unclassified-plus.svg" alt="">
+                                <span class="en" lang="en">Reported origin</span><span class="es" lang="es">Origen reportado</span></span>
+                            <span class="mobile-marker-key-item"><img src="img/markers/unclassified-circle.svg" alt="">
+                                <span class="en" lang="en">Other / unreported</span><span class="es" lang="es">Otro / sin dato</span></span>
                         </div>
                         <div id="language-search-results" class="side-panel-results"></div>
                     </div>

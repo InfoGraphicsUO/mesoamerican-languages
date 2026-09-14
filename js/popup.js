@@ -66,6 +66,7 @@ export function hoverPopup(layerId, render, options = {}) {
 
     // listen for mouse movement and display the layer's popup
     map.on('mousemove', layerId, (event) => {
+        if (window.matchMedia('(max-width: 600px), (hover: none), (pointer: coarse)').matches) return;
         const feature = event.features?.[0];
         if (!feature) return;
         popup
@@ -75,7 +76,9 @@ export function hoverPopup(layerId, render, options = {}) {
     });
 
     // show the pointer cursor so the hover area feels interactive
-    map.on('mouseenter', layerId, () => { map.getCanvas().style.cursor = 'pointer'; });
+    map.on('mouseenter', layerId, () => {
+        if (!window.matchMedia('(max-width: 600px), (hover: none), (pointer: coarse)').matches) map.getCanvas().style.cursor = 'pointer';
+    });
     map.on('mouseleave', layerId, () => {
         map.getCanvas().style.cursor = '';
         popup.remove();
@@ -87,17 +90,24 @@ export function hoverPopup(layerId, render, options = {}) {
 // connect a click popup to a map layer
 // layerId: layer to watch for clicks
 // render: func that converts the click event and features to popup html
-// options: optional Mapbox popup settings
+// options: Mapbox popup settings, touchOnly limits clicks to touch layouts
 export function clickPopup(layerId, render, options = {}) {
+    const { touchOnly = false, ...popupOptions } = options;
     const popup = new mapboxgl.Popup({
         offset: 10,
         maxWidth: '320px',
         closeButton: true,
         closeOnClick: true,
-        ...options
+        ...popupOptions
     });
 
     map.on('click', layerId, (event) => {
+        if (touchOnly && !(
+            event.originalEvent?.pointerType === 'touch' ||
+            event.originalEvent?.sourceCapabilities?.firesTouchEvents ||
+            window.matchMedia('(max-width: 600px), (hover: none), (pointer: coarse)').matches
+        )) return;
+
         const content = render(event, event.features || []);
         if (!content) return;
 
@@ -108,9 +118,11 @@ export function clickPopup(layerId, render, options = {}) {
         applyMapboxLanguage(popup.getElement());
     });
 
-    // these clickable areas are invisible, so the pointer is the only map-level hint
-    map.on('mouseenter', layerId, () => { map.getCanvas().style.cursor = 'pointer'; });
-    map.on('mouseleave', layerId, () => { map.getCanvas().style.cursor = ''; });
+    // pointer hints for invisible clickable areas, hoverPopup handles site markers
+    if (!touchOnly) {
+        map.on('mouseenter', layerId, () => { map.getCanvas().style.cursor = 'pointer'; });
+        map.on('mouseleave', layerId, () => { map.getCanvas().style.cursor = ''; });
+    }
 
     return popup;
 }
