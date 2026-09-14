@@ -319,8 +319,8 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
         expandButton.disabled = nextState === 'expanded';
         minimizeButton.disabled = peeking;
         setMobileControlLabel(grip,
-            peeking ? 'Open map tools' : nextState === 'half' ? 'Expand map tools' : 'Reduce map tools',
-            peeking ? 'Abrir herramientas del mapa' : nextState === 'half' ? 'Ampliar herramientas del mapa' : 'Reducir herramientas del mapa');
+            peeking ? 'Open Menu' : nextState === 'half' ? 'Expand Menu' : 'Reduce Menu',
+            peeking ? 'Abrir menú' : nextState === 'half' ? 'Ampliar menú' : 'Reducir menú');
     };
     const updateMobileViewport = () => {
         const viewport = window.visualViewport;
