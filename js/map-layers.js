@@ -113,11 +113,11 @@ function siteLegend(data) {
                 ))
         },
         {
-            title: localized('Language location', 'Localización del idioma'),
+            title: localized('Respondent location type', 'Localización del idioma'),
             items: [
-                withMatches({ label: localized('Reported oigin', 'Origen declarado'), icon: iconUrl('unclassified', SHAPES.origin) },
+                withMatches({ label: localized('Community of origin', 'Comunidad de origen'), icon: iconUrl('unclassified', SHAPES.origin) },
                     (feature) => feature.properties?.reportedOriginPlace === true), // plus icon
-                withMatches({ label: localized('Mutually understood', 'Comprensible entre sí'), icon: iconUrl('unclassified', SHAPES.other) },
+                withMatches({ label: localized('Mutually understood community', 'Comunidad de entendimiento mutuo'), icon: iconUrl('unclassified', SHAPES.other) },
                     (feature) => feature.properties?.reportedOriginPlace !== true) // circle icon
             ]
         }
