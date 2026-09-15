@@ -1,4 +1,4 @@
-import { MAPBOX_TOKEN, map } from './map.js';
+import { MAP, MAPBOX_TOKEN, map } from './map.js';
 import { getLanguage, isLocalizedText, localized, onLanguageChange } from './language.js';
 
 // shared ui tools for safe html, css values, and map search
@@ -96,26 +96,29 @@ export function startSearchBox(selector = '#location-search') {
                 return;
             }
 
-            // build search box and keep its language/proximity options current
+            // build search box and keep language plus map-area ranking current
             const box = new SearchBox();
             box.accessToken = MAPBOX_TOKEN;
             box.theme = searchTheme();
-            const updateLanguage = (language = getLanguage()) => {
+            const updateOptions = (language = getLanguage()) => {
+                const center = map.getCenter();
                 box.placeholder = language === 'es' ? 'Buscar ubicaciones' : 'Search locations';
                 box.options = {
                     ...(box.options || {}),
                     language,
-                    proximity: map.getCenter().toArray()
+                    bbox: MAP.bounds,
+                    proximity: [center.lng, center.lat]
                 };
             };
-            updateLanguage();
+            updateOptions();
             box.componentOptions = { allowReverse: true, flipCoordinates: true }; // allow coordinate search in either order
             box.mapboxgl = mapboxgl; // give search box our mapbox library
             box.marker = true; // show marker when result gets picked
 
             container.append(box); // display finished search box
             box.bindMap(map); // move our map when user picks a result
-            onLanguageChange(updateLanguage);
+            map.on('moveend', () => updateOptions());
+            onLanguageChange(updateOptions);
             resolve(box);
         };
 

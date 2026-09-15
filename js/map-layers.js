@@ -2,6 +2,7 @@ import { map, MAP, ICON_SIZE, PATHS, labelLayerId, addGeojsonSource, loadIcons }
 import { HULL_FAMILY_NAMES, buildFamilyHullCollection } from './family-hulls.js';
 import { hoverPopup, clickPopup, hoverBox } from './popup.js';
 import { COUNTRY_LABELS, FAMILY_LABELS, localized, localizedLookup, textFor } from './language.js';
+import { cssVar } from './ui.js';
 
 // dict to hold each language family and their color
 export const FAMILIES = [
@@ -200,7 +201,7 @@ export async function addMapLayers() {
         filter: ['==', ['id'], -1],
         paint: {
             'circle-radius': ['interpolate', ['linear'], ['zoom'], MAP.minZoom, 12, 8, 16, 12, 20],
-            'circle-color': '#d9a400',
+            'circle-color': cssVar('--accent-bright'),
             'circle-blur': 0.65,
             'circle-opacity': 0.9
         }

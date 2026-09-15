@@ -84,6 +84,7 @@ export function applyMapboxLanguage(root = globalThis.document) {
     const controls = [
         ['.mapboxgl-ctrl-zoom-in', localized('Zoom in', 'Acercar')],
         ['.mapboxgl-ctrl-zoom-out', localized('Zoom out', 'Alejar')],
+        ['.map-home-control', localized('Return to home view', 'Volver a la vista inicial')],
         ['.mapboxgl-popup-close-button', localized('Close popup', 'Cerrar ventana emergente')]
     ];
 

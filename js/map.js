@@ -43,6 +43,45 @@ export const map = new mapboxgl.Map({
 // add zoom controls without the compass (rotation is disabled below)
 map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
 
+class HomeControl {
+    onAdd(controlMap) {
+        this.map = controlMap;
+        this.container = document.createElement('div');
+        this.container.className = 'mapboxgl-ctrl mapboxgl-ctrl-group';
+
+        this.button = document.createElement('button');
+        this.button.type = 'button';
+        this.button.className = 'mapboxgl-ctrl-icon map-home-control';
+        this.button.setAttribute('data-en-aria-label', 'Return to home view');
+        this.button.setAttribute('data-es-aria-label', 'Volver a la vista inicial');
+        this.button.setAttribute('data-en-title', 'Return to home view');
+        this.button.setAttribute('data-es-title', 'Volver a la vista inicial');
+        this.button.setAttribute('aria-label', 'Return to home view');
+        this.button.title = 'Return to home view';
+        this.button.innerHTML = '<i class="fa-solid fa-earth-americas" aria-hidden="true"></i>';
+        this.onClick = () => this.map.easeTo({
+            center: MAP.center,
+            zoom: MAP.zoom,
+            bearing: 0,
+            pitch: 0,
+            padding: 0,
+            duration: 600,
+            essential: false
+        });
+        this.button.addEventListener('click', this.onClick);
+        this.container.append(this.button);
+        return this.container;
+    }
+
+    onRemove() {
+        this.button?.removeEventListener('click', this.onClick);
+        this.container?.remove();
+        this.map = undefined;
+    }
+}
+
+map.addControl(new HomeControl(), 'top-left');
+
 map.dragRotate.disable();
 map.touchZoomRotate.disableRotation();
 if (map.touchPitch) map.touchPitch.disable();

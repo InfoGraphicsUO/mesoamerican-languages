@@ -6,7 +6,7 @@
     --text-soft: #272c29;
     --text-muted: #727974;
     --surface: rgb(255 255 252 / 94%);
-    --panel-surface: rgb(255 255 252 / 82%);
+    --panel-surface: rgb(255 255 252 / 76%);
     --border: rgb(25 34 29 / 14%);
     --shadow: 0 0.35rem 1.4rem rgb(19 27 23 / 16%);
 
@@ -113,7 +113,7 @@ html.lang-es .en {
 }
 
 .panel :focus-visible {
-    outline: 2px solid var(--text);
+    outline: 2px solid var(--accent-bright);
     outline-offset: 2px;
 }
 
@@ -156,7 +156,15 @@ html.lang-es .en {
 
 .mapboxgl-ctrl-group button:focus,
 .mapboxgl-ctrl-group button:focus:focus-visible {
-    box-shadow: inset 0 0 0 2px var(--text-muted);
+    box-shadow: inset 0 0 0 2px var(--accent-bright);
+}
+
+.map-home-control i {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    place-items: center;
+    font-size: 1.35rem;
 }
 
 .mapboxgl-ctrl.mapboxgl-ctrl-attrib,
@@ -240,7 +248,7 @@ html.lang-es .en {
 html.lang-en .language-option-en,
 html.lang-es .language-option-es {
     color: white;
-    background: var(--text);
+    background: var(--accent-bright);
 }
 
 @media (max-width: 600px) {
@@ -280,7 +288,7 @@ html.lang-es .language-option-es {
         border-bottom: 0;
         border-left: 0;
         border-radius: 1.125rem 1.125rem 0 0;
-        background: rgb(255 255 252 / 90%);
+        background: rgb(255 255 252 / 84%);
         box-shadow: 0 -.4rem 1.5rem rgb(19 27 23 / 15%);
     }
 
