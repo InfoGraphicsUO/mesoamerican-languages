@@ -110,6 +110,8 @@ html.lang-es .en {
 
 .panel > #legend {
     flex: 0 0 auto;
+    max-height: min(28rem, 55vh);
+    overflow: auto;
 }
 
 .panel :focus-visible {

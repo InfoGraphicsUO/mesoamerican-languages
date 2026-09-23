@@ -1,6 +1,7 @@
 // keep search data as plain objects so the ui can render the tree
 // this also works without a Mapbox map or browser DOM
 import { COUNTRY_LABELS, FAMILY_LABELS, localized, localizedLookup, textFor } from './language.js';
+import { FAMILY_COLORS, siteColor } from './family-colors.js';
 
 const keyName = (key) => String(key).toLowerCase().replace(/[^a-z0-9]/g, '');
 const text = (value) => Array.isArray(value) ? value.join(' ') : String(value ?? '');
@@ -22,15 +23,6 @@ const firstValue = (properties, wanted) => valuesFor(properties, wanted)[0] || '
 const searchAliases = (value, labels) => {
     const display = localizedLookup(value, labels);
     return display === value ? [value] : [textFor(display, 'en'), textFor(display, 'es')];
-};
-// family color follows each result from its heading down to its places
-const FAMILY_COLORS = {
-    Mayan: '#4ec340',
-    Otomanguean: '#2eacc9',
-    'Purépecha': '#a36b27',
-    'Sign Language': '#3935c6',
-    'Uto-Aztecan': '#2b72cb',
-    Unclassified: '#777a80'
 };
 // use these when the source gives a country name but no short code
 const COUNTRY_CODES = {
@@ -144,7 +136,8 @@ export function createSearchIndex(sites) {
                 if (!label || normalizeSearchText(parent.label) === normalizeSearchText(label)) continue;
                 let child = parent.children.find((candidate) => candidate.kind === kind && candidate.label === label);
                 const familyLabel = labels[0][1];
-                const familyColor = FAMILY_COLORS[familyLabel] || '';
+                const familyColor = kind === 'family'
+                    ? FAMILY_COLORS[familyLabel] || '' : siteColor(familyLabel, labels[1][1]);
                 if (!child) {
                     const displayLabel = kind === 'family'
                         ? localizedLookup(label, FAMILY_LABELS) : label;
@@ -160,7 +153,7 @@ export function createSearchIndex(sites) {
             const placeLabel = recordedPlaceLabel || 'Unnamed place';
             const placeDisplayLabel = recordedPlaceLabel || localized('Unnamed place', 'Lugar sin nombre');
             const familyLabel = labels[0][1];
-            const familyColor = FAMILY_COLORS[familyLabel] || '';
+            const familyColor = siteColor(familyLabel, labels[1][1]);
             // every source row ends as a place under its deepest available heading
             const place = node('place', placeLabel, [...row.featureIds], [...row.coordinates], familyColor, placeDisplayLabel);
             const countries = valuesFor(p, (key) => key.startsWith('country'));

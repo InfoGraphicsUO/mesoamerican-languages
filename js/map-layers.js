@@ -3,15 +3,16 @@ import { HULL_FAMILY_NAMES, buildFamilyHullCollection } from './family-hulls.js'
 import { hoverPopup, clickPopup, hoverBox } from './popup.js';
 import { COUNTRY_LABELS, FAMILY_LABELS, localized, localizedLookup, textFor } from './language.js';
 import { cssVar } from './ui.js';
+import { FAMILY_COLORS, OTOMANGUEAN_GROUPS } from './family-colors.js';
 
 // dict to hold each language family and their color
 export const FAMILIES = [
-    { name: 'Mayan', label: FAMILY_LABELS.Mayan, slug: 'mayan', color: '#4ec340' },
-    { name: 'Otomanguean', label: FAMILY_LABELS.Otomanguean, slug: 'otomanguean', color: '#2eacc9' },
-    { name: 'Purépecha', label: FAMILY_LABELS.Purépecha, slug: 'purepecha', color: '#a36b27' },
-    { name: 'Sign Language', label: FAMILY_LABELS['Sign Language'], slug: 'sign-language', color: '#3935c6' },
-    { name: 'Uto-Aztecan', label: FAMILY_LABELS['Uto-Aztecan'], slug: 'uto-aztecan', color: '#2b72cb' },
-    { name: 'Unclassified', label: FAMILY_LABELS.Unclassified, slug: 'unclassified', color: '#777a80' }
+    { name: 'Mayan', label: FAMILY_LABELS.Mayan, slug: 'mayan', color: FAMILY_COLORS.Mayan },
+    { name: 'Otomanguean', label: FAMILY_LABELS.Otomanguean, slug: 'otomanguean', color: FAMILY_COLORS.Otomanguean },
+    { name: 'Purépecha', label: FAMILY_LABELS.Purépecha, slug: 'purepecha', color: FAMILY_COLORS['Purépecha'] },
+    { name: 'Sign Language', label: FAMILY_LABELS['Sign Language'], slug: 'sign-language', color: FAMILY_COLORS['Sign Language'] },
+    { name: 'Uto-Aztecan', label: FAMILY_LABELS['Uto-Aztecan'], slug: 'uto-aztecan', color: FAMILY_COLORS['Uto-Aztecan'] },
+    { name: 'Unclassified', label: FAMILY_LABELS.Unclassified, slug: 'unclassified', color: FAMILY_COLORS.Unclassified }
 ];
 
 // marker shape is decided by reportedOriginPlace. plus = true, circle = false/missing
@@ -48,7 +49,19 @@ function siteIconExpression(loaded) {
     // decides which marker icon each map location should display
     // loaded = a set containing the icons that loaded successfully
 
-    // look at the feature's 'family' value and choose icon based on it
+    // Otomanguean markers use their group color; the family icon covers other or missing groups
+    const otomangueanIcons = ['match', ['get', 'group']];
+    for (const { name, slug } of OTOMANGUEAN_GROUPS) {
+        const plus = iconId(slug, SHAPES.origin);
+        const circle = iconId(slug, SHAPES.other);
+        if (loaded.has(plus) && loaded.has(circle)) {
+            otomangueanIcons.push(name, ['case', ['==', ['get', 'reportedOriginPlace'], true], plus, circle]);
+        }
+    }
+    otomangueanIcons.push(['case', ['==', ['get', 'reportedOriginPlace'], true],
+        iconId('otomanguean', SHAPES.origin), iconId('otomanguean', SHAPES.other)]);
+
+    // look at the feature's family value and choose icon based on it
     const expression = ['match', ['get', 'family']];
 
     // go thru every language family 
@@ -60,7 +73,9 @@ function siteIconExpression(loaded) {
         if (!loaded.has(plus) || !loaded.has(circle)) continue;
 
         // if family matches this name, use plus icon when reportedOriginPlace == true
-        expression.push(name, ['case', ['==', ['get', 'reportedOriginPlace'], true], plus, circle]);
+        expression.push(name, name === 'Otomanguean'
+            ? otomangueanIcons
+            : ['case', ['==', ['get', 'reportedOriginPlace'], true], plus, circle]);
     }
 
     expression.push(''); // if no family matches show no icon
@@ -68,10 +83,10 @@ function siteIconExpression(loaded) {
     return expression; // returns complete mapbox expression
 }
 
-// creates a list of all marker icons the map might need
-// for each family: get short name, go thru both shapes, create object
+// creates a list of family and Otomanguean group icons the map might need
+// for each color: get short name, go thru both shapes, create object
 // flatMap combines all of them into one list
-const siteIcons = FAMILIES.flatMap(({ slug }) => Object.values(SHAPES).map((shape) => ({
+const siteIcons = [...FAMILIES, ...OTOMANGUEAN_GROUPS].flatMap(({ slug }) => Object.values(SHAPES).map((shape) => ({
     id: iconId(slug, shape), // icons name, such as 'mayan-plus'
     url: iconUrl(slug, shape) // file path, such as 'img/markers/mayan-plus.svg'
 })));
@@ -111,6 +126,16 @@ function siteLegend(data) {
                 .map(({ name, label, slug }) => withMatches(
                     { label, icon: iconUrl(slug, SHAPES.other) },
                     (feature) => (feature.properties?.family || 'Unclassified') === name
+                ))
+        },
+        {
+            title: localized('Otomanguean groups', 'Grupos otomangues'),
+            items: OTOMANGUEAN_GROUPS
+                .filter(({ name }) => data.features.some((feature) =>
+                    feature.properties?.family === 'Otomanguean' && feature.properties?.group === name))
+                .map(({ name, slug }) => withMatches(
+                    { label: name, icon: iconUrl(slug, SHAPES.other) },
+                    (feature) => feature.properties?.family === 'Otomanguean' && feature.properties?.group === name
                 ))
         },
         {
