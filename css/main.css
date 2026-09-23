@@ -77,7 +77,7 @@ html.lang-es .en {
     inset: 0;
 }
 
-/* bottom-left column of floating tools, search on top of legend */
+/* bottom-left language browser */
 .panel {
     position: absolute;
     z-index: 2;
@@ -101,17 +101,11 @@ html.lang-es .en {
     justify-content: flex-start;
 }
 
-/* filters fill the open sidebar, legend stays in its own box below */
+/* menu fills the open sidebar */
 .panel > #side-panel {
     flex: 1 1 auto;
     min-height: 0;
     overflow: hidden;
-}
-
-.panel > #legend {
-    flex: 0 0 auto;
-    max-height: min(28rem, 55vh);
-    overflow: auto;
 }
 
 .panel :focus-visible {
@@ -119,7 +113,7 @@ html.lang-es .en {
     outline-offset: 2px;
 }
 
-/* floating box used for the legend and any future panels */
+/* floating translucent panel surface */
 .hoverBox {
     padding: var(--space-lg);
     border: 1px solid var(--border);
@@ -195,6 +189,14 @@ html.lang-es .en {
 }
 
 @media (min-width: 601px) {
+    .panel > #side-panel {
+        flex: 0 1 auto;
+        height: min(34rem, 60%);
+        transition: height var(--motion-duration) var(--motion-ease), opacity var(--motion-duration) var(--motion-ease), transform var(--motion-duration) var(--motion-ease);
+    }
+    .panel.is-interpreters-open > #side-panel {
+        height: 40%;
+    }
     .mapboxgl-ctrl-top-left {
         transition: left var(--motion-duration) var(--motion-ease);
     }
@@ -299,7 +301,6 @@ html.lang-es .language-option-es {
         transition: none;
     }
 
-    .panel > #legend,
     .panel > #side-panel-toggle {
         display: none !important;
     }
@@ -345,19 +346,6 @@ html.lang-es .language-option-es {
 @media (max-width: 600px) {
     .app.is-short-visual-viewport:has(.panel[data-mobile-sheet-state="expanded"]) {
         --mobile-sheet-height: calc(var(--mobile-viewport-height) - 2.25rem);
-    }
-}
-
-@media (min-width: 601px) and (max-height: 500px) {
-    .panel {
-        height: calc(100vh - var(--gutter) - var(--gutter-bottom));
-        max-height: calc(100vh - var(--gutter) - var(--gutter-bottom));
-    }
-
-    /* limit legend height on short screens so filters still have room */
-    .panel > #legend {
-        max-height: clamp(8rem, calc(100vh - 21rem), 16rem);
-        overflow: auto;
     }
 }
 

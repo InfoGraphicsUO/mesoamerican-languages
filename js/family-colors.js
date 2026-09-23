@@ -1,4 +1,4 @@
-// keep the colors shared by map markers, legend, and search results together
+// keep map marker and browser result colors together
 export const FAMILY_COLORS = {
     Mayan: '#4ec340',
     Otomanguean: '#2eacc9',

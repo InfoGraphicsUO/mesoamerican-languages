@@ -98,9 +98,16 @@ function appendLocalizedHighlighted(parent, label, query) {
 
 // keep rendered nodes in memory so each result button only needs a small number
 // this keeps feature ids and coordinate arrays out of the html attributes
-export function initSidePanel({ searchIndex, mapFocus } = {}) {
+export function initSidePanel({ searchIndex, mapFocus, interpreterView } = {}) {
     const panel = document.getElementById(IDS.panel);
-    const legend = document.getElementById('legend');
+    const interpreterShell = document.getElementById('interpreters-shell');
+    const interpreterContainer = document.getElementById('interpreters-view');
+    const findButton = document.getElementById('find-interpreters');
+    const mobileFindButton = document.getElementById('find-interpreters-mobile');
+    const interpreterClose = document.getElementById('interpreters-close');
+    const interpreterBack = document.getElementById('interpreters-back');
+    const interpreterTitle = document.getElementById('interpreters-title');
+    const mobileInterpreterBack = document.getElementById('mobile-interpreters-back');
     const app = document.querySelector('.app');
     const panelColumn = document.querySelector('.panel');
     const toggle = document.getElementById(IDS.toggle);
@@ -117,7 +124,7 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
     const expandButton = document.getElementById('mobile-sheet-expand');
     const minimizeButton = document.getElementById('mobile-sheet-minimize');
     const mobileLanguageButton = document.getElementById('mobile-language-toggle');
-    if (![panel, legend, toggle, closeButton, input, results, searchToggle, searchRegion,
+    if (![panel, interpreterShell, interpreterContainer, findButton, mobileFindButton, interpreterClose, interpreterBack, interpreterTitle, mobileInterpreterBack, toggle, closeButton, input, results, searchToggle, searchRegion,
         locationToggle, locationRegion, mobileHeader, grip, expandButton, minimizeButton, mobileLanguageButton].every(Boolean)) return null;
 
     const rendered = [];
@@ -137,9 +144,23 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
     let selectionFrameId = 0;
     let selectedFeatureIds = [];
     let mobileState = 'half';
+    let currentContext = null;
+    let interpretersOpen = false;
+    let interpreterViewName = 'list';
+    const markSelectedRow = (row) => {
+        results.querySelectorAll('.side-panel-row.is-selected').forEach((selected) => {
+            selected.classList.remove('is-selected');
+            selected.removeAttribute('aria-current');
+        });
+        if (row) {
+            row.classList.add('is-selected');
+            row.setAttribute('aria-current', 'true');
+        }
+    };
     const clear = () => {
         selectedFeatureIds = [];
         mapFocus?.clearHighlight?.();
+        markSelectedRow(null);
     };
     const restoreSelection = () => {
         if (selectedFeatureIds.length) mapFocus?.highlight?.(selectedFeatureIds);
@@ -363,14 +384,12 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
             grip.focus();
             return;
         }
-        // hide both side panels together, then return focus to the launcher
+        // hide the menu, then return focus to the launcher
         const closingTransition = ++transitionId;
         clear();
-        for (const sidebarPanel of [panel, legend]) {
-            sidebarPanel.classList.remove('is-visible');
-            sidebarPanel.setAttribute('aria-hidden', 'true');
-            sidebarPanel.inert = true;
-        }
+        panel.classList.remove('is-visible');
+        panel.setAttribute('aria-hidden', 'true');
+        panel.inert = true;
         app?.classList.add('is-collapsing-side-panel');
         toggle.setAttribute('aria-expanded', 'false');
         setTimeout(() => {
@@ -378,7 +397,7 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
             panelColumn?.classList.remove('has-open-side-panel');
             app?.classList.remove('has-open-side-panel', 'is-collapsing-side-panel');
             panel.hidden = true;
-            legend.hidden = true;
+            if (!mobileMedia.matches) findButton.hidden = true;
             toggle.hidden = false;
             applyLocalizedAttributes(toggle);
             toggle.focus();
@@ -386,30 +405,30 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
     };
 
     const open = () => {
-        // show both side panels together and restore the default search section
+        // reopen the language browser with its search section active
         transitionId += 1;
         app?.classList.remove('is-collapsing-side-panel');
-        for (const sidebarPanel of [panel, legend]) {
-            sidebarPanel.hidden = false;
-            sidebarPanel.inert = false;
-            sidebarPanel.setAttribute('aria-hidden', 'false');
-        }
+        panel.hidden = false;
+        panel.inert = false;
+        panel.setAttribute('aria-hidden', 'false');
         toggle.hidden = true;
         toggle.setAttribute('aria-expanded', 'true');
         panelColumn?.classList.add('has-open-side-panel');
         app?.classList.add('has-open-side-panel');
+        findButton.hidden = interpretersOpen;
+        mobileFindButton.hidden = interpretersOpen;
         // open the language browser first, so the sidebar never starts empty
         setSection(searchToggle, searchRegion, true);
-        setSection(locationToggle, locationRegion, false);
+        setSection(locationToggle, locationRegion, !mobileMedia.matches);
         render();
         requestAnimationFrame(() => {
             panel.classList.add('is-visible');
-            legend.classList.add('is-visible');
         });
-        if (mobileMedia.matches) setMobileState('half');
+        if (mobileMedia.matches) setMobileState(interpretersOpen ? 'expanded' : 'half');
     };
 
     const activateSection = (which) => {
+        if (!mobileMedia.matches) return;
         // these work like radio buttons: opening one always closes the other
         clear();
         const searchOpen = which === 'search';
@@ -421,6 +440,83 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
             input.focus();
         }
     };
+
+    const setContext = (context, node = null) => {
+        currentContext = context || null;
+        findButton.disabled = !currentContext || !interpreterView;
+        mobileFindButton.disabled = findButton.disabled;
+        if (currentContext) interpreterView?.setContext?.(currentContext);
+        if (node) {
+            selectedFeatureIds = node.featureIds || [];
+            mapFocus?.highlight?.(selectedFeatureIds);
+            if (mobileMedia.matches && node.coordinates?.length) frameMobileSelection(node);
+            else if (node.coordinates?.length) mapFocus?.frame?.(node.coordinates, panel, RESULT_FRAME_GUTTER);
+        }
+    };
+    const setInterpreterState = (open, resetView = true) => {
+        interpretersOpen = open;
+        const mobile = mobileMedia.matches;
+        panel.setAttribute('data-en-aria-label', mobile ? open ? 'Find interpreters' : 'Menu' : 'Explore the language map');
+        panel.setAttribute('data-es-aria-label', mobile ? open ? 'Buscar intérpretes' : 'Menú' : 'Explorar el mapa de lenguas');
+        applyLocalizedAttributes(panel);
+        if (mobile && interpreterShell.parentElement !== panel) panel.append(interpreterShell);
+        if (!mobile && interpreterShell.parentElement !== panelColumn) panelColumn.prepend(interpreterShell);
+        panel.classList.toggle('is-interpreters-open', open);
+        panelColumn.classList.toggle('is-interpreters-open', open);
+        interpreterShell.hidden = !open;
+        interpreterShell.inert = !open;
+        interpreterShell.setAttribute('aria-hidden', String(!open));
+        mobileInterpreterBack.hidden = !open;
+        findButton.hidden = open;
+        mobileFindButton.hidden = open;
+        if (mobile) {
+            setMobileState(open ? 'expanded' : 'half');
+            grip.hidden = open;
+            expandButton.hidden = open;
+            minimizeButton.hidden = open;
+            for (const section of mobileSections) section.inert = open;
+            panel.querySelectorAll('.side-panel-header, .side-panel-section').forEach((item) => {
+                item.hidden = open;
+            });
+            const title = mobileHeader.querySelector('.mobile-sheet-title');
+            if (title) title.innerHTML = open
+                ? interpreterViewName === 'contact' || interpreterViewName === 'detail'
+                    ? '<span class="en" lang="en">Contact info</span><span class="es" lang="es">Información de contacto</span>'
+                    : '<span class="en" lang="en">Find interpreters</span><span class="es" lang="es">Buscar intérpretes</span>'
+                : '<span class="en" lang="en">Menu</span><span class="es" lang="es">Menú</span>';
+            mobileInterpreterBack.setAttribute('data-en-aria-label', interpreterViewName === 'detail' ? 'Back to interpreter list' : 'Back to menu');
+            mobileInterpreterBack.setAttribute('data-es-aria-label', interpreterViewName === 'detail' ? 'Volver a la lista de intérpretes' : 'Volver al menú');
+            applyLocalizedAttributes(mobileInterpreterBack);
+            applyLocalizedAttributes(panel);
+            if (open && resetView) interpreterView?.showList?.();
+        } else if (open) {
+            grip.hidden = false;
+            interpreterShell.classList.add('is-visible');
+            if (resetView) interpreterView?.showList?.();
+        } else {
+            grip.hidden = false;
+            interpreterShell.classList.remove('is-visible');
+        }
+        if (open && resetView) requestAnimationFrame(() => {
+            interpreterView?.setContext?.(currentContext);
+            (mobile ? mobileInterpreterBack : interpreterClose).focus();
+        });
+    };
+
+    for (const button of [findButton, mobileFindButton]) {
+        button.addEventListener('click', () => { if (currentContext) setInterpreterState(true); });
+    }
+    interpreterClose.addEventListener('click', () => { setInterpreterState(false); (panel.hidden ? toggle : findButton).focus(); });
+    interpreterBack.addEventListener('click', () => interpreterView?.back?.());
+    mobileInterpreterBack.addEventListener('click', () => {
+        if (interpreterViewName === 'contact' || interpreterViewName === 'detail') {
+            interpreterView?.back?.();
+            return;
+        }
+        interpreterView?.back?.();
+        setInterpreterState(false);
+        mobileFindButton.focus();
+    });
 
     toggle.addEventListener('click', open);
     closeButton.addEventListener('click', close);
@@ -507,22 +603,45 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
     grip.addEventListener('pointerup', endGripDrag);
     grip.addEventListener('pointercancel', endGripDrag);
     panel.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && interpretersOpen) {
+            event.preventDefault();
+            if (interpreterViewName === 'contact' || interpreterViewName === 'detail') interpreterView?.back?.();
+            else setInterpreterState(false);
+            return;
+        }
         if (mobileMedia.matches && event.key === 'Escape' && mobileState !== 'peek') {
             event.preventDefault();
             setMobileState('peek');
             grip.focus();
         }
     });
+    interpreterShell.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape' || !interpretersOpen) return;
+        event.preventDefault();
+        if (interpreterViewName === 'contact' || interpreterViewName === 'detail') interpreterView?.back?.();
+        else setInterpreterState(false);
+    });
     input.addEventListener('focus', () => setMobileState('expanded'));
     locationRegion.addEventListener('focusin', () => setMobileState('expanded'));
     document.getElementById('map')?.addEventListener('click', (event) => {
-        if (mobileMedia.matches && event.target.classList.contains('mapboxgl-canvas')) setMobileState('peek');
+        if (mobileMedia.matches && !interpretersOpen && event.target.classList.contains('mapboxgl-canvas')) setMobileState('peek');
     });
     const syncMode = () => {
         updateMobileViewport();
+        searchRegion.setAttribute('aria-labelledby', mobileMedia.matches ? 'language-search-toggle' : 'desktop-explore-label');
+        locationRegion.setAttribute('aria-labelledby', mobileMedia.matches ? 'location-search-toggle' : 'desktop-location-label');
+        setSection(searchToggle, searchRegion, true);
+        setSection(locationToggle, locationRegion, !mobileMedia.matches);
+        setInterpreterState(interpretersOpen, false);
+        if (!mobileMedia.matches) {
+            panel.querySelectorAll('.side-panel-header, .side-panel-section').forEach((item) => { item.hidden = false; });
+            mobileInterpreterBack.hidden = true;
+            expandButton.hidden = false;
+            minimizeButton.hidden = false;
+        }
         if (mobileMedia.matches) {
             if (panel.hidden || panel.inert || !panel.classList.contains('is-visible')) open();
-            else setMobileState('half');
+            else setMobileState(interpretersOpen ? 'expanded' : 'half');
         } else {
             panelColumn.removeAttribute('data-mobile-sheet-state');
             mobileSections.forEach((section) => { section.inert = false; });
@@ -534,8 +653,7 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
     window.addEventListener('resize', updateMobileViewport);
     window.visualViewport?.addEventListener('resize', updateMobileViewport);
     window.visualViewport?.addEventListener('scroll', updateMobileViewport);
-    // both visual panels share this controller, so they are always open or hidden together
-    // one search section also stays active while the sidebar is open
+    // keep the search results current while the menu is visible
     input.addEventListener('input', () => { clear(); render(); });
 
     // keep map highlights matched to whichever result the user is reading
@@ -567,6 +685,48 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
         childGroup.inert = !open;
         childGroup.setAttribute('aria-hidden', String(!open));
     };
+    const selectMapPoint = (feature) => {
+        const featureId = Number(feature?.id);
+        if (!Number.isFinite(featureId)) return;
+        const properties = feature.properties || {};
+        if (mobileMedia.matches && interpretersOpen) setInterpreterState(false);
+        const hadQuery = Boolean(input.value);
+        input.value = '';
+        if (panel.hidden || panel.inert) open();
+        else if (hadQuery) render();
+        if (mobileMedia.matches) {
+            setSection(searchToggle, searchRegion, true);
+            setSection(locationToggle, locationRegion, false);
+            setMobileState('expanded');
+        }
+
+        const placeRow = [...results.querySelectorAll('.side-panel-row--place')].find((row) =>
+            rendered[Number(row.dataset.resultId)]?.featureIds?.includes(featureId));
+        if (placeRow) {
+            const ancestors = [];
+            let parent = placeRow.parentElement?.parentElement;
+            while (parent && parent !== results) {
+                if (parent.classList.contains('side-panel-children')) ancestors.push(parent);
+                parent = parent.parentElement;
+            }
+            for (const group of ancestors.reverse()) {
+                if (!group.hidden) continue;
+                const ownerRow = group.previousElementSibling?.querySelector('.side-panel-row[data-result-id]');
+                const ownerNode = ownerRow && rendered[Number(ownerRow.dataset.resultId)];
+                if (ownerRow && ownerNode) toggleChildGroup(ownerRow, ownerNode);
+            }
+            markSelectedRow(placeRow);
+            requestAnimationFrame(() => placeRow.scrollIntoView({ block: 'center', inline: 'nearest' }));
+        }
+
+        setContext({
+            kind: 'place', family: properties.family || '', group: properties.group || '',
+            language: properties.language || '', place: properties.finalname || properties.name || '',
+            featureIds: [featureId]
+        });
+        selectedFeatureIds = [featureId];
+        mapFocus?.highlight?.(selectedFeatureIds);
+    };
     results.addEventListener('click', (event) => {
         const button = event.target.closest('[data-result-id]');
         const node = button && rendered[Number(button.dataset.resultId)];
@@ -576,13 +736,24 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
             toggleChildGroup(row, node);
             return;
         }
+        const context = { kind: node.kind, [node.kind]: node.label };
+        if (node.kind === 'place') context.featureIds = node.featureIds || [];
+        let parent = row.parentElement;
+        while (parent && parent !== results) {
+            const ancestor = parent.previousElementSibling?.querySelector?.('.side-panel-row[data-result-id]');
+            const ancestorNode = ancestor && rendered[Number(ancestor.dataset.resultId)];
+            if (ancestorNode && ['family', 'group', 'language'].includes(ancestorNode.kind) && !context[ancestorNode.kind]) {
+                context[ancestorNode.kind] = ancestorNode.label;
+            }
+            parent = parent.parentElement;
+        }
+        markSelectedRow(row);
+        setContext(context, node);
         if (mobileMedia.matches) {
-            if (node.coordinates?.length) frameMobileSelection(node);
-            else if (row.dataset.childId) toggleChildGroup(row, node);
+            if (!node.coordinates?.length && row.dataset.childId) toggleChildGroup(row, node);
             return;
         }
         if (row.dataset.childId) toggleChildGroup(row, node);
-        if (node.coordinates?.length) mapFocus?.frame?.(node.coordinates, panel, RESULT_FRAME_GUTTER);
     });
 
     render();
@@ -593,5 +764,24 @@ export function initSidePanel({ searchIndex, mapFocus } = {}) {
     });
     open();
     syncMode();
-    return { open, close };
+    const setInterpreterView = (view) => {
+        interpreterViewName = view || interpreterView?.getView?.() || 'list';
+        const detail = interpreterViewName === 'contact' || interpreterViewName === 'detail';
+        interpreterBack.hidden = !detail;
+        interpreterTitle.innerHTML = detail
+            ? '<span class="en" lang="en">Contact info</span><span class="es" lang="es">Información de contacto</span>'
+            : '<span class="en" lang="en">Find interpreters</span><span class="es" lang="es">Buscar intérpretes</span>';
+        applyLocalizedAttributes(interpreterBack);
+        if (mobileMedia.matches && interpretersOpen) {
+            const title = mobileHeader.querySelector('.mobile-sheet-title');
+            if (title) title.innerHTML = detail
+                ? '<span class="en" lang="en">Contact info</span><span class="es" lang="es">Información de contacto</span>'
+                : '<span class="en" lang="en">Find interpreters</span><span class="es" lang="es">Buscar intérpretes</span>';
+            mobileInterpreterBack.setAttribute('data-en-aria-label', detail ? 'Back to interpreter list' : 'Back to menu');
+            mobileInterpreterBack.setAttribute('data-es-aria-label', detail ? 'Volver a la lista de intérpretes' : 'Volver al menú');
+            applyLocalizedAttributes(mobileInterpreterBack);
+        }
+        if (interpretersOpen) requestAnimationFrame(() => (mobileMedia.matches ? mobileInterpreterBack : detail ? interpreterBack : interpreterClose).focus());
+    };
+    return { open, close, setContext: (context) => setContext(context), selectMapPoint, setInterpreterView };
 }

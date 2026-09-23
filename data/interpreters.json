@@ -1,0 +1,1522 @@
+{
+  "providers": [
+    {
+      "id": "big-language-solutions",
+      "name": "BIG Language Solutions",
+      "serviceType": "Interpretation service",
+      "oregonRelevance": "Remote option for Oregon",
+      "languagesPublished": "Akateko; Chuj; K'iche'; Mam; Mixteco; Zapoteco; additional languages",
+      "primarySourceUrl": "https://biglanguage.com/languages/",
+      "requestUrl": "https://biglanguage.com/services/interpretation-services/",
+      "phoneNumber": null,
+      "contactEmail": null
+    },
+    {
+      "id": "cal-interpreting-translations-cit",
+      "name": "Cal Interpreting & Translations (CIT)",
+      "serviceType": "Interpretation service",
+      "oregonRelevance": "Remote option for Oregon",
+      "languagesPublished": "Akateko; K'iche'; Mayan; Mixtec; Nahuatl; Q'anjob'al; Trique; Zapotec; additional languages",
+      "primarySourceUrl": "https://calinterpreting.com/services/interpreting-services/",
+      "requestUrl": "https://calinterpreting.com/request-quote/",
+      "phoneNumber": "888-737-9009",
+      "contactEmail": null
+    },
+    {
+      "id": "colibri-interpreters-collective",
+      "name": "Colibri Interpreters Collective",
+      "serviceType": "Interpretation service",
+      "oregonRelevance": "Remote option for Oregon",
+      "languagesPublished": "Mixteco; Nahuatl; Triqui; K'iche'; Mam",
+      "primarySourceUrl": "https://www.pueblostransnacionales.org/colibr-interpreters-collective",
+      "requestUrl": null,
+      "phoneNumber": null,
+      "contactEmail": "contact@pueblostrasnacionales.org"
+    },
+    {
+      "id": "collective-of-indigenous-interpreters-of-oregon-ciio",
+      "name": "Collective of Indigenous Interpreters of Oregon (CIIO)",
+      "serviceType": "Interpretation service",
+      "oregonRelevance": "Direct Oregon provider",
+      "languagesPublished": "K'iche'; Mam; Q'anjob'al; Akateko; Yucatec Maya; Purépecha; Zapotec; Q'eqchi'; Popti'; Chuj; Triqui",
+      "primarySourceUrl": "https://www.pueblounidopdx.org/collective-of-indigenous-interpreters-of-oregon",
+      "requestUrl": "https://www.pueblounidopdx.org/collective-of-indigenous-interpreters-of-oregon",
+      "phoneNumber": "503-360-0314",
+      "contactEmail": "puma@pueblounidopdx.org"
+    },
+    {
+      "id": "indigenous-interpreting-and-translation-services",
+      "name": "Indigenous Interpreting and Translation Services",
+      "serviceType": "Interpretation service",
+      "oregonRelevance": "Remote lead for Oregon",
+      "languagesPublished": "Mixteco; Triqui; (site wording should be reconfirmed)",
+      "primarySourceUrl": "https://www.indigenousinterpreters.com/",
+      "requestUrl": "https://www.indigenousinterpreters.com/",
+      "phoneNumber": null,
+      "contactEmail": "indigenousinterpreters@gmail.com"
+    },
+    {
+      "id": "international-language-bank",
+      "name": "International Language Bank",
+      "serviceType": "Interpretation service",
+      "oregonRelevance": "Direct Oregon provider",
+      "languagesPublished": "K'iche'; Mam; Mam Todos Santos; Mixteco Alto; Mixteco Bajo; Q'anjob'al;",
+      "primarySourceUrl": "https://irco.org/services/international-language-bank/",
+      "requestUrl": "https://form.jotform.com/50535521373147?",
+      "phoneNumber": "503-234-0068; remote 971-271-6489",
+      "contactEmail": "interpretation@ircoilb.org"
+    },
+    {
+      "id": "language-connection",
+      "name": "Language Connection",
+      "serviceType": "Interpretation service",
+      "oregonRelevance": "Direct Oregon provider",
+      "languagesPublished": "K'iche'; Q'eqchi'; Yucatec Maya; Mam; Mixtec; Nahuatl; Zapotec",
+      "primarySourceUrl": "https://languageconnectionpdx.com/",
+      "requestUrl": "https://languageconnectionpdx.com/schedule/",
+      "phoneNumber": "503-907-5599",
+      "contactEmail": null
+    },
+    {
+      "id": "languageline-solutions",
+      "name": "LanguageLine Solutions",
+      "serviceType": "Interpretation service",
+      "oregonRelevance": "Remote option for Oregon",
+      "languagesPublished": "K'iche'; Mam; Mixteco; Trique; Zapoteco; additional languages subject to availability",
+      "primarySourceUrl": "https://www.languageline.com/",
+      "requestUrl": "https://www.languageline.com/schedule-consultation?hsCtaTracking=f668179f-829c-45db-ac46-7bb6710c9e18%7C15018112-d0f6-4f98-ac12-2abcb001d624",
+      "phoneNumber": "800-752-6096",
+      "contactEmail": "CustomerCare@LanguageLine.com"
+    },
+    {
+      "id": "maya-bridge",
+      "name": "Maya Bridge",
+      "serviceType": "Interpretation service",
+      "oregonRelevance": "Remote option for Oregon",
+      "languagesPublished": "Q'eqchi'; K'iche'; other Maya languages by inquiry",
+      "primarySourceUrl": "https://www.mayabridge.org/about",
+      "requestUrl": "https://www.mayabridge.org/contact",
+      "phoneNumber": "801-753-8568",
+      "contactEmail": "mgmt@mayabridge.org"
+    },
+    {
+      "id": "maya-q-anjob-al-interpreting-services",
+      "name": "Maya Q'anjob'al Interpreting Services",
+      "serviceType": "Interpretation service",
+      "oregonRelevance": "Remote option for Oregon",
+      "languagesPublished": "Q'anjob'al; Spanish",
+      "primarySourceUrl": "https://www.mayaqis.com/services",
+      "requestUrl": "https://www.mayaqis.com/services",
+      "phoneNumber": "619-494-0704",
+      "contactEmail": "contact@mayaqis.com"
+    },
+    {
+      "id": "oregon-judicial-department-court-language-access-services",
+      "name": "Oregon Judicial Department Court Language Access Services",
+      "serviceType": "Interpretation service",
+      "oregonRelevance": "Direct Oregon court pathway",
+      "languagesPublished": "170+ languages overall; Mesoamerican languages available by request subject to scheduling",
+      "primarySourceUrl": "https://www.courts.oregon.gov/programs/interpreters/pages/default.aspx",
+      "requestUrl": "https://orjudicial.workflowcloud.com/forms/f8eb1f8b-cfeb-45ae-8218-c59045031a29",
+      "phoneNumber": null,
+      "contactEmail": "court.interpreter.program@ojd.state.or.us"
+    },
+    {
+      "id": "pixan-konob-interpreters",
+      "name": "Pixan Konob' Interpreters",
+      "serviceType": "Interpretation service",
+      "oregonRelevance": "Remote option for Oregon",
+      "languagesPublished": "Q'anjob'al",
+      "primarySourceUrl": "https://www.facebook.com/PixanKonobChampaign/",
+      "requestUrl": null,
+      "phoneNumber": "217-552-0612",
+      "contactEmail": "pixankonobchampaign@gmail.com"
+    }
+  ],
+  "languageProviders": [
+    {
+      "language": "Akateko",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Akateko",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Akateko",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "Akateko",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Akateko",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Akateko",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Alacatlatzala Mixtec",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Alacatlatzala Mixtec",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Alacatlatzala Mixtec",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Alacatlatzala Mixtec",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Alacatlatzala Mixtec",
+      "providerId": "international-language-bank"
+    },
+    {
+      "language": "Alacatlatzala Mixtec",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Alacatlatzala Mixtec",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Alacatlatzala Mixtec",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Alacatlatzala Mixtec",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Alcozauca Mixtec",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Alcozauca Mixtec",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Alcozauca Mixtec",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Alcozauca Mixtec",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Alcozauca Mixtec",
+      "providerId": "international-language-bank"
+    },
+    {
+      "language": "Alcozauca Mixtec",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Alcozauca Mixtec",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Alcozauca Mixtec",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Alcozauca Mixtec",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Cacaloxtepec Mixtec",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Cacaloxtepec Mixtec",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Cacaloxtepec Mixtec",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Cacaloxtepec Mixtec",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Cacaloxtepec Mixtec",
+      "providerId": "international-language-bank"
+    },
+    {
+      "language": "Cacaloxtepec Mixtec",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Cacaloxtepec Mixtec",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Cacaloxtepec Mixtec",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Cacaloxtepec Mixtec",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Central Guerrero Nahuatl",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Central Guerrero Nahuatl",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Central Guerrero Nahuatl",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Central Guerrero Nahuatl",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Central Guerrero Nahuatl",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Central Guerrero Nahuatl",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Central Puebla Nahuatl",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Central Puebla Nahuatl",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Central Puebla Nahuatl",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Central Puebla Nahuatl",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Central Puebla Nahuatl",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Central Puebla Nahuatl",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Chayuco Mixtec",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Chayuco Mixtec",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Chayuco Mixtec",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Chayuco Mixtec",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Chayuco Mixtec",
+      "providerId": "international-language-bank"
+    },
+    {
+      "language": "Chayuco Mixtec",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Chayuco Mixtec",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Chayuco Mixtec",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Chayuco Mixtec",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Chicahuaxtla Triqui",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Chicahuaxtla Triqui",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Chicahuaxtla Triqui",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "Chicahuaxtla Triqui",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Chicahuaxtla Triqui",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Chicahuaxtla Triqui",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Chicahuaxtla Triqui",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Chol",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Chol",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Chuj",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Chuj",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "Chuj",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Chuj",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Coatecas Altas Zapotec",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Coatecas Altas Zapotec",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Coatecas Altas Zapotec",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "Coatecas Altas Zapotec",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Coatecas Altas Zapotec",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Coatecas Altas Zapotec",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Coatecas Altas Zapotec",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Coatecas Altas Zapotec",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Comachuén-Turicuaro Purepecha",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "Comachuén-Turicuaro Purepecha",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Comachuén-Turicuaro Purepecha",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Comachuén-Turicuaro Purepecha",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Copala Triqui",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Copala Triqui",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Copala Triqui",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "Copala Triqui",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Copala Triqui",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Copala Triqui",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Copala Triqui",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Cuyamecalco Mixtec",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Cuyamecalco Mixtec",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Cuyamecalco Mixtec",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Cuyamecalco Mixtec",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Cuyamecalco Mixtec",
+      "providerId": "international-language-bank"
+    },
+    {
+      "language": "Cuyamecalco Mixtec",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Cuyamecalco Mixtec",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Cuyamecalco Mixtec",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Cuyamecalco Mixtec",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Eastern Huasteca Nahuatl",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Eastern Huasteca Nahuatl",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Eastern Huasteca Nahuatl",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Eastern Huasteca Nahuatl",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Eastern Huasteca Nahuatl",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Eastern Huasteca Nahuatl",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Guerrero Amuzgo",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Guerrero Amuzgo",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Highland Puebla Nahuatl",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Highland Puebla Nahuatl",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Highland Puebla Nahuatl",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Highland Puebla Nahuatl",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Highland Puebla Nahuatl",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Huaxcaleca Nahuatl",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Huaxcaleca Nahuatl",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Huaxcaleca Nahuatl",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Huaxcaleca Nahuatl",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Huaxcaleca Nahuatl",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Huaxcaleca Nahuatl",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Huichol",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Huichol",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Juxtlahuaca Mixtec",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Juxtlahuaca Mixtec",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Juxtlahuaca Mixtec",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Juxtlahuaca Mixtec",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Juxtlahuaca Mixtec",
+      "providerId": "international-language-bank"
+    },
+    {
+      "language": "Juxtlahuaca Mixtec",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Juxtlahuaca Mixtec",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Juxtlahuaca Mixtec",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Juxtlahuaca Mixtec",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "K'iche'",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "K'iche'",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "K'iche'",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "K'iche'",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "K'iche'",
+      "providerId": "international-language-bank"
+    },
+    {
+      "language": "K'iche'",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "K'iche'",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "K'iche'",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "K'iche'",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Lake Patzcuaro Islands and Western Shore",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "Lake Patzcuaro Islands and Western Shore",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Lake Patzcuaro Islands and Western Shore",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Lake Patzcuaro Islands and Western Shore",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Loxicha Zapotec",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Loxicha Zapotec",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Loxicha Zapotec",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "Loxicha Zapotec",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Loxicha Zapotec",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Loxicha Zapotec",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Loxicha Zapotec",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Mam",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Mam",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Mam",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "Mam",
+      "providerId": "international-language-bank"
+    },
+    {
+      "language": "Mam",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Mam",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Mam",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Mam",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Mam, Northern",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Mam, Northern",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Mam, Northern",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Mam, Southern",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Mam, Southern",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Mam, Southern",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "Mam, Southern",
+      "providerId": "international-language-bank"
+    },
+    {
+      "language": "Mam, Southern",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Mam, Southern",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Mam, Southern",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Mam, Southern",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Mam, Todos Santos Cuchumatán",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Mam, Todos Santos Cuchumatán",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Mam, Todos Santos Cuchumatán",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "Mam, Todos Santos Cuchumatán",
+      "providerId": "international-language-bank"
+    },
+    {
+      "language": "Mam, Todos Santos Cuchumatán",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Mam, Todos Santos Cuchumatán",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Mam, Todos Santos Cuchumatán",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Mam, Todos Santos Cuchumatán",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Metlatónoc Mixtec",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Metlatónoc Mixtec",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Metlatónoc Mixtec",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Metlatónoc Mixtec",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Metlatónoc Mixtec",
+      "providerId": "international-language-bank"
+    },
+    {
+      "language": "Metlatónoc Mixtec",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Metlatónoc Mixtec",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Metlatónoc Mixtec",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Metlatónoc Mixtec",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Mexican Sign Language",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Michoacán Mazahua",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Mixtepec Mixtec",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Mixtepec Mixtec",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Mixtepec Mixtec",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Mixtepec Mixtec",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Mixtepec Mixtec",
+      "providerId": "international-language-bank"
+    },
+    {
+      "language": "Mixtepec Mixtec",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Mixtepec Mixtec",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Mixtepec Mixtec",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Mixtepec Mixtec",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Nahuatl, Southeastern Puebla",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Nahuatl, Southeastern Puebla",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Nahuatl, Southeastern Puebla",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Nahuatl, Southeastern Puebla",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Nahuatl, Southeastern Puebla",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Nahuatl, Southeastern Puebla",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Northern Lake Patzcuaro Purepecha",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "Northern Lake Patzcuaro Purepecha",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Northern Lake Patzcuaro Purepecha",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Northern Lake Patzcuaro Purepecha",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Northern Tlaxiaco Mixtec",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Northern Tlaxiaco Mixtec",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Northern Tlaxiaco Mixtec",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Northern Tlaxiaco Mixtec",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Northern Tlaxiaco Mixtec",
+      "providerId": "international-language-bank"
+    },
+    {
+      "language": "Northern Tlaxiaco Mixtec",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Northern Tlaxiaco Mixtec",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Northern Tlaxiaco Mixtec",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Northern Tlaxiaco Mixtec",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Ocotlán Zapotec",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Ocotlán Zapotec",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Ocotlán Zapotec",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "Ocotlán Zapotec",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Ocotlán Zapotec",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Ocotlán Zapotec",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Ocotlán Zapotec",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Ocotlán Zapotec",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Orizaba Nahuatl",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Orizaba Nahuatl",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Orizaba Nahuatl",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Orizaba Nahuatl",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Orizaba Nahuatl",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Orizaba Nahuatl",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Ozolotepec Zapotec",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Ozolotepec Zapotec",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Ozolotepec Zapotec",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "Ozolotepec Zapotec",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Ozolotepec Zapotec",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Ozolotepec Zapotec",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Ozolotepec Zapotec",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Ozolotepec Zapotec",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Popti'",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "Popti'",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Popti'",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Purepecha",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "Purepecha",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Purepecha",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Purepecha",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Q'anjob'al",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Q'anjob'al",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "Q'anjob'al",
+      "providerId": "international-language-bank"
+    },
+    {
+      "language": "Q'anjob'al",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Q'anjob'al",
+      "providerId": "maya-q-anjob-al-interpreting-services"
+    },
+    {
+      "language": "Q'anjob'al",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Q'anjob'al",
+      "providerId": "pixan-konob-interpreters"
+    },
+    {
+      "language": "Q'eqchi'",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "Q'eqchi'",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Q'eqchi'",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Q'eqchi'",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Q'eqchi'",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "San Martín Itunyoso Triqui",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "San Martín Itunyoso Triqui",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "San Martín Itunyoso Triqui",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "San Martín Itunyoso Triqui",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "San Martín Itunyoso Triqui",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "San Martín Itunyoso Triqui",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "San Martín Itunyoso Triqui",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "San Miguel El Grande Mixtec",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "San Miguel El Grande Mixtec",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "San Miguel El Grande Mixtec",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "San Miguel El Grande Mixtec",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "San Miguel El Grande Mixtec",
+      "providerId": "international-language-bank"
+    },
+    {
+      "language": "San Miguel El Grande Mixtec",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "San Miguel El Grande Mixtec",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "San Miguel El Grande Mixtec",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "San Miguel El Grande Mixtec",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "San Pedro Amuzgos Amuzgo",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "San Pedro Amuzgos Amuzgo",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "San Vicente Coatlán Zapotec",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "San Vicente Coatlán Zapotec",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "San Vicente Coatlán Zapotec",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "San Vicente Coatlán Zapotec",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "San Vicente Coatlán Zapotec",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "San Vicente Coatlán Zapotec",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "San Vicente Coatlán Zapotec",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "San Vicente Coatlán Zapotec",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Santa María Yosoyúa Mixtec",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Santa María Yosoyúa Mixtec",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Santa María Yosoyúa Mixtec",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Santa María Yosoyúa Mixtec",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Santa María Yosoyúa Mixtec",
+      "providerId": "international-language-bank"
+    },
+    {
+      "language": "Santa María Yosoyúa Mixtec",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Santa María Yosoyúa Mixtec",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Santa María Yosoyúa Mixtec",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Santa María Yosoyúa Mixtec",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Sierra Negra Nahuatl",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Sierra Negra Nahuatl",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Sierra Negra Nahuatl",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Sierra Negra Nahuatl",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Sierra Negra Nahuatl",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Sierra Negra Nahuatl",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Southeastern Rarámuri",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Tezoatlán Mixtec",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Tezoatlán Mixtec",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Tezoatlán Mixtec",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Tezoatlán Mixtec",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Tezoatlán Mixtec",
+      "providerId": "international-language-bank"
+    },
+    {
+      "language": "Tezoatlán Mixtec",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Tezoatlán Mixtec",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Tezoatlán Mixtec",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Tezoatlán Mixtec",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Tlazoyaltepec Mixtec",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Tlazoyaltepec Mixtec",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Tlazoyaltepec Mixtec",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Tlazoyaltepec Mixtec",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Tlazoyaltepec Mixtec",
+      "providerId": "international-language-bank"
+    },
+    {
+      "language": "Tlazoyaltepec Mixtec",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Tlazoyaltepec Mixtec",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Tlazoyaltepec Mixtec",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Tlazoyaltepec Mixtec",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Tz'utujil",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Tzeltal",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Tzeltal",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Valle Nacional Chinantec",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Valle Nacional Chinantec",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Western Highland Purepecha",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Western Highland Purepecha",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Western Highland Purepecha",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Western Juxtlahuaca Mixtec",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Western Juxtlahuaca Mixtec",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Western Juxtlahuaca Mixtec",
+      "providerId": "colibri-interpreters-collective"
+    },
+    {
+      "language": "Western Juxtlahuaca Mixtec",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Western Juxtlahuaca Mixtec",
+      "providerId": "international-language-bank"
+    },
+    {
+      "language": "Western Juxtlahuaca Mixtec",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Western Juxtlahuaca Mixtec",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Western Juxtlahuaca Mixtec",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Western Juxtlahuaca Mixtec",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Western Tlacolula Valley Zapotec",
+      "providerId": "big-language-solutions"
+    },
+    {
+      "language": "Western Tlacolula Valley Zapotec",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Western Tlacolula Valley Zapotec",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "Western Tlacolula Valley Zapotec",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Western Tlacolula Valley Zapotec",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Western Tlacolula Valley Zapotec",
+      "providerId": "languageline-solutions"
+    },
+    {
+      "language": "Western Tlacolula Valley Zapotec",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Western Tlacolula Valley Zapotec",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Yucatec Maya",
+      "providerId": "cal-interpreting-translations-cit"
+    },
+    {
+      "language": "Yucatec Maya",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "Yucatec Maya",
+      "providerId": "language-connection"
+    },
+    {
+      "language": "Yucatec Maya",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Yucatec Maya",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    },
+    {
+      "language": "Zipiajo Purepecha",
+      "providerId": "collective-of-indigenous-interpreters-of-oregon-ciio"
+    },
+    {
+      "language": "Zipiajo Purepecha",
+      "providerId": "indigenous-interpreting-and-translation-services"
+    },
+    {
+      "language": "Zipiajo Purepecha",
+      "providerId": "maya-bridge"
+    },
+    {
+      "language": "Zipiajo Purepecha",
+      "providerId": "oregon-judicial-department-court-language-access-services"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+.interpreter-family,
+.interpreter-group,
+.interpreter-language,
+.interpreter-detail-name {
+    margin: 0.85rem 0 0.35rem;
+    color: var(--panel-text, #252525);
+    font-size: 0.95rem;
+    font-weight: 650;
+}
+
+.interpreter-family,
+.interpreter-group,
+.interpreter-language {
+    border-left: 3px solid var(--interpreter-family-color, #777a80);
+    padding-left: 0.55rem;
+}
+.interpreter-group,
+.interpreter-language,
+.interpreter-provider {
+    margin-inline-start: var(--interpreter-indent, 0px);
+}
+.interpreter-provider {
+    display: block;
+    width: calc(100% - var(--interpreter-indent, 0px));
+    border: 0;
+    border-radius: 0;
+    padding: 0.65rem 0.55rem;
+    background: transparent;
+    color: inherit;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+}
+.interpreter-provider {
+    border-left: 3px solid var(--interpreter-family-color, #777a80);
+}
+.interpreter-provider:hover,
+.interpreter-provider:focus-visible {
+    background: rgba(0, 0, 0, 0.07);
+    outline-offset: -2px;
+}
+.interpreter-status {
+    margin: 0.8rem 0;
+    color: #666;
+}
+.interpreter-detail-row {
+    margin: 0.7rem 0;
+    overflow-wrap: anywhere;
+}
+.interpreter-detail-row a {
+    color: inherit;
+}

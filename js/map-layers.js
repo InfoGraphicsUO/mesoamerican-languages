@@ -91,65 +91,6 @@ const siteIcons = [...FAMILIES, ...OTOMANGUEAN_GROUPS].flatMap(({ slug }) => Obj
     url: iconUrl(slug, shape) // file path, such as 'img/markers/mayan-plus.svg'
 })));
 
-function siteLegend(data) {
-    // creates info needed to display map legend
-
-    // collects language families that appear in map data
-    const present = new Set(data.features.map((f) => f.properties?.family || 'Unclassified'));
-
-    // collect ids and unique coordinates for one legend item
-    const itemsFor = (predicate) => data.features
-        .filter(predicate)
-        .reduce((result, feature) => {
-            result.featureIds.push(feature.id);
-            const coordinates = feature.geometry?.coordinates;
-            if (Array.isArray(coordinates) && coordinates.length >= 2) {
-                const key = `${coordinates[0]},${coordinates[1]}`;
-                if (!result.coordinateKeys.has(key)) {
-                    result.coordinateKeys.add(key);
-                    result.coordinates.push(coordinates.slice(0, 2));
-                }
-            }
-            return result;
-        }, { featureIds: [], coordinates: [], coordinateKeys: new Set() });
-
-    const withMatches = (item, predicate) => {
-        const matches = itemsFor(predicate);
-        return { ...item, featureIds: matches.featureIds, coordinates: matches.coordinates };
-    };
-
-    return [
-        {
-            title: localized('Language family', 'Familia lingüística'),
-            items: FAMILIES
-                .filter(({ name }) => present.has(name)) // show only families found in data
-                .map(({ name, label, slug }) => withMatches(
-                    { label, icon: iconUrl(slug, SHAPES.other) },
-                    (feature) => (feature.properties?.family || 'Unclassified') === name
-                ))
-        },
-        {
-            title: localized('Otomanguean groups', 'Grupos otomangues'),
-            items: OTOMANGUEAN_GROUPS
-                .filter(({ name }) => data.features.some((feature) =>
-                    feature.properties?.family === 'Otomanguean' && feature.properties?.group === name))
-                .map(({ name, slug }) => withMatches(
-                    { label: name, icon: iconUrl(slug, SHAPES.other) },
-                    (feature) => feature.properties?.family === 'Otomanguean' && feature.properties?.group === name
-                ))
-        },
-        {
-            title: localized('Respondent location type', 'Localización del idioma'),
-            items: [
-                withMatches({ label: localized('Community of origin', 'Comunidad de origen'), icon: iconUrl('unclassified', SHAPES.origin) },
-                    (feature) => feature.properties?.reportedOriginPlace === true), // plus icon
-                withMatches({ label: localized('Mutually understood community', 'Comunidad de entendimiento mutuo'), icon: iconUrl('unclassified', SHAPES.other) },
-                    (feature) => feature.properties?.reportedOriginPlace !== true) // circle icon
-            ]
-        }
-    ];
-}
-
 function familyHullColorExpression() {
     // turn each family name into the fill color used by its suggested area
     const expression = ['match', ['get', 'family']];
@@ -195,8 +136,6 @@ function familyHullPopup(event, features) {
 }
 
 export async function addMapLayers() {
-    const sections = []; // init empty list for legend sections
-
     // load the geojson file containing language locations, add to map as datasource
     const sites = await addGeojsonSource('sites', `${PATHS.data}/attested-sites-with-family.geojson`);
     const hulls = buildFamilyHullCollection(sites);
@@ -251,7 +190,5 @@ export async function addMapLayers() {
     hoverPopup('sites', sitePopup); // connect sitePopup func to layer, for hovering
     clickPopup('sites', (_event, features) => features[0] ? sitePopup(features[0]) : '', { touchOnly: true });
     clickPopup('family-hulls-fill', familyHullPopup); // suggest families on empty-area clicks
-    sections.push(...siteLegend(sites)); // create legend info and add sections
-
-    return { sites, hulls, sections }; // callers need source data and legend metadata
+    return { sites, hulls };
 }

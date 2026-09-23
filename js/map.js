@@ -100,7 +100,7 @@ export function labelLayerId() {
     )?.id;
 }
 
-// fetch geojson, register it w/ mapbox, and return the parsed data for legends/search
+// fetch geojson for map layers and the language browser
 export async function addGeojsonSource(id, url) {
     // id: name mapbox uses for the source
     // url: location of the geojson file
@@ -125,7 +125,7 @@ export async function addGeojsonSource(id, url) {
         data 
     });
 
-    return data; // parsed geojson for the caller to build layers and legends
+    return data; // parsed features also feed the language browser
 }
 
 function loadImage(url) {

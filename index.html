@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/search.css">
     <link rel="stylesheet" href="css/side-panel.css">
-    <link rel="stylesheet" href="css/legend.css">
+    <link rel="stylesheet" href="css/interpreters-panel.css">
     <link rel="stylesheet" href="css/popup.css">
 
     <script type="module" src="js/main.js"></script>
@@ -33,14 +33,14 @@
             data-es-aria-label="Mapa interactivo de lenguas mesoamericanas"
             aria-label="Interactive map of Mesoamerican languages"></div>
         <div class="panel has-open-side-panel">
-            <button id="side-panel-toggle" class="panel-toggle" type="button" aria-expanded="true" aria-controls="side-panel legend"
+            <button id="side-panel-toggle" class="panel-toggle" type="button" aria-expanded="true" aria-controls="side-panel"
                 data-en-aria-label="Expand sidebar" data-es-aria-label="Expandir panel lateral"
                 aria-label="Expand sidebar" hidden>
                 <i class="fa-sharp fa-regular fa-bars-filter" aria-hidden="true"></i>
             </button>
             <aside id="side-panel" class="hoverBox side-panel is-visible"
-                data-en-aria-label="Menu" data-es-aria-label="Menú"
-                aria-label="Menu" aria-hidden="false">
+                data-en-aria-label="Explore the language map" data-es-aria-label="Explorar el mapa de lenguas"
+                aria-label="Explore the language map" aria-hidden="false">
                 <div class="mobile-sheet-header">
                     <button id="mobile-sheet-grip" class="mobile-sheet-grip" type="button" aria-controls="side-panel"
                         data-en-aria-label="Expand Menu" data-es-aria-label="Ampliar menú"
@@ -56,6 +56,9 @@
                             <span class="mobile-language-option mobile-language-option-en">EN</span>
                             <span class="mobile-language-option mobile-language-option-es">ES</span>
                         </button>
+                        <button id="mobile-interpreters-back" class="mobile-sheet-action" type="button" aria-label="Back to menu" hidden>
+                            <i class="fa-sharp fa-light fa-arrow-left" aria-hidden="true"></i>
+                        </button>
                         <button id="mobile-sheet-expand" class="mobile-sheet-action" type="button" aria-controls="side-panel"
                             data-en-aria-label="Expand Menu" data-es-aria-label="Ampliar menú"
                             aria-label="Expand Menu">
@@ -69,8 +72,8 @@
                     </div>
                 </div>
                 <div class="side-panel-header">
-                    <span class="side-panel-title">
-                        <span class="en" lang="en">Menu</span><span class="es" lang="es">Menú</span>
+                    <span class="side-panel-title" id="desktop-explore-label">
+                        <span class="en" lang="en">Explore the language map</span><span class="es" lang="es">Explorar el mapa de lenguas</span>
                     </span>
                     <button id="side-panel-close" class="side-panel-close" type="button"
                         data-en-aria-label="Collapse sidebar" data-es-aria-label="Contraer panel lateral"
@@ -78,7 +81,7 @@
                         <i class="fa-sharp fa-light fa-angles-left" aria-hidden="true"></i>
                     </button>
                 </div>
-                <section class="side-panel-section is-open">
+                <section class="side-panel-section side-panel-section--explore is-open">
                     <button class="side-panel-accordion is-open" type="button" id="language-search-toggle" aria-expanded="true" aria-controls="language-search-region" aria-describedby="language-result-key-description">
                         <i class="side-panel-section-icon fa-sharp fa-light fa-atlas" aria-hidden="true"></i>
                         <span class="side-panel-accordion-label">
@@ -117,7 +120,7 @@
                         <div id="language-search-results" class="side-panel-results"></div>
                     </div>
                 </section>
-                <section class="side-panel-section">
+                <section class="side-panel-section side-panel-section--location">
                     <button class="side-panel-accordion" type="button" id="location-search-toggle" aria-expanded="false" aria-controls="location-search-region">
                         <i class="side-panel-section-icon fa-sharp fa-light fa-location-dot" aria-hidden="true"></i>
                         <span class="side-panel-accordion-label">
@@ -125,6 +128,10 @@
                         </span>
                         <i class="side-panel-chevron fa-sharp fa-light fa-chevron-down" aria-hidden="true"></i>
                     </button>
+                    <span class="desktop-location-label" id="desktop-location-label">
+                        <i class="fa-sharp fa-light fa-location-dot" aria-hidden="true"></i>
+                        <span class="en" lang="en">Zoom to location</span><span class="es" lang="es">Ir a una ubicación</span>
+                    </span>
                     <div id="location-search-region" class="side-panel-region" role="region" aria-labelledby="location-search-toggle" aria-hidden="true" hidden inert>
                         <div id="location-search"
                             data-en-aria-label="Search for a location"
@@ -132,12 +139,25 @@
                             aria-label="Search for a location"></div>
                     </div>
                 </section>
+                <button id="find-interpreters" class="find-interpreters" type="button" disabled>
+                    <i class="fa-solid fa-language" aria-hidden="true"></i>
+                    <span class="en" lang="en">Find interpreters</span><span class="es" lang="es">Buscar intérpretes</span>
+                </button>
+                <aside id="interpreters-shell" class="interpreters-shell hoverBox" hidden inert aria-hidden="true" data-en-aria-label="Find interpreters" data-es-aria-label="Buscar intérpretes" aria-label="Find interpreters">
+                    <div class="interpreters-shell-header">
+                        <button id="interpreters-back" type="button" hidden data-en-aria-label="Back to interpreter list" data-es-aria-label="Volver a la lista de intérpretes" aria-label="Back to interpreter list"><i class="fa-sharp fa-light fa-arrow-left" aria-hidden="true"></i></button>
+                        <span id="interpreters-title"><span class="en" lang="en">Find interpreters</span><span class="es" lang="es">Buscar intérpretes</span></span>
+                    </div>
+                    <button id="interpreters-close" class="interpreters-close" type="button" aria-label="Close interpreters" data-en-aria-label="Close interpreters" data-es-aria-label="Cerrar intérpretes">
+                        <i class="fa-sharp fa-light fa-xmark" aria-hidden="true"></i>
+                    </button>
+                    <div id="interpreters-view" class="interpreters-view"></div>
+                </aside>
             </aside>
-            <aside id="legend" class="hoverBox legend is-visible"
-                data-en-aria-label="Map legend" data-es-aria-label="Leyenda del mapa"
-                aria-label="Map legend" aria-hidden="false">
-                <div class="legend-content"></div>
-            </aside>
+            <button id="find-interpreters-mobile" class="find-interpreters" type="button" disabled data-en-aria-label="Find interpreters" data-es-aria-label="Buscar intérpretes" aria-label="Find interpreters">
+                <i class="fa-sharp fa-light fa-language" aria-hidden="true"></i>
+                <span class="en" lang="en">Find interpreters</span><span class="es" lang="es">Buscar intérpretes</span>
+            </button>
         </div>
     </main>
 </body>
