@@ -30,15 +30,7 @@ const usableUrl = (value) => {
     catch { return ''; }
 };
 const normalize = (value) => String(value ?? '').trim();
-const tier = (provider) => {
-    const relevance = normalize(provider.oregonRelevance).toLowerCase();
-    // remote rows also mention Oregon, so check them before the referral tier
-    if (/direct/.test(relevance)) return 0;
-    if (/remote|out.of.state|national/.test(relevance)) return 2;
-    if (/oregon/.test(relevance)) return 1;
-    return 3;
-};
-const sortedProviders = (providers) => [...providers].sort((a, b) => tier(a) - tier(b) || normalize(a.name).localeCompare(normalize(b.name)));
+const sortedProviders = (providers) => [...providers].sort((a, b) => normalize(a.name).localeCompare(normalize(b.name)));
 
 function findPath(tree, context = {}) {
     let result = null;
@@ -47,7 +39,7 @@ function findPath(tree, context = {}) {
             const next = [...path, node];
             const family = next.find((item) => item.kind === 'family')?.label;
             const group = next.find((item) => item.kind === 'group')?.label;
-            // the search tree skips group headings that repeat their family name
+            // Search results omit group headings when they repeat their family name.
             const scoped = (!context.family || context.family === family) &&
                 (!context.group || context.group === group || (!group && context.group === family));
             if (scoped && context.kind === 'place' && node.kind === 'place' &&
@@ -65,8 +57,8 @@ export function createInterpreterView({ container, snapshot, taxonomy, onViewCha
     let context = null;
     let view = 'list';
     let selectedProvider = null;
-    const languageLinks = Array.isArray(snapshot?.languageProviders) ? snapshot.languageProviders : [];
     const providerById = new Map((snapshot?.providers || []).map((provider) => [String(provider.id), provider]));
+    const languageLinks = Array.isArray(snapshot?.languageProviders) ? snapshot.languageProviders : [];
     const element = (tag, className, text) => {
         const node = document.createElement(tag);
         if (className) node.className = className;
@@ -80,83 +72,47 @@ export function createInterpreterView({ container, snapshot, taxonomy, onViewCha
     };
     const setView = (next) => { if (view !== next) { view = next; onViewChange?.(view); } };
     const matchingProviders = (language) => {
-        // workbook links supply matches while the map tree owns their hierarchy
         const ids = new Set(languageLinks.filter((link) => link.language === language).map((link) => String(link.providerId)));
-        return sortedProviders([...ids].map((id) => providerById.get(id)).filter(Boolean));
+        return [...ids].map((id) => providerById.get(id)).filter(Boolean);
     };
-    const indent = (node, depth) => {
-        node.style.setProperty('--interpreter-indent', `${depth * 0.8}rem`);
-        return node;
-    };
-    const providerButton = (provider, language, depth = 0) => {
-        const button = element('button', 'interpreter-provider', normalize(provider.name));
-        const languageNode = findPath(taxonomy, { kind: 'language', language })?.at(-1);
-        if (languageNode?.familyColor) button.style.setProperty('--interpreter-family-color', languageNode.familyColor);
+    const languagesIn = (nodes) => (nodes || []).flatMap((node) => node.kind === 'language'
+        ? [node.label]
+        : languagesIn(node.children));
+    const providerButton = (provider) => {
+        const button = element('button', 'interpreter-provider');
         button.type = 'button';
+        const name = element('span', 'interpreter-provider-name', normalize(provider.name));
+        const relevance = normalize(provider.oregonRelevance);
+        button.append(name);
+        if (relevance) button.append(element('span', 'interpreter-provider-relevance', enumText('relevance', relevance)));
         button.addEventListener('click', () => { selectedProvider = provider; renderDetail(); });
-        return indent(button, depth);
-    };
-    const renderProviderList = (parent, languages, depth = 0) => {
-        let count = 0;
-        for (const language of languages) {
-            const providers = matchingProviders(language);
-            if (!providers.length) continue;
-            count += providers.length;
-            const heading = element('h3', 'interpreter-language', language);
-            const languageNode = findPath(taxonomy, { kind: 'language', language })?.at(-1);
-            if (languageNode?.familyColor) heading.style.setProperty('--interpreter-family-color', languageNode.familyColor);
-            parent.append(indent(heading, depth));
-            for (const provider of providers) parent.append(providerButton(provider, language, depth + 1));
-        }
-        return count;
+        return button;
     };
     const renderList = () => {
         setView('list');
         container.replaceChildren();
         if (error || !snapshot) { container.append(status(label('error'))); return; }
         const path = findPath(taxonomy, context || {});
-        const familyNames = context?.families?.length ? context.families : path?.filter((node) => node.kind === 'family').map((node) => node.label) || [];
-        const familyNodes = (taxonomy || []).filter((node) => familyNames.includes(node.label));
-        let matchCount = 0;
+        let languages = [];
         if (context?.kind === 'family') {
-            const ambiguous = familyNodes.length > 1;
-            for (const family of familyNodes) {
-                const depth = ambiguous ? 1 : 0;
-                if (ambiguous) {
-                    const heading = element('h2', 'interpreter-family', family.displayLabel || family.label);
-                    if (family.familyColor) heading.style.setProperty('--interpreter-family-color', family.familyColor);
-                    container.append(heading);
-                }
-                for (const child of family.children || []) {
-                    if (child.kind === 'language') {
-                        if (!matchingProviders(child.label).length) continue;
-                        matchCount += renderProviderList(container, [child.label], depth);
-                        continue;
-                    }
-                    if (child.kind !== 'group') continue;
-                    const languages = (child.children || []).filter((node) => node.kind === 'language' && matchingProviders(node.label).length);
-                    if (!languages.length) continue;
-                    const heading = element('h3', 'interpreter-group', child.label);
-                    if (child.familyColor) heading.style.setProperty('--interpreter-family-color', child.familyColor);
-                    container.append(indent(heading, depth));
-                    matchCount += renderProviderList(container, languages.map((node) => node.label), depth + 1);
-                }
-            }
+            const familyNames = context.families?.length
+                ? context.families
+                : path?.filter((node) => node.kind === 'family').map((node) => node.label) || [];
+            languages = (taxonomy || []).filter((node) => familyNames.includes(node.label)).flatMap((node) => languagesIn(node.children));
         } else if (context?.kind === 'group') {
-            const group = path?.find((node) => node.kind === 'group');
-            const languages = (group?.children || []).filter((node) => node.kind === 'language' && matchingProviders(node.label).length);
-            matchCount = renderProviderList(container, languages.map((node) => node.label));
-        } else {
-            let language = context?.kind === 'language' ? context.language : '';
-            // map marker taps carry the language even when a place path is missing
-            if (context?.kind === 'place') language = path?.find((node) => node.kind === 'language')?.label || context.language || '';
-            if (language) {
-                const providers = matchingProviders(language);
-                providers.forEach((provider) => container.append(providerButton(provider, language)));
-                matchCount = providers.length;
-            }
+            languages = languagesIn([path?.find((node) => node.kind === 'group')].filter(Boolean));
+        } else if (context?.kind === 'language') {
+            languages = [context.language || context[context.kind]].filter(Boolean);
+        } else if (context?.kind === 'place') {
+            // Marker selections carry their language even if no place node matches the tree.
+            languages = [path?.find((node) => node.kind === 'language')?.label || context.language || ''].filter(Boolean);
         }
-        if (!matchCount) container.append(status(label('none')));
+
+        // The old hierarchy repeated providers across language headings; union scoped matches into one flat list.
+        const ids = new Set(languages.flatMap((language) => matchingProviders(language).map((provider) => String(provider.id))));
+        const providers = sortedProviders([...ids].map((id) => providerById.get(id)).filter(Boolean));
+        if (providers.length) providers.forEach((provider) => container.append(providerButton(provider)));
+        else container.append(status(label('none')));
     };
     const field = (parent, key, value, link) => {
         if (!normalize(value)) return;

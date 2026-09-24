@@ -492,6 +492,15 @@
     background-color: rgb(149 37 209 / 10%);
     box-shadow: inset 0 0 0 2px var(--accent-bright);
 }
+.side-panel-row--family.is-selected {
+    background-color: color-mix(in srgb, var(--accent-bright) 10%, rgb(239 242 236));
+}
+.side-panel-row--group.is-selected {
+    background-color: color-mix(in srgb, var(--accent-bright) 10%, rgb(237 239 235));
+}
+.side-panel-row--language.is-selected {
+    background-color: color-mix(in srgb, var(--accent-bright) 10%, rgb(252 252 248));
+}
 .side-panel-row--family:hover {
     background-color: color-mix(in srgb, var(--family-color, rgb(25 34 29)) 10%, rgb(239 242 236));
 }
