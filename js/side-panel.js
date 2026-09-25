@@ -456,8 +456,8 @@ export function initSidePanel({ searchIndex, mapFocus, interpreterView } = {}) {
     const setInterpreterState = (open, resetView = true) => {
         interpretersOpen = open;
         const mobile = mobileMedia.matches;
-        panel.setAttribute('data-en-aria-label', mobile ? open ? 'Find interpreters' : 'Menu' : 'Explore the language map');
-        panel.setAttribute('data-es-aria-label', mobile ? open ? 'Buscar intérpretes' : 'Menú' : 'Explorar el mapa de lenguas');
+        panel.setAttribute('data-en-aria-label', mobile ? open ? 'Find interpreters' : 'Menu' : 'Languages');
+        panel.setAttribute('data-es-aria-label', mobile ? open ? 'Buscar intérpretes' : 'Menú' : 'Mapa lingüístico');
         applyLocalizedAttributes(panel);
         if (mobile && interpreterShell.parentElement !== panel) panel.append(interpreterShell);
         if (!mobile && interpreterShell.parentElement !== panelColumn) panelColumn.prepend(interpreterShell);
