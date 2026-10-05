@@ -19,16 +19,33 @@ export const OTOMANGUEAN_GROUPS = [
     { name: 'Zapotec', slug: 'zapotec' }
 ];
 
-// marker shape is decided by reportedOriginPlace. plus = true, circle = false/missing
+// hosted feature layer w/ the attested sites, published from Attested_Sites_With_Family.shp
+const SITES_URL = 'https://services5.arcgis.com/W1uyphp8h2tna3qJ/arcgis/rest/services/Attested_Sites_With_Family/FeatureServer';
+
+// field names on the feature layer, they come from the shapefile so some are cut off at 10 characters
+// the survey's own iso_code and glottocode cover sites that never got matched to a language
+const FIELDS = {
+    name: 'final_name',
+    language: 'Language',
+    isoCode: 'ISO_Code_1',
+    glottocode: 'Glotto_Cod',
+    surveyIsoCode: 'iso_code',
+    surveyGlottocode: 'glottocode',
+    family: 'Family',
+    group: 'Group_',
+    country: 'country',
+    adminArea: 'admin_area',
+    placeRole: 'place_role'
+};
+
+// place_role value for sites that were reported as a town of origin
+const ORIGIN_ROLE = 'town_origin';
+
+// marker shape is decided by place_role. plus = town of origin, circle = anything else
 const SHAPES = [
     { shape: 'plus', label: 'reported origin place' },
     { shape: 'circle', label: 'attested site' }
 ];
-
-// properties on every site in the geojson
-// the sdk drops true/false properties when it guesses field types, so the fields are listed here
-// reportedOriginPlace comes thru as the text 'true' or 'false'
-const SITE_FIELDS = ['name', 'language', 'isoCode', 'glottocode', 'family', 'group', 'country', 'adminArea', 'reportedOriginPlace'];
 
 // marker svgs are drawn at 28px, they shrink a little as you zoom out
 const ICON_SIZE = 28;
@@ -46,13 +63,16 @@ const decodePairs = (items) => items.map(({ name, slug }) => `'${name}', '${slug
 
 // arcade that names the marker for each site, such as 'mayan-plus' or 'mixtec-circle'
 // Otomanguean sites use their group marker, the family marker covers other or missing groups
+// sites w/o a family in the data draw as Unclassified
 const MARKER_EXPRESSION = `
-    var slug = Decode($feature.family, ${decodePairs(FAMILIES)}, '');
-    if ($feature.family == 'Otomanguean') {
-        slug = Decode($feature['group'], ${decodePairs(OTOMANGUEAN_GROUPS)}, slug);
+    var family = Trim(DefaultValue($feature['${FIELDS.family}'], ''));
+    if (family == '') { family = 'Unclassified'; }
+    var slug = Decode(family, ${decodePairs(FAMILIES)}, '');
+    if (family == 'Otomanguean') {
+        slug = Decode(Trim(DefaultValue($feature['${FIELDS.group}'], '')), ${decodePairs(OTOMANGUEAN_GROUPS)}, slug);
     }
     if (slug == '') { return null; }
-    return slug + IIf($feature.reportedOriginPlace == 'true', '-plus', '-circle');
+    return slug + IIf($feature['${FIELDS.placeRole}'] == '${ORIGIN_ROLE}', '-plus', '-circle');
 `;
 
 function siteRenderer() {
@@ -86,41 +106,39 @@ function siteRenderer() {
 
 function sitePopup(feature) {
     // creates the info box that appears when you hover over a language site
-    const p = feature.attributes || {}; // one map feature, one location from geojson data
+    const attributes = feature.attributes || {}; // one map feature, one location from the feature layer
+
+    // read one field as trimmed text, empty fields come back as ''
+    const value = (field) => String(attributes[field] ?? '').trim();
 
     // build the popup HTML
     // includes alternatives if no data exist (||)
     return hoverBox({
-        title: p.name || 'Attested site',
-        subtitle: p.language || 'Language not recorded',
+        title: value(FIELDS.name) || 'Attested site',
+        subtitle: value(FIELDS.language) || 'Language not recorded',
         rows: [
-            ['Family', p.family === 'Unclassified' ? '' : p.family], // dont show Unclassified as a useful detail
-            ['Group', p.group],
-            ['ISO 639-3', p.isoCode],
-            ['Glottocode', p.glottocode],
-            ['Area', p.adminArea],
-            ['Country', p.country]
+            ['Family', value(FIELDS.family)],
+            ['Group', value(FIELDS.group)],
+            ['ISO 639-3', value(FIELDS.isoCode) || value(FIELDS.surveyIsoCode)],
+            ['Glottocode', value(FIELDS.glottocode) || value(FIELDS.surveyGlottocode)],
+            ['Area', value(FIELDS.adminArea)],
+            ['Country', value(FIELDS.country)]
         ]
     });
 }
 
 export async function addMapLayers(view) {
-    const GeoJSONLayer = await $arcgis.import('@arcgis/core/layers/GeoJSONLayer.js');
+    const FeatureLayer = await $arcgis.import('@arcgis/core/layers/FeatureLayer.js');
 
     // language sites, operational layers draw below the basemap's labels
-    const sites = new GeoJSONLayer({
+    const sites = new FeatureLayer({
         id: 'sites',
         title: 'Attested language sites',
-        url: `${PATHS.data}/attested-sites-with-family.geojson`,
+        url: SITES_URL, // w/o a layer number the sdk uses the service's first layer
         copyright: 'UO InfoGraphics Lab',
-        objectIdField: 'OBJECTID', // source data has no ids, the sdk numbers features by their position in the file
-        fields: [
-            { name: 'OBJECTID', type: 'oid' },
-            ...SITE_FIELDS.map((name) => ({ name, type: 'string' }))
-        ],
         opacity: 0.9,
         renderer: siteRenderer(),
-        outFields: ['*'], // popup rows need every property
+        outFields: Object.values(FIELDS), // only ask the service for the fields the markers and popups use
         popupEnabled: false // js/popup.js draws our own popups instead of the sdk's
     });
 

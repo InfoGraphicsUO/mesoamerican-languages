@@ -18,9 +18,8 @@ export const MAP = {
     ]
 };
 
-// store folders used to build data and marker urls
+// store folders used to build marker urls
 export const PATHS = {
-    data: 'data',
     markers: 'img/markers'
 };
 
