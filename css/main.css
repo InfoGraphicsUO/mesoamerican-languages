@@ -1,0 +1,20 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+.app,
+#map {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+/* the map element has no size of its own, so it needs to fill the page */
+#map {
+    display: block;
+}

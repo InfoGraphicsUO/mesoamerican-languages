@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Mesoamerican Languages</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+    <!-- ArcGIS Maps SDK for JavaScript, loads the map components used below -->
+    <link rel="stylesheet" href="https://js.arcgis.com/5.1/esri/themes/light/main.css">
+    <script type="module" src="https://js.arcgis.com/5.1/"></script>
+
+    <link rel="stylesheet" href="css/main.css">
+
+    <script type="module" src="js/main.js"></script>
+</head>
+
+<body>
+    <main class="app">
+        <!-- basemap, center, and zoom get set from MAP in js/map.js -->
+        <arcgis-map id="map" aria-label="Interactive map">
+            <arcgis-zoom slot="top-left"></arcgis-zoom>
+            <arcgis-home slot="top-left"></arcgis-home>
+        </arcgis-map>
+    </main>
+</body>
+
+</html>
