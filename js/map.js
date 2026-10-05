@@ -18,6 +18,12 @@ export const MAP = {
     ]
 };
 
+// store folders used to build data and marker urls
+export const PATHS = {
+    data: 'data',
+    markers: 'img/markers'
+};
+
 // the <arcgis-map> element in index.html
 export const mapElement = document.querySelector('arcgis-map');
 
