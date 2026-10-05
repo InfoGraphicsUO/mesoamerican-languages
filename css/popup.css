@@ -1,0 +1,136 @@
+/* hover boxes, markup comes from js/popup.js */
+.map-popup {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    max-width: min(320px, calc(100% - 1rem));
+    font-family: var(--font);
+    color: var(--text);
+    pointer-events: none; /* hover popups shouldnt block the map under them */
+    will-change: transform;
+}
+
+.map-popup[hidden] {
+    display: none;
+}
+
+.map-popup-interactive {
+    pointer-events: auto;
+}
+
+/* popup sits under the feature when there isnt room above it */
+.map-popup-below {
+    flex-direction: column-reverse;
+}
+
+.map-popup-content {
+    position: relative;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    backdrop-filter: var(--blur);
+    transform-origin: center bottom;
+    animation: popup-enter var(--motion-duration) var(--motion-ease) both;
+}
+
+.map-popup-below .map-popup-content {
+    transform-origin: center top;
+}
+
+@keyframes popup-enter {
+    from {
+        opacity: 0;
+        transform: translateY(.3rem) scale(.985);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* tip is drawn with borders, --tip-x is set by js so it keeps pointing at the feature */
+.map-popup-tip {
+    width: 0;
+    height: 0;
+    margin-left: calc(var(--tip-x, 50%) - 8px);
+    border: 8px solid transparent;
+    border-bottom: 0;
+    border-top-color: var(--surface);
+}
+
+.map-popup-below .map-popup-tip {
+    border: 8px solid transparent;
+    border-top: 0;
+    border-bottom-color: var(--surface);
+}
+
+.map-popup-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1.75rem;
+    height: 1.75rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--text-muted);
+    font: inherit;
+    font-size: var(--text-lg);
+    line-height: 1;
+    cursor: pointer;
+}
+
+.map-popup-close:hover {
+    color: var(--text);
+}
+
+/* leave room for the close button beside the title */
+.map-popup-interactive .popup h2 {
+    padding-right: 1.25rem;
+}
+
+.popup {
+    min-width: 12rem;
+}
+
+.popup h2 {
+    margin: 0;
+    font-size: var(--text-lg);
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.popup-subtitle {
+    margin: 0.2rem 0 0;
+    font-size: var(--text-sm);
+}
+
+.popup-details {
+    margin: 0.5rem 0 0;
+}
+
+.popup-details div {
+    display: flex;
+    gap: var(--space-xs);
+    font-size: var(--text-xs);
+    line-height: 1.35;
+}
+
+.popup-details dt {
+    flex: none;
+    color: var(--text-muted);
+}
+
+.popup-details dt::after {
+    content: ":";
+}
+
+.popup-details dd {
+    margin: 0;
+    color: var(--text-soft);
+}

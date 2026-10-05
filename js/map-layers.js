@@ -1,4 +1,5 @@
 import { MAP, PATHS } from './map.js';
+import { hoverPopup, clickPopup, hoverBox } from './popup.js';
 
 // language families in the mapped data, slug matches the marker file names
 export const FAMILIES = [
@@ -83,37 +84,24 @@ function siteRenderer() {
     };
 }
 
-function sitePopupContent({ graphic }) {
-    // builds the detail list for one site, skipping rows that have no useful info
-    const p = graphic.attributes || {};
-    const rows = [
-        ['Language', p.language],
-        ['Family', p.family === 'Unclassified' ? '' : p.family], // dont show Unclassified as a useful detail
-        ['Group', p.group === 'Unclassified' ? '' : p.group],
-        ['ISO 639-3', p.isoCode],
-        ['Glottocode', p.glottocode],
-        ['Area', p.adminArea],
-        ['Country', p.country]
-    ].filter(([, value]) => value !== undefined && value !== null && value !== '');
+function sitePopup(feature) {
+    // creates the info box that appears when you hover over a language site
+    const p = feature.attributes || {}; // one map feature, one location from geojson data
 
-    // the popup renders inside the sdk's shadow dom where css/main.css cant reach, so styles are set here
-    const list = document.createElement('dl');
-    list.style.margin = '0';
-
-    for (const [label, value] of rows) {
-        const row = document.createElement('div');
-        const term = document.createElement('dt');
-        const detail = document.createElement('dd');
-        row.style.cssText = 'display: flex; gap: 0.35rem; line-height: 1.5;';
-        term.style.cssText = 'flex: none; opacity: 0.65;';
-        detail.style.margin = '0';
-        term.textContent = `${label}:`;
-        detail.textContent = value;
-        row.append(term, detail);
-        list.append(row);
-    }
-
-    return list;
+    // build the popup HTML
+    // includes alternatives if no data exist (||)
+    return hoverBox({
+        title: p.name || 'Attested site',
+        subtitle: p.language || 'Language not recorded',
+        rows: [
+            ['Family', p.family === 'Unclassified' ? '' : p.family], // dont show Unclassified as a useful detail
+            ['Group', p.group],
+            ['ISO 639-3', p.isoCode],
+            ['Glottocode', p.glottocode],
+            ['Area', p.adminArea],
+            ['Country', p.country]
+        ]
+    });
 }
 
 export async function addMapLayers(view) {
@@ -132,15 +120,15 @@ export async function addMapLayers(view) {
         ],
         opacity: 0.9,
         renderer: siteRenderer(),
-        popupTemplate: {
-            title: '{name}',
-            outFields: ['*'], // popup rows need every property
-            content: sitePopupContent
-        }
+        outFields: ['*'], // popup rows need every property
+        popupEnabled: false // js/popup.js draws our own popups instead of the sdk's
     });
 
     view.map.add(sites);
     await view.whenLayerView(sites);
+
+    hoverPopup(view, sites, sitePopup); // connect sitePopup func to layer, for hovering
+    clickPopup(view, sites, sitePopup, { touchOnly: true });
 
     return { sites };
 }

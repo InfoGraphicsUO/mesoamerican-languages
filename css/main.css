@@ -1,3 +1,25 @@
+:root {
+    --font: "Josefin Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+    --text: #202322;
+    --text-soft: #272c29;
+    --text-muted: #727974;
+    --surface: rgb(255 255 252 / 94%);
+    --border: rgb(25 34 29 / 14%);
+    --shadow: 0 0.35rem 1.4rem rgb(19 27 23 / 16%);
+
+    --radius: 0;
+    --blur: blur(0.45rem);
+    --motion-duration: 240ms;
+    --motion-ease: cubic-bezier(.22, .61, .36, 1);
+
+    --space-xs: 0.35rem;
+
+    --text-xs: 0.75rem;
+    --text-sm: 0.8125rem;
+    --text-lg: 1rem;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -12,6 +34,12 @@ body,
 
 body {
     margin: 0;
+}
+
+/* popups from js/popup.js are positioned over the map inside .app */
+.app {
+    position: relative;
+    overflow: hidden;
 }
 
 /* the map element has no size of its own, so it needs to fill the page */
