@@ -1,6 +1,6 @@
 /* placeholder panel, only what it takes to sit over the map and scroll */
 .interpreters-panel {
-    width: 32rem;
+    width: 21rem;
     padding: var(--space-xs);
     background: var(--surface);
     font-family: var(--font);
@@ -8,7 +8,7 @@
 
 .interpreters-panel h2 {
     margin: 0;
-    font-size: var(--text-lg);
+    font-size: 1.5rem;
 }
 
 .interpreters-panel ul {
@@ -22,7 +22,7 @@
 /* buttons for keyboard use, but they read as plain text labels */
 .interpreters-panel button {
     width: 100%;
-    padding: 0;
+    padding: var(--space-xs) 0;
     border: 0;
     background: none;
     color: inherit;
