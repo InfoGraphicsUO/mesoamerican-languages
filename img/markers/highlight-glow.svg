@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" role="img" aria-label="Highlighted language site">
+  <defs>
+    <radialGradient id="glow">
+      <stop offset="0.35" stop-color="#9525d1" stop-opacity="0.9"/>
+      <stop offset="0.425" stop-color="#9525d1" stop-opacity="0.867"/>
+      <stop offset="0.5" stop-color="#9525d1" stop-opacity="0.778"/>
+      <stop offset="0.6" stop-color="#9525d1" stop-opacity="0.603"/>
+      <stop offset="0.675" stop-color="#9525d1" stop-opacity="0.45"/>
+      <stop offset="0.75" stop-color="#9525d1" stop-opacity="0.297"/>
+      <stop offset="0.85" stop-color="#9525d1" stop-opacity="0.122"/>
+      <stop offset="0.925" stop-color="#9525d1" stop-opacity="0.033"/>
+      <stop offset="1" stop-color="#9525d1" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="20" cy="20" r="20" fill="url(#glow)"/>
+</svg>

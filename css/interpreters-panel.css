@@ -1,0 +1,36 @@
+/* placeholder panel, only what it takes to sit over the map and scroll */
+.interpreters-panel {
+    width: 21rem;
+    padding: var(--space-xs);
+    background: var(--surface);
+    font-family: var(--font);
+}
+
+.interpreters-panel h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.interpreters-panel ul {
+    max-height: 24rem;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    list-style: none;
+}
+
+/* buttons for keyboard use, but they read as plain text labels */
+.interpreters-panel button {
+    width: 100%;
+    padding: var(--space-xs) 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.interpreters-panel button[aria-pressed="true"] {
+    font-weight: 700;
+}

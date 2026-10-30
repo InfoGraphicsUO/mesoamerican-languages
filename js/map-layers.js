@@ -24,7 +24,7 @@ const SITES_URL = 'https://services5.arcgis.com/W1uyphp8h2tna3qJ/arcgis/rest/ser
 
 // field names on the feature layer, they come from the shapefile so some are cut off at 10 characters
 // the survey's own iso_code and glottocode cover sites that never got matched to a language
-const FIELDS = {
+export const FIELDS = {
     name: 'final_name',
     language: 'Language',
     isoCode: 'ISO_Code_1',
@@ -53,6 +53,13 @@ const ICON_SCALES = [
     { zoom: MAP.minZoom, scale: 0.6 },
     { zoom: 9, scale: 0.82 },
     { zoom: 13, scale: 1 }
+];
+
+// glow drawn behind highlighted sites, grows w/ zoom like the markers do
+const GLOW_SIZES = [
+    { zoom: MAP.minZoom, size: 24 },
+    { zoom: 9, size: 32 },
+    { zoom: 13, size: 40 }
 ];
 
 // map scale (1:x) at a whole zoom level, size stops are set by scale and not zoom
@@ -104,6 +111,26 @@ function siteRenderer() {
     };
 }
 
+function glowRenderer() {
+    return {
+        type: 'simple',
+        symbol: {
+            type: 'picture-marker',
+            url: `${PATHS.markers}/highlight-glow.svg`,
+            width: `${GLOW_SIZES.at(-1).size}px`,
+            height: `${GLOW_SIZES.at(-1).size}px`
+        },
+        visualVariables: [{
+            type: 'size',
+            valueExpression: '$view.scale',
+            stops: GLOW_SIZES.map(({ zoom, size }) => ({
+                value: scaleAtZoom(zoom),
+                size: `${size}px`
+            }))
+        }]
+    };
+}
+
 function sitePopup(feature) {
     // creates the info box that appears when you hover over a language site
     const attributes = feature.attributes || {}; // one map feature, one location from the feature layer
@@ -130,6 +157,18 @@ function sitePopup(feature) {
 export async function addMapLayers(view) {
     const FeatureLayer = await $arcgis.import('@arcgis/core/layers/FeatureLayer.js');
 
+    // highlight glow, a second copy of the sites that gets filtered down to the highlighted ones
+    // stays at 0 opacity until something is highlighted, js/interpreters-panel.js fades it in
+    const siteGlow = new FeatureLayer({
+        id: 'sites-glow',
+        title: 'Highlighted language sites',
+        url: SITES_URL,
+        renderer: glowRenderer(),
+        outFields: [FIELDS.language], // the filter in js/interpreters-panel.js reads this
+        popupEnabled: false,
+        opacity: 0
+    });
+
     // language sites, operational layers draw below the basemap's labels
     const sites = new FeatureLayer({
         id: 'sites',
@@ -142,11 +181,11 @@ export async function addMapLayers(view) {
         popupEnabled: false // js/popup.js draws our own popups instead of the sdk's
     });
 
-    view.map.add(sites);
+    view.map.addMany([siteGlow, sites]); // glow goes first so it draws directly behind the markers
     await view.whenLayerView(sites);
 
     hoverPopup(view, sites, sitePopup); // connect sitePopup func to layer, for hovering
     clickPopup(view, sites, sitePopup, { touchOnly: true });
 
-    return { sites };
+    return { sites, siteGlow };
 }

@@ -16,6 +16,7 @@
 
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/popup.css">
+    <link rel="stylesheet" href="css/interpreters-panel.css">
 
     <script type="module" src="js/main.js"></script>
 </head>
@@ -26,6 +27,10 @@
         <arcgis-map id="map" aria-label="Interactive map">
             <arcgis-zoom slot="top-left"></arcgis-zoom>
             <arcgis-home slot="top-left"></arcgis-home>
+            <section class="interpreters-panel" slot="bottom-left">
+                <h2>Interpreters</h2>
+                <ul id="interpreters-list"></ul>
+            </section>
         </arcgis-map>
     </main>
 </body>
