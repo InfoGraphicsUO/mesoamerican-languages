@@ -55,6 +55,13 @@ const ICON_SCALES = [
     { zoom: 13, scale: 1 }
 ];
 
+// glow drawn behind highlighted sites, grows w/ zoom like the markers do
+const GLOW_SIZES = [
+    { zoom: MAP.minZoom, size: 24 },
+    { zoom: 9, size: 32 },
+    { zoom: 13, size: 40 }
+];
+
 // map scale (1:x) at a whole zoom level, size stops are set by scale and not zoom
 const scaleAtZoom = (zoom) => 591657527.591555 / 2 ** zoom;
 
@@ -104,6 +111,26 @@ function siteRenderer() {
     };
 }
 
+function glowRenderer() {
+    return {
+        type: 'simple',
+        symbol: {
+            type: 'picture-marker',
+            url: `${PATHS.markers}/highlight-glow.svg`,
+            width: `${GLOW_SIZES.at(-1).size}px`,
+            height: `${GLOW_SIZES.at(-1).size}px`
+        },
+        visualVariables: [{
+            type: 'size',
+            valueExpression: '$view.scale',
+            stops: GLOW_SIZES.map(({ zoom, size }) => ({
+                value: scaleAtZoom(zoom),
+                size: `${size}px`
+            }))
+        }]
+    };
+}
+
 function sitePopup(feature) {
     // creates the info box that appears when you hover over a language site
     const attributes = feature.attributes || {}; // one map feature, one location from the feature layer
@@ -130,6 +157,18 @@ function sitePopup(feature) {
 export async function addMapLayers(view) {
     const FeatureLayer = await $arcgis.import('@arcgis/core/layers/FeatureLayer.js');
 
+    // highlight glow, a second copy of the sites that gets filtered down to the highlighted ones
+    // stays hidden until something is highlighted
+    const siteGlow = new FeatureLayer({
+        id: 'sites-glow',
+        title: 'Highlighted language sites',
+        url: SITES_URL,
+        renderer: glowRenderer(),
+        outFields: [FIELDS.language], // the filter in js/interpreters-panel.js reads this
+        popupEnabled: false,
+        visible: false
+    });
+
     // language sites, operational layers draw below the basemap's labels
     const sites = new FeatureLayer({
         id: 'sites',
@@ -142,11 +181,11 @@ export async function addMapLayers(view) {
         popupEnabled: false // js/popup.js draws our own popups instead of the sdk's
     });
 
-    view.map.add(sites);
+    view.map.addMany([siteGlow, sites]); // glow goes first so it draws directly behind the markers
     await view.whenLayerView(sites);
 
     hoverPopup(view, sites, sitePopup); // connect sitePopup func to layer, for hovering
     clickPopup(view, sites, sitePopup, { touchOnly: true });
 
-    return { sites };
+    return { sites, siteGlow };
 }

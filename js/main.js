@@ -5,16 +5,16 @@ import { initInterpretersPanel } from './interpreters-panel.js';
 // coordinates js files on site load
 
 ready.then(async (view) => { // wait for map before adding layers
-    let sites;
+    let siteGlow;
     try {
-        ({ sites } = await addMapLayers(view));
+        ({ siteGlow } = await addMapLayers(view));
     } catch (error) {
         console.error('Unable to add map layers:', error);
         return;
     }
 
     try {
-        await initInterpretersPanel(view, sites);
+        await initInterpretersPanel(view, siteGlow);
     } catch (error) {
         console.error('Unable to load interpreters panel:', error);
     }
