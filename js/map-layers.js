@@ -158,7 +158,7 @@ export async function addMapLayers(view) {
     const FeatureLayer = await $arcgis.import('@arcgis/core/layers/FeatureLayer.js');
 
     // highlight glow, a second copy of the sites that gets filtered down to the highlighted ones
-    // stays hidden until something is highlighted
+    // stays at 0 opacity until something is highlighted, js/interpreters-panel.js fades it in
     const siteGlow = new FeatureLayer({
         id: 'sites-glow',
         title: 'Highlighted language sites',
@@ -166,7 +166,7 @@ export async function addMapLayers(view) {
         renderer: glowRenderer(),
         outFields: [FIELDS.language], // the filter in js/interpreters-panel.js reads this
         popupEnabled: false,
-        visible: false
+        opacity: 0
     });
 
     // language sites, operational layers draw below the basemap's labels

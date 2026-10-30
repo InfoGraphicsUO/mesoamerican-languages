@@ -7,6 +7,8 @@ import { html } from './ui.js';
 // sql text value, quotes in names like K'iche' have to be doubled
 const sqlText = (value) => `'${value.replaceAll("'", "''")}'`;
 
+const GLOW_FADE = 80; // fade in on every selection, in ms
+
 export async function initInterpretersPanel(view, siteGlow) {
     const response = await fetch('data/interpreters.json');
     if (!response.ok) throw new Error(`Interpreter data returned ${response.status}`);
@@ -19,6 +21,17 @@ export async function initInterpretersPanel(view, siteGlow) {
 
     const glowView = await view.whenLayerView(siteGlow);
     let selectedId = null;
+    let fadeFrame = null;
+
+    function fadeInGlow() {
+        const start = performance.now();
+        const step = (now) => {
+            const progress = Math.min((now - start) / GLOW_FADE, 1);
+            siteGlow.opacity = progress;
+            fadeFrame = progress < 1 ? requestAnimationFrame(step) : null;
+        };
+        fadeFrame = requestAnimationFrame(step);
+    }
 
     list.addEventListener('click', (event) => {
         const button = event.target.closest('button');
@@ -31,12 +44,14 @@ export async function initInterpretersPanel(view, siteGlow) {
             item.setAttribute('aria-pressed', String(item.dataset.id === selectedId));
         });
 
-        if (selectedId) {
-            const languages = languageProviders
-                .filter((link) => link.providerId === id)
-                .map((link) => sqlText(link.language));
-            glowView.filter = { where: `${FIELDS.language} IN (${languages.join(', ')})` };
-        }
-        siteGlow.visible = Boolean(selectedId);
+        cancelAnimationFrame(fadeFrame);
+        siteGlow.opacity = 0;
+        if (!selectedId) return;
+
+        const languages = languageProviders
+            .filter((link) => link.providerId === id)
+            .map((link) => sqlText(link.language));
+        glowView.filter = { where: `${FIELDS.language} IN (${languages.join(', ')})` };
+        fadeInGlow();
     });
 }
