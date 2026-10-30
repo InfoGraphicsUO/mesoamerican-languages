@@ -47,6 +47,9 @@ mapElement.constraints = {
     }
 };
 
+// outline highlighted sites without tinting them, so their family colors still read
+mapElement.highlights = [{ name: 'default', color: '#9525d1', haloOpacity: 1, fillOpacity: 0 }];
+
 // creates promise that waits for map to finish loading
 // doing things like adding layers needs to happen after map load
 // resolves w/ the MapView, most sdk work happens thru this

@@ -24,7 +24,7 @@ const SITES_URL = 'https://services5.arcgis.com/W1uyphp8h2tna3qJ/arcgis/rest/ser
 
 // field names on the feature layer, they come from the shapefile so some are cut off at 10 characters
 // the survey's own iso_code and glottocode cover sites that never got matched to a language
-const FIELDS = {
+export const FIELDS = {
     name: 'final_name',
     language: 'Language',
     isoCode: 'ISO_Code_1',
