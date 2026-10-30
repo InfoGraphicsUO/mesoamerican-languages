@@ -1,0 +1,30 @@
+/* placeholder panel, only what it takes to sit over the map and scroll */
+.interpreters-panel {
+    width: 16rem;
+    padding: var(--space-xs);
+    background: var(--surface);
+    font-family: var(--font);
+}
+
+.interpreters-panel h2 {
+    margin: 0;
+    font-size: var(--text-lg);
+}
+
+.interpreters-panel ul {
+    max-height: 12rem;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    list-style: none;
+}
+
+.interpreters-panel button {
+    width: 100%;
+    font: inherit;
+    text-align: left;
+}
+
+.interpreters-panel button[aria-pressed="true"] {
+    font-weight: 700;
+}
