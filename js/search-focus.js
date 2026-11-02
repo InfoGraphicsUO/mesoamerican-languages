@@ -70,7 +70,7 @@ export async function createSearchFocus(view, { pickedPopup }) {
         $arcgis.import('@arcgis/core/geometry/support/webMercatorUtils.js')
     ]);
 
-    // search highlight, same look as the interpreters glow but its own color and layer
+    // search highlight, the same purple glow as the interpreters but on its own layer
     // so a search result and an interpreter can be highlighted at the same time
     // a graphics layer draws as soon as graphics are added, a filtered or client-side feature layer
     // took seconds to catch up while the map zoomed. it has no size by zoom, so glowSymbol does that
@@ -83,7 +83,7 @@ export async function createSearchFocus(view, { pickedPopup }) {
 
     const glowSymbol = (zoom) => {
         const size = `${Math.round(glowSize(zoom))}px`;
-        return { type: 'picture-marker', url: `${PATHS.markers}/search-glow.svg`, width: size, height: size };
+        return { type: 'picture-marker', url: `${PATHS.markers}/highlight-glow.svg`, width: size, height: size };
     };
 
     // resize the glow once the map settles at a new zoom
