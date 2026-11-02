@@ -10,7 +10,6 @@
 .map-search {
     --search-accent: #1769c2; /* type tag for anything from our data */
     --search-other: var(--text); /* type tag for geocoder places */
-    --search-radius: 0.6rem;
     --search-row: 3.1rem;
     --map-controls-width: 7.5rem; /* zoom and home beside the bar, plus the gaps */
 
@@ -31,9 +30,8 @@
     height: 2.75rem;
     padding: 0.2rem 2.5rem 0 0.9rem; /* josefin sans sits high, nudge the text down so it looks centered */
     border: 1px solid var(--border);
-    border-radius: var(--search-radius);
+    border-radius: var(--radius);
     background: var(--surface);
-    box-shadow: var(--shadow);
     backdrop-filter: var(--blur);
     color: var(--text);
     font: inherit;
@@ -47,8 +45,7 @@
 
 .map-search-input:focus {
     border-color: var(--search-accent);
-    outline: 2px solid color-mix(in srgb, var(--search-accent) 25%, transparent);
-    outline-offset: 0;
+    outline: none; /* the accent border shows focus */
 }
 
 .map-search-clear {
@@ -59,7 +56,6 @@
     height: 2rem;
     padding: 0;
     border: 0;
-    border-radius: 50%;
     background: none;
     color: var(--text-muted);
     font: inherit;
@@ -92,9 +88,8 @@
     overflow-y: auto;
     overscroll-behavior: contain;
     border: 1px solid var(--border);
-    border-radius: var(--search-radius);
+    border-radius: var(--radius);
     background: var(--surface);
-    box-shadow: var(--shadow);
     backdrop-filter: var(--blur);
     list-style: none;
 }
