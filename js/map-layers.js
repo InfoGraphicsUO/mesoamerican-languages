@@ -56,7 +56,8 @@ const ICON_SCALES = [
 ];
 
 // glow drawn behind highlighted sites, grows w/ zoom like the markers do
-const GLOW_SIZES = [
+// js/search-focus.js sizes its own glow from these too
+export const GLOW_SIZES = [
     { zoom: MAP.minZoom, size: 24 },
     { zoom: 9, size: 32 },
     { zoom: 13, size: 40 }
@@ -131,7 +132,7 @@ function glowRenderer() {
     };
 }
 
-function sitePopup(feature) {
+export function sitePopup(feature) {
     // creates the info box that appears when you hover over a language site
     const attributes = feature.attributes || {}; // one map feature, one location from the feature layer
 
@@ -185,7 +186,7 @@ export async function addMapLayers(view) {
     await view.whenLayerView(sites);
 
     hoverPopup(view, sites, sitePopup); // connect sitePopup func to layer, for hovering
-    clickPopup(view, sites, sitePopup, { touchOnly: true });
+    const pickedPopup = clickPopup(view, sites, sitePopup, { touchOnly: true }); // search opens this one too
 
-    return { sites, siteGlow };
+    return { sites, siteGlow, pickedPopup };
 }

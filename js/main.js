@@ -3,6 +3,7 @@ import { addMapLayers } from './map-layers.js';
 import { initInterpretersPanel } from './interpreters-panel.js';
 import { loadSearchIndex } from './search-index.js';
 import { initSearch } from './search.js';
+import { createSearchFocus } from './search-focus.js';
 
 // coordinates js files on site load
 
@@ -15,10 +16,13 @@ const layers = ready.then(async (readyView) => {
 });
 
 const searchIndex = layers.then(({ sites }) => loadSearchIndex(sites, view.spatialReference));
+const searchFocus = layers.then((mapLayers) => createSearchFocus(view, mapLayers));
 
 initSearch({
     index: searchIndex,
-    center: () => view && [view.center.longitude, view.center.latitude]
+    center: () => view && [view.center.longitude, view.center.latitude],
+    onSelect: (result) => searchFocus.then((focus) => focus.show(result)),
+    onClear: () => searchFocus.then((focus) => focus.clear())
 });
 
 layers.then(async ({ siteGlow }) => {
@@ -30,3 +34,4 @@ layers.then(async ({ siteGlow }) => {
 }).catch((error) => console.error('Unable to add map layers:', error));
 
 searchIndex.catch((error) => console.error('Unable to build the search index:', error));
+searchFocus.catch((error) => console.error('Unable to connect search to the map:', error));
