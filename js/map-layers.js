@@ -2,21 +2,23 @@ import { MAP, PATHS } from './map.js';
 import { hoverPopup, clickPopup, hoverBox } from './popup.js';
 
 // language families in the mapped data, slug matches the marker file names
+// text: the marker's color for text like the search result tags
+// the lightest markers (Mayan, Otomanguean, Triqui) are darkened just enough to read on white, 4.5:1 contrast
 export const FAMILIES = [
-    { name: 'Mayan', slug: 'mayan' },
-    { name: 'Otomanguean', slug: 'otomanguean' },
-    { name: 'Purépecha', slug: 'purepecha' },
-    { name: 'Sign Language', slug: 'sign-language' },
-    { name: 'Uto-Aztecan', slug: 'uto-aztecan' },
-    { name: 'Unclassified', slug: 'unclassified' }
+    { name: 'Mayan', slug: 'mayan', text: '#35852c' }, // marker #4ec340
+    { name: 'Otomanguean', slug: 'otomanguean', text: '#227f95' }, // marker #2eacc9
+    { name: 'Purépecha', slug: 'purepecha', text: '#a36b27' },
+    { name: 'Sign Language', slug: 'sign-language', text: '#3935c6' },
+    { name: 'Uto-Aztecan', slug: 'uto-aztecan', text: '#d34261' },
+    { name: 'Unclassified', slug: 'unclassified', text: '#777a80' }
 ];
 
 // Otomanguean uses a different blue for each group in the mapped data
 export const OTOMANGUEAN_GROUPS = [
-    { name: 'Chinantec', slug: 'chinantec' },
-    { name: 'Mixtec', slug: 'mixtec' },
-    { name: 'Triqui', slug: 'triqui' },
-    { name: 'Zapotec', slug: 'zapotec' }
+    { name: 'Chinantec', slug: 'chinantec', text: '#07556e' },
+    { name: 'Mixtec', slug: 'mixtec', text: '#1781ba' },
+    { name: 'Triqui', slug: 'triqui', text: '#1a7f94' }, // marker #25b5d3
+    { name: 'Zapotec', slug: 'zapotec', text: '#234aa0' }
 ];
 
 // hosted feature layer w/ the attested sites, published from Attested_Sites_With_Family.shp

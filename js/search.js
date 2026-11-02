@@ -1,4 +1,5 @@
 import { PATHS } from './map.js';
+import { FAMILIES, OTOMANGUEAN_GROUPS } from './map-layers.js';
 import { KINDS, matchRange } from './search-index.js';
 import { suggestPlaces } from './place-search.js';
 import { html } from './ui.js';
@@ -11,6 +12,9 @@ const GEOCODER_MIN_LENGTH = 3; // shorter queries return mostly noise from the g
 const GEOCODER_DELAY = 250; // ms of no typing before asking the geocoder
 
 const PIN_ICON = `${PATHS.markers}/place-pin.svg`;
+
+// type tag color for each marker, so a tag matches the family or group it belongs to
+const TAG_COLORS = Object.fromEntries([...FAMILIES, ...OTOMANGUEAN_GROUPS].map(({ slug, text }) => [slug, text]));
 
 // name w/ the matched part bolded, alias matches (like ISO codes) just show the name
 function highlightedName(label, query) {
@@ -27,6 +31,7 @@ const dataResult = (item) => ({
     label: item.label,
     context: item.context,
     tag: KINDS[item.kind].tag,
+    tagColor: TAG_COLORS[item.slug],
     icon: `${PATHS.markers}/${item.slug}-${item.kind === 'place' && item.origin ? 'plus' : 'circle'}.svg`,
     item
 });
@@ -114,7 +119,7 @@ export function initSearch({ index, center, onSelect = () => {}, onClear = () =>
                     <span class="search-result-name">${highlightedName(result.label, text)}</span>
                     ${result.context ? html`<span class="search-result-context">${result.context}</span>` : ''}
                 </span>
-                <span class="search-result-tag">${result.tag}</span>
+                <span class="search-result-tag"${result.tagColor ? html` style="color: ${result.tagColor}"` : ''}>${result.tag}</span>
             </li>
         `);
 
