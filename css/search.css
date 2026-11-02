@@ -1,12 +1,22 @@
 /* search bar and results, markup in index.html and js/search.js */
+
+/* search bar w/ zoom and home in one row, so the results drop below all of them instead of covering the buttons */
+.map-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 .map-search {
     --search-accent: #1769c2; /* type tag for anything from our data */
     --search-other: var(--text); /* type tag for geocoder places */
     --search-radius: 0.6rem;
     --search-row: 3.1rem;
+    --map-controls-width: 7.5rem; /* zoom and home beside the bar, plus the gaps */
 
     position: relative;
-    width: min(27rem, calc(100vw - 2rem));
+    width: min(27rem, calc(100vw - 2rem - var(--map-controls-width)));
+    flex: none;
     font-family: var(--font);
     color: var(--text);
 }

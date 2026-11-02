@@ -26,21 +26,23 @@
     <main class="app">
         <!-- basemap, center, and zoom get set from MAP in js/map.js -->
         <arcgis-map id="map" aria-label="Interactive map">
-            <!-- search bar, js/search.js fills in the results -->
-            <div class="map-search" id="search" role="search" slot="top-left">
-                <label class="visually-hidden" for="search-input">Search languages and places</label>
-                <div class="map-search-field">
-                    <input class="map-search-input" id="search-input" type="text" role="combobox"
-                        aria-autocomplete="list" aria-expanded="false" aria-controls="search-results"
-                        placeholder="Search by language, language family, or place…"
-                        autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
-                    <button class="map-search-clear" id="search-clear" type="button" aria-label="Clear search" hidden>×</button>
+            <!-- search bar w/ the map controls beside it, js/search.js fills in the results -->
+            <div class="map-toolbar" slot="top-left">
+                <div class="map-search" id="search" role="search">
+                    <label class="visually-hidden" for="search-input">Search languages and places</label>
+                    <div class="map-search-field">
+                        <input class="map-search-input" id="search-input" type="text" role="combobox"
+                            aria-autocomplete="list" aria-expanded="false" aria-controls="search-results"
+                            placeholder="Search by language, language family, or place…"
+                            autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
+                        <button class="map-search-clear" id="search-clear" type="button" aria-label="Clear search" hidden>×</button>
+                    </div>
+                    <ul class="map-search-results" id="search-results" role="listbox" aria-label="Search results" hidden></ul>
+                    <p class="visually-hidden" id="search-status" role="status" aria-live="polite"></p>
                 </div>
-                <ul class="map-search-results" id="search-results" role="listbox" aria-label="Search results" hidden></ul>
-                <p class="visually-hidden" id="search-status" role="status" aria-live="polite"></p>
+                <arcgis-zoom layout="horizontal"></arcgis-zoom>
+                <arcgis-home></arcgis-home>
             </div>
-            <arcgis-zoom slot="top-left"></arcgis-zoom>
-            <arcgis-home slot="top-left"></arcgis-home>
             <section class="interpreters-panel" slot="bottom-left">
                 <h2>Interpreters</h2>
                 <ul id="interpreters-list"></ul>

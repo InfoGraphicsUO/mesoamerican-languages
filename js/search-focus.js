@@ -14,7 +14,7 @@ const FRAME_GUTTER = 48; // px kept clear between framed results and the map edg
 
 // panels that sit over the map, results get framed in the part of the map they leave open
 // only their position is read, nothing about them changes
-const OVERLAYS = ['.map-search-field', '.interpreters-panel'];
+const OVERLAYS = ['.map-toolbar', '.interpreters-panel'];
 
 // web mercator meters per pixel at zoom 0, and the scale that goes w/ one meter per pixel at 96 dpi
 const RESOLUTION_AT_ZOOM_0 = 156543.03392804097;
