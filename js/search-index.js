@@ -95,7 +95,7 @@ const placeName = (name) => name.split(',')[0].trim();
 const plural = (count, word) => `${count} ${word}${count === 1 ? '' : 's'}`;
 
 function entry(kind, label, slug) {
-    return { kind, label, slug, context: '', keys: [], sites: [] };
+    return { kind, label, slug, context: '', detail: '', keys: [], sites: [] };
 }
 
 // add searchable names to an entry, skipping blanks and repeats
@@ -181,23 +181,26 @@ export function buildSearchIndex(sites, objectIdField) {
         }
     }
 
-    // context line under each name, enough to tell similar results apart
+    // context: what the result belongs to, shown under its name
+    // detail: how much of it there is, shown under the type tag
+    const languageCount = (item) => new Set(item.sites.map((site) => site.attributes[FIELDS.language]).filter(Boolean)).size;
     for (const item of families.values()) {
-        const count = new Set(item.sites.map((site) => site.attributes[FIELDS.language]).filter(Boolean)).size;
-        item.context = `${plural(count, 'language')} · ${plural(item.sites.length, 'site')}`;
+        item.context = plural(languageCount(item), 'language');
+        item.detail = plural(item.sites.length, 'site');
     }
     for (const item of groups.values()) {
-        const count = new Set(item.sites.map((site) => site.attributes[FIELDS.language]).filter(Boolean)).size;
-        item.context = [item.family, plural(count, 'language')].filter(Boolean).join(' · ');
+        item.context = item.family;
+        item.detail = plural(languageCount(item), 'language');
     }
     for (const item of languages.values()) {
-        const lineage = item.group && item.group !== item.family ? `${item.family} · ${item.group}` : item.family;
-        item.context = [lineage || 'Unclassified', plural(item.sites.length, 'site')].join(' · ');
+        const lineage = item.group && item.group !== item.family ? `${item.family} › ${item.group}` : item.family;
+        item.context = lineage || 'Unclassified';
+        item.detail = plural(item.sites.length, 'site');
     }
     for (const item of places.values()) {
-        const names = [...item.languages].sort();
-        const spoken = names.length > 2 ? `${names.slice(0, 2).join(', ')} +${names.length - 2}` : names.join(', ');
-        item.context = [item.area, spoken || 'Language not recorded'].filter(Boolean).join(' · ');
+        const [first, ...rest] = [...item.languages].sort();
+        item.context = item.area;
+        item.detail = first ? `${first}${rest.length ? ` +${rest.length}` : ''}` : 'Language not recorded';
     }
 
     const entries = [...families.values(), ...groups.values(), ...languages.values(), ...places.values()];

@@ -26,6 +26,7 @@ const dataResult = (item) => ({
     kind: item.kind,
     label: item.label,
     context: item.context,
+    detail: item.detail,
     tag: KINDS[item.kind].tag,
     icon: `${PATHS.markers}/${item.slug}-${item.kind === 'place' && item.origin ? 'plus' : 'circle'}.svg`,
     item
@@ -114,7 +115,10 @@ export function initSearch({ index, center, onSelect = () => {}, onClear = () =>
                     <span class="search-result-name">${highlightedName(result.label, text)}</span>
                     ${result.context ? html`<span class="search-result-context">${result.context}</span>` : ''}
                 </span>
-                <span class="search-result-tag">${result.tag}</span>
+                <span class="search-result-meta">
+                    <span class="search-result-tag">${result.tag}</span>
+                    ${result.detail ? html`<span class="search-result-detail">${result.detail}</span>` : ''}
+                </span>
             </li>
         `);
 
