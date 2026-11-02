@@ -7,6 +7,18 @@
     gap: 0.5rem;
 }
 
+/* esri's zoom and home buttons, styled to match the bar
+   they're calcite buttons inside shadow dom, so only calcite's own css variables reach them */
+.map-toolbar arcgis-zoom,
+.map-toolbar arcgis-home {
+    --calcite-button-background-color: var(--surface);
+    --calcite-button-border-color: var(--border);
+    --calcite-button-corner-radius: var(--radius);
+    --calcite-button-shadow: none;
+    --calcite-button-text-color: var(--text);
+    --calcite-button-icon-color: var(--text);
+}
+
 .map-search {
     --search-accent: #1769c2; /* type tag for anything from our data */
     --search-other: var(--text); /* type tag for geocoder places */
