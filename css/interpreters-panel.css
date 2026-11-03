@@ -2,6 +2,7 @@
 .interpreters-panel {
     width: 21rem;
     padding: var(--space-xs);
+    border: 1px solid var(--border);
     background: var(--surface);
     font-family: var(--font);
 }

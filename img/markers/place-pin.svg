@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" role="img" aria-label="Searched place">
+  <path d="M14 25.5s-7.5-7.2-7.5-12.6a7.5 7.5 0 0 1 15 0c0 5.4-7.5 12.6-7.5 12.6z" fill="#202322" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/>
+  <circle cx="14" cy="12.8" r="2.6" fill="#fff"/>
+</svg>
