@@ -96,8 +96,17 @@
     font-size: var(--text-sm);
 }
 
+/* name button on the left, site link on the right */
+.interpreter {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
 /* buttons for keyboard use, but they read as plain text labels */
 .interpreters-panel li button {
+    flex: 1;
+    min-width: 0;
     display: flex;
     align-items: baseline;
     justify-content: space-between;
@@ -122,4 +131,24 @@
     color: var(--text-muted);
     font-size: var(--text-sm);
     font-weight: 400;
+}
+
+/* opens the interpreter's site, kept apart from the name so selecting and visiting stay two actions */
+.interpreter-site {
+    display: grid;
+    flex: none;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    color: var(--text-muted);
+}
+
+.interpreter-site:hover,
+.interpreter-site:focus-visible {
+    border-color: var(--accent-bright);
+    background: color-mix(in srgb, var(--accent-bright) 10%, transparent);
+    color: var(--accent-bright);
+    outline: none; /* the accent border shows focus */
 }

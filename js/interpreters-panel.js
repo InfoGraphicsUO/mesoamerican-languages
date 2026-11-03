@@ -1,5 +1,5 @@
 import { FIELDS } from './map-layers.js';
-import { localized, textFor } from './language.js';
+import { applyLocalizedAttributes, localized, textFor } from './language.js';
 import { html, languageText } from './ui.js';
 
 // lists the interpreters from data/interpreters.json in the panel in index.html
@@ -18,6 +18,26 @@ const listStatus = (count, label) => localized(
     `${count} ${count === 1 ? 'interpreter' : 'interpreters'} for ${textFor(label, 'en')}`,
     `${count} ${count === 1 ? 'intérprete' : 'intérpretes'} para ${textFor(label, 'es')}`
 );
+
+// the interpreter's own site, their request page when they have one, otherwise their main page
+// only http(s) links get through, so a bad value in the data cant become a javascript: link
+function siteUrl(provider) {
+    for (const value of [provider.requestUrl, provider.primarySourceUrl]) {
+        try {
+            const url = new URL(value);
+            if (url.protocol === 'https:' || url.protocol === 'http:') return url.href;
+        } catch {
+            // missing or not a url, try the next one
+        }
+    }
+    return null;
+}
+
+// arrow out of a box, the usual opens-somewhere-else icon
+const EXTERNAL_ICON = html`<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false">
+    <path d="M9 2.5h4.5V7M13.5 2.5 7 9M11.5 9.5v3a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1v-7a1 1 0 0 1 1-1h3"
+        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`;
 
 // "3 of 14", how many of a filtered family, group, or place's languages an interpreter covers
 const coverageCount = (count, total) => localized(`${count} of ${total}`, `${count} de ${total}`);
@@ -67,12 +87,23 @@ export async function initInterpretersPanel(view, siteGlow, { onSelect = () => {
         const total = current?.languages.size || 0;
 
         // counts only mean something when the pick has more than one language
-        list.innerHTML = String(html`${shown.map(({ provider, count }) => html`
-            <li><button type="button" data-id="${provider.id}" aria-pressed="${String(provider.id === selectedId)}">
-                <span class="interpreter-name">${provider.name}</span>
-                ${total > 1 ? html`<span class="interpreter-count">${languageText(coverageCount(count, total))}</span>` : ''}
-            </button></li>
-        `)}`);
+        // the name selects the interpreter on the map, the icon beside it opens their site in a new tab
+        list.innerHTML = String(html`${shown.map(({ provider, count }) => {
+            const url = siteUrl(provider);
+            return html`
+            <li class="interpreter">
+                <button type="button" data-id="${provider.id}" aria-pressed="${String(provider.id === selectedId)}">
+                    <span class="interpreter-name">${provider.name}</span>
+                    ${total > 1 ? html`<span class="interpreter-count">${languageText(coverageCount(count, total))}</span>` : ''}
+                </button>
+                ${url ? html`<a class="interpreter-site" href="${url}" target="_blank" rel="noopener noreferrer"
+                    data-en-title="Visit website" data-es-title="Visitar sitio web">
+                    ${EXTERNAL_ICON}
+                    <span class="visually-hidden"><span class="en" lang="en">Visit the ${provider.name} website (opens in a new tab)</span><span class="es" lang="es">Visitar el sitio web de ${provider.name} (se abre en una pestaña nueva)</span></span>
+                </a>` : ''}
+            </li>`;
+        })}`);
+        applyLocalizedAttributes(list);
         list.scrollTop = 0;
 
         filterBar.hidden = !current;
