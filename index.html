@@ -59,7 +59,17 @@
                     <button class="interpreters-clear" id="interpreters-clear" type="button" aria-label="Clear interpreter selection"
                         data-en-aria-label="Clear interpreter selection" data-es-aria-label="Borrar la selección de intérprete" hidden><span class="en" lang="en">Clear</span><span class="es" lang="es">Borrar</span></button>
                 </div>
+                <!-- shows while a search pick narrows the list, js/interpreters-panel.js fills in the label -->
+                <div class="interpreters-filter" id="interpreters-filter" hidden>
+                    <p><span class="en" lang="en">Showing interpreters for</span><span class="es" lang="es">Intérpretes para</span>
+                        <strong id="interpreters-filter-label"></strong></p>
+                    <button class="interpreters-show-all" id="interpreters-show-all" type="button"><span class="en" lang="en">Show all</span><span class="es" lang="es">Ver todos</span></button>
+                </div>
+                <p class="interpreters-empty" id="interpreters-empty" hidden>
+                    <span class="en" lang="en">No interpreters are listed for <strong class="interpreters-empty-label"></strong> yet.</span><span class="es" lang="es">Todavía no hay intérpretes registrados para <strong class="interpreters-empty-label"></strong>.</span>
+                </p>
                 <ul id="interpreters-list"></ul>
+                <p class="visually-hidden" id="interpreters-status" role="status" aria-live="polite"></p>
             </section>
         </arcgis-map>
     </main>
