@@ -43,8 +43,11 @@
                 <arcgis-zoom layout="horizontal"></arcgis-zoom>
                 <arcgis-home></arcgis-home>
             </div>
-            <section class="interpreters-panel" slot="bottom-left">
-                <h2>Interpreters</h2>
+            <section class="interpreters-panel" id="interpreters" slot="bottom-left">
+                <div class="interpreters-header">
+                    <h2>Interpreters</h2>
+                    <button class="interpreters-clear" id="interpreters-clear" type="button" aria-label="Clear interpreter selection" hidden>Clear</button>
+                </div>
                 <ul id="interpreters-list"></ul>
             </section>
         </arcgis-map>

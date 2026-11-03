@@ -7,9 +7,40 @@
     font-family: var(--font);
 }
 
+/* title w/ the clear button on its right, the row keeps its height when the button hides */
+.interpreters-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xs);
+    min-height: 2rem;
+}
+
 .interpreters-panel h2 {
     margin: 0;
     font-size: 1.5rem;
+}
+
+/* only shows while an interpreter is selected */
+.interpreters-clear {
+    padding: 0.3rem 0.5rem 0.15rem; /* josefin sans sits high, nudge the text down so it looks centered */
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: none;
+    color: var(--text-muted);
+    font: inherit;
+    font-size: var(--text-sm);
+    cursor: pointer;
+}
+
+.interpreters-clear:hover,
+.interpreters-clear:focus-visible {
+    background: rgb(25 34 29 / 8%);
+    color: var(--text);
+}
+
+.interpreters-clear[hidden] {
+    display: none;
 }
 
 .interpreters-panel ul {
@@ -21,7 +52,7 @@
 }
 
 /* buttons for keyboard use, but they read as plain text labels */
-.interpreters-panel button {
+.interpreters-panel li button {
     width: 100%;
     padding: var(--space-xs) 0;
     border: 0;
@@ -32,6 +63,6 @@
     cursor: pointer;
 }
 
-.interpreters-panel button[aria-pressed="true"] {
+.interpreters-panel li button[aria-pressed="true"] {
     font-weight: 700;
 }
