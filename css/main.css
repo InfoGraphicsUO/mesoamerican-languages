@@ -2,6 +2,7 @@
     --font: "Josefin Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
     --text: #202322;
+    --accent-bright: #9525d1; /* site accent, the same purple as mesoamerican-languages-mb and the highlight glow */
     --text-soft: #272c29;
     --text-muted: #727974;
     --surface: rgb(255 255 252 / 94%);
@@ -55,8 +56,6 @@ html.lang-es .en {
 
 /* english/spanish switch, one button w/ both choices always showing and the current one filled in */
 .language-switch {
-    --language-accent: #1769c2; /* same blue as the search bar's focus border */
-
     display: grid;
     grid-template-columns: 1fr 1fr;
     height: 2.75rem; /* lines up w/ the search bar */
@@ -85,12 +84,12 @@ html.lang-es .en {
 
 html.lang-en .language-option-en,
 html.lang-es .language-option-es {
-    background: var(--language-accent);
+    background: var(--accent-bright);
     color: white;
 }
 
 .language-switch:focus-visible {
-    outline: 2px solid var(--language-accent);
+    outline: 2px solid var(--accent-bright);
     outline-offset: 2px;
 }
 

@@ -23,7 +23,7 @@
 }
 
 .map-search {
-    --search-accent: #1769c2; /* focus border, and type tags from our data that have no family color */
+    --search-accent: var(--accent-bright); /* focus border, and type tags from our data that have no family color */
     --search-other: var(--text); /* type tag for geocoder places */
     --search-row: 3.1rem;
     --map-controls-width: 7.5rem; /* zoom and home beside the bar, plus the gaps */
