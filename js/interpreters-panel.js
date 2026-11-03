@@ -42,7 +42,11 @@ export async function initInterpretersPanel(view, siteGlow, { onSelect = () => {
     const coverage = new Map(providers.map((provider) => [provider.id, new Set()]));
     for (const { providerId, language } of languageProviders) coverage.get(providerId)?.add(language);
 
-    const glowView = await view.whenLayerView(siteGlow);
+    const [glowView, reactiveUtils] = await Promise.all([
+        view.whenLayerView(siteGlow),
+        $arcgis.import('@arcgis/core/core/reactiveUtils.js')
+    ]);
+    let glowRequest = 0; // newest glow, so a slow filter cant fade in after a later pick
     let selectedId = null;
     let fadeFrame = null;
     let current = null; // active filter, { label, languages: Set } or null for the full list
@@ -99,6 +103,7 @@ export async function initInterpretersPanel(view, siteGlow, { onSelect = () => {
         });
         clearButton.hidden = !selectedId;
 
+        glowRequest += 1;
         cancelAnimationFrame(fadeFrame);
         siteGlow.opacity = 0;
         if (!selectedId) return;
@@ -108,7 +113,15 @@ export async function initInterpretersPanel(view, siteGlow, { onSelect = () => {
             .filter((language) => !current || current.languages.has(language))
             .map(sqlText);
         glowView.filter = { where: `${FIELDS.language} IN (${languages.join(', ')})` };
-        fadeInGlow();
+        showGlowWhenFiltered(glowRequest);
+    }
+
+    // the layer view takes a moment to apply a new filter, fading in right away flashed the last pick's sites
+    // wait a frame for the update to start, then for it to finish
+    async function showGlowWhenFiltered(request) {
+        await new Promise(requestAnimationFrame);
+        await reactiveUtils.whenOnce(() => !glowView.updating);
+        if (request === glowRequest) fadeInGlow();
     }
 
     // focus: move focus back to the interpreter that was selected, for clears from inside the panel
