@@ -1,4 +1,5 @@
 import { MAP } from './map.js';
+import { COUNTRY_LABELS, localized, localizedLookup, textFor } from './language.js';
 
 // looks up places that arent in our data w/ esri's World Geocoding Service
 // lets someone find a town we havent documented yet and see what's spoken nearby
@@ -40,11 +41,19 @@ async function request(operation, params, signal) {
 }
 
 // 'San Juan Copala, Santiago Juxtlahuaca, Oaxaca, MEX' -> name + 'Santiago Juxtlahuaca, Oaxaca, Mexico'
+// the context comes back as a localized() pair so the country name follows the site language
 function splitSuggestion(text) {
     const parts = text.split(',').map((part) => part.trim()).filter(Boolean);
     const last = parts.at(-1);
-    if (STUDY_COUNTRIES[last]) parts[parts.length - 1] = STUDY_COUNTRIES[last];
-    return { label: parts[0], context: parts.slice(1).join(', ') };
+    if (STUDY_COUNTRIES[last]) parts[parts.length - 1] = localizedLookup(STUDY_COUNTRIES[last], COUNTRY_LABELS);
+    const context = parts.slice(1);
+    return {
+        label: parts[0],
+        context: localized(
+            context.map((part) => textFor(part, 'en')).join(', '),
+            context.map((part) => textFor(part, 'es')).join(', ')
+        )
+    };
 }
 
 // text: what the user typed

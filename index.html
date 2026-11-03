@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="lang-en" lang="en">
 
 <head>
     <meta charset="utf-8">
-    <title>Mesoamerican Languages</title>
+    <title data-en-text="Mesoamerican Languages" data-es-text="Lenguas mesoamericanas">Mesoamerican Languages</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
     <!-- ArcGIS Maps SDK for JavaScript, loads the map components used below -->
@@ -25,28 +25,39 @@
 <body>
     <main class="app">
         <!-- basemap, center, and zoom get set from MAP in js/map.js -->
-        <arcgis-map id="map" aria-label="Interactive map">
+        <arcgis-map id="map" aria-label="Interactive map" data-en-aria-label="Interactive map" data-es-aria-label="Mapa interactivo">
             <!-- search bar w/ the map controls beside it, js/search.js fills in the results -->
             <div class="map-toolbar" slot="top-left">
                 <div class="map-search" id="search" role="search">
-                    <label class="visually-hidden" for="search-input">Search languages and places</label>
+                    <label class="visually-hidden" for="search-input"><span class="en" lang="en">Search languages and places</span><span class="es" lang="es">Buscar lenguas y lugares</span></label>
                     <div class="map-search-field">
                         <input class="map-search-input" id="search-input" type="text" role="combobox"
                             aria-autocomplete="list" aria-expanded="false" aria-controls="search-results"
                             placeholder="Search by language, language family, or place…"
+                            data-en-placeholder="Search by language, language family, or place…"
+                            data-es-placeholder="Buscar por lengua, familia lingüística o lugar…"
                             autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
-                        <button class="map-search-clear" id="search-clear" type="button" aria-label="Clear search" hidden>×</button>
+                        <button class="map-search-clear" id="search-clear" type="button" aria-label="Clear search"
+                            data-en-aria-label="Clear search" data-es-aria-label="Borrar búsqueda" hidden>×</button>
                     </div>
-                    <ul class="map-search-results" id="search-results" role="listbox" aria-label="Search results" hidden></ul>
+                    <ul class="map-search-results" id="search-results" role="listbox" aria-label="Search results"
+                        data-en-aria-label="Search results" data-es-aria-label="Resultados de búsqueda" hidden></ul>
                     <p class="visually-hidden" id="search-status" role="status" aria-live="polite"></p>
                 </div>
                 <arcgis-zoom layout="horizontal"></arcgis-zoom>
                 <arcgis-home></arcgis-home>
             </div>
+            <!-- english/spanish switch, both always showing w/ the current one filled in, js/language.js runs it -->
+            <button class="language-switch" id="language-switch" slot="top-right" type="button" role="switch" aria-checked="false"
+                aria-label="Spanish" data-en-aria-label="Spanish" data-es-aria-label="Español">
+                <span class="language-option language-option-en" lang="en">English</span>
+                <span class="language-option language-option-es" lang="es">Español</span>
+            </button>
             <section class="interpreters-panel" id="interpreters" slot="bottom-left">
                 <div class="interpreters-header">
-                    <h2>Interpreters</h2>
-                    <button class="interpreters-clear" id="interpreters-clear" type="button" aria-label="Clear interpreter selection" hidden>Clear</button>
+                    <h2><span class="en" lang="en">Interpreters</span><span class="es" lang="es">Intérpretes</span></h2>
+                    <button class="interpreters-clear" id="interpreters-clear" type="button" aria-label="Clear interpreter selection"
+                        data-en-aria-label="Clear interpreter selection" data-es-aria-label="Borrar la selección de intérprete" hidden><span class="en" lang="en">Clear</span><span class="es" lang="es">Borrar</span></button>
                 </div>
                 <ul id="interpreters-list"></ul>
             </section>

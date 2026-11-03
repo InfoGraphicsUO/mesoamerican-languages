@@ -2,7 +2,8 @@ import { PATHS } from './map.js';
 import { FAMILIES, OTOMANGUEAN_GROUPS } from './map-layers.js';
 import { KINDS, matchRange } from './search-index.js';
 import { suggestPlaces } from './place-search.js';
-import { html } from './ui.js';
+import { isLocalizedText, localized, onLanguageChange, textFor } from './language.js';
+import { html, languageText } from './ui.js';
 
 // one search bar for languages, families, groups, documented places, and other places
 // results from our data come first, the geocoder's other places get added under them when they arrive
@@ -16,8 +17,28 @@ const PIN_ICON = `${PATHS.markers}/place-pin.svg`;
 // type tag color for each marker, so a tag matches the family or group it belongs to
 const TAG_COLORS = Object.fromEntries([...FAMILIES, ...OTOMANGUEAN_GROUPS].map(({ slug, text }) => [slug, text]));
 
+// copy for the note row under the results and the screen reader status
+const NOTES = {
+    indexFailed: localized('Languages are unavailable right now', 'Las lenguas no están disponibles en este momento'),
+    loading: localized('Loading languages…', 'Cargando lenguas…'),
+    searchingPlaces: localized('Searching other places…', 'Buscando otros lugares…'),
+    placesFailed: localized('Other places are unavailable right now', 'Los demás lugares no están disponibles en este momento'),
+    noMatches: localized('No matches. Try a language, family, town, or state.', 'Sin resultados. Prueba con una lengua, familia, pueblo o estado.')
+};
+
+const resultCount = (count) => localized(
+    count ? `${count} ${count === 1 ? 'result' : 'results'}` : 'No results',
+    count ? `${count} ${count === 1 ? 'resultado' : 'resultados'}` : 'Sin resultados'
+);
+
+const PLACE_TAG = localized('Place', 'Lugar');
+
 // name w/ the matched part bolded, alias matches (like ISO codes) just show the name
+// translated names get both versions bolded on their own
 function highlightedName(label, query) {
+    if (isLocalizedText(label)) {
+        return html`<span class="en" lang="en">${highlightedName(label.en, query)}</span><span class="es" lang="es">${highlightedName(label.es, query)}</span>`;
+    }
     const range = matchRange(label, query);
     if (!range) return html`${label}`;
     const [start, end] = range;
@@ -28,7 +49,7 @@ function highlightedName(label, query) {
 const dataResult = (item) => ({
     source: 'data',
     kind: item.kind,
-    label: item.label,
+    label: item.display,
     context: item.context,
     tag: KINDS[item.kind].tag,
     tagColor: TAG_COLORS[item.slug],
@@ -42,7 +63,7 @@ const placeResult = (suggestion) => ({
     kind: 'other-place',
     label: suggestion.label,
     context: suggestion.context,
-    tag: 'Place',
+    tag: PLACE_TAG,
     icon: PIN_ICON,
     suggestion
 });
@@ -65,6 +86,7 @@ export function initSearch({ index, center, onSelect = () => {}, onClear = () =>
     let places = { query: '', results: [], loading: false, failed: false };
     let placeTimer = null;
     let placeRequest = null;
+    let chosen = null; // last picked result, while the bar still shows its name
 
     Promise.resolve(index).then((loaded) => {
         dataIndex = loaded;
@@ -98,7 +120,7 @@ export function initSearch({ index, center, onSelect = () => {}, onClear = () =>
 
     // message row at the bottom of the list, not selectable
     function noteRow(text, className = '') {
-        return html`<li class="search-note ${className}" role="presentation">${text}</li>`;
+        return html`<li class="search-note ${className}" role="presentation">${languageText(text)}</li>`;
     }
 
     function render() {
@@ -117,25 +139,25 @@ export function initSearch({ index, center, onSelect = () => {}, onClear = () =>
                 <img class="search-result-icon" src="${result.icon}" alt="" width="22" height="22">
                 <span class="search-result-text">
                     <span class="search-result-name">${highlightedName(result.label, text)}</span>
-                    ${result.context ? html`<span class="search-result-context">${result.context}</span>` : ''}
+                    ${textFor(result.context) ? html`<span class="search-result-context">${languageText(result.context)}</span>` : ''}
                 </span>
-                <span class="search-result-tag"${result.tagColor ? html` style="color: ${result.tagColor}"` : ''}>${result.tag}</span>
+                <span class="search-result-tag"${result.tagColor ? html` style="color: ${result.tagColor}"` : ''}>${languageText(result.tag)}</span>
             </li>
         `);
 
         let note = '';
-        if (indexFailed && !waitingOnPlaces && !results.length) note = noteRow('Languages are unavailable right now');
-        else if (!dataIndex && !indexFailed) note = noteRow('Loading languages…', 'is-loading');
-        else if (waitingOnPlaces) note = noteRow('Searching other places…', 'is-loading');
-        else if (placesCurrent && places.failed) note = noteRow('Other places are unavailable right now');
-        else if (!results.length) note = noteRow('No matches. Try a language, family, town, or state.');
+        if (indexFailed && !waitingOnPlaces && !results.length) note = noteRow(NOTES.indexFailed);
+        else if (!dataIndex && !indexFailed) note = noteRow(NOTES.loading, 'is-loading');
+        else if (waitingOnPlaces) note = noteRow(NOTES.searchingPlaces, 'is-loading');
+        else if (placesCurrent && places.failed) note = noteRow(NOTES.placesFailed);
+        else if (!results.length) note = noteRow(NOTES.noMatches);
 
         list.innerHTML = String(html`${rows}${note}`);
         activeIndex = -1;
         input.removeAttribute('aria-activedescendant');
 
         if (!waitingOnPlaces) {
-            status.textContent = results.length ? `${results.length} result${results.length === 1 ? '' : 's'}` : 'No results';
+            status.textContent = textFor(resultCount(results.length));
         }
     }
 
@@ -191,14 +213,16 @@ export function initSearch({ index, center, onSelect = () => {}, onClear = () =>
 
     function choose(result) {
         if (!result) return;
-        input.value = result.label;
+        chosen = result;
+        input.value = textFor(result.label);
         clearButton.hidden = false;
         setOpen(false);
-        status.textContent = `${result.label}, ${result.tag}`;
+        status.textContent = `${textFor(result.label)}, ${textFor(result.tag)}`;
         onSelect(result);
     }
 
     function clear() {
+        chosen = null;
         input.value = '';
         update();
         status.textContent = '';
@@ -206,7 +230,17 @@ export function initSearch({ index, center, onSelect = () => {}, onClear = () =>
         input.focus();
     }
 
-    input.addEventListener('input', update);
+    input.addEventListener('input', () => {
+        chosen = null;
+        update();
+    });
+
+    // a picked family or group shows its name in the new language, typed text stays as typed
+    // results and notes switch on their own thru the .en/.es spans
+    onLanguageChange((language) => {
+        if (chosen && isLocalizedText(chosen.label)) input.value = textFor(chosen.label, language);
+        if (!list.hidden) render();
+    });
 
     // reopen the last results when coming back to the bar
     input.addEventListener('focus', () => {

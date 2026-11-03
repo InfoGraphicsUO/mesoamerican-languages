@@ -46,3 +46,64 @@ body {
 #map {
     display: block;
 }
+
+/* both translations sit side by side, the class on html decides which one shows */
+html.lang-en .es,
+html.lang-es .en {
+    display: none !important;
+}
+
+/* english/spanish switch, one button w/ both choices always showing and the current one filled in */
+.language-switch {
+    --language-accent: #1769c2; /* same blue as the search bar's focus border */
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 2.75rem; /* lines up w/ the search bar */
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    backdrop-filter: var(--blur);
+    color: var(--text);
+    font: 600 var(--text-sm)/1 var(--font);
+    cursor: pointer;
+}
+
+.language-option {
+    display: grid;
+    height: 100%;
+    padding: 0.15rem 0.9rem 0; /* josefin sans sits high, nudge the text down so it looks centered */
+    place-items: center;
+    transition: color var(--motion-duration) var(--motion-ease), background var(--motion-duration) var(--motion-ease);
+}
+
+.language-option + .language-option {
+    border-left: 1px solid var(--border);
+}
+
+html.lang-en .language-option-en,
+html.lang-es .language-option-es {
+    background: var(--language-accent);
+    color: white;
+}
+
+.language-switch:focus-visible {
+    outline: 2px solid var(--language-accent);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .language-option {
+        transition: none;
+    }
+}
+
+/* on phones the search row fills the top, so the switch drops under it on the right */
+@media (max-width: 600px) {
+    .language-switch {
+        height: 2.25rem;
+        margin-top: 3.25rem;
+    }
+}
