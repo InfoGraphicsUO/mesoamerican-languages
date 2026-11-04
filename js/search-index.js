@@ -16,7 +16,7 @@ export const KINDS = {
     family: { tag: localized('Family', 'Familia'), order: 0 },
     group: { tag: localized('Group', 'Grupo'), order: 1 },
     language: { tag: localized('Language', 'Lengua'), order: 2 },
-    place: { tag: localized('Found in Oregon', 'Encontrado en Oregón'), order: 3 }
+    place: { tag: localized('Language found in Oregon', 'Lengua encontrada en Oregón'), order: 3 }
 };
 
 // spanish and alternate names so people can search the way they say it
