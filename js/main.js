@@ -1,6 +1,6 @@
 import { initLanguageSwitch, setLanguage } from './language.js';
 import { ready } from './map.js';
-import { addMapLayers } from './map-layers.js';
+import { addMapLayers, FIELDS } from './map-layers.js';
 import { initInterpretersPanel } from './interpreters-panel.js';
 import { loadSearchIndex } from './search-index.js';
 import { initSearch } from './search.js';
@@ -32,10 +32,22 @@ initSearch({
     index: searchIndex,
     center: () => view && [view.center.longitude, view.center.latitude],
     onSelect: (result) => {
-        interpretersPanel.then((panel) => panel.clear(), () => {});
+        interpretersPanel.then((panel) => {
+            panel.clear();
+            // narrow the panel to the picked languages, other places have none of ours so the full list stays
+            if (result.source === 'data') {
+                const languages = result.item.sites.map((site) => String(site.attributes[FIELDS.language] ?? '').trim());
+                panel.filter({ label: result.label, languages });
+            } else {
+                panel.showAll();
+            }
+        }, () => {});
         searchFocus.then((focus) => focus.show(result));
     },
-    onClear: () => searchFocus.then((focus) => focus.clear())
+    onClear: () => {
+        interpretersPanel.then((panel) => panel.showAll(), () => {});
+        searchFocus.then((focus) => focus.clear());
+    }
 });
 
 layers.catch((error) => console.error('Unable to add map layers:', error));
