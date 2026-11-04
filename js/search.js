@@ -33,6 +33,9 @@ const resultCount = (count) => localized(
 
 const PLACE_TAG = localized('Place', 'Lugar');
 
+// small oregon outline next to the tag on places from our data, filled w/ the tag color
+const OREGON_ICON = html`<svg class="search-result-tag-icon" viewBox="0 0 24 18" aria-hidden="true"><path d="M2 .6 4.3 1l1.2 2 4.6.2L15 2l7.4-.4 1.2 1.6-.7 2-.7 2.8.3 1.6-.4 1.2v6.8H1.5L.9 15.2.4 14.2l.5-1.8.8-5.2.5-3.6z"/></svg>`;
+
 // name w/ the matched part bolded, alias matches (like ISO codes) just show the name
 // translated names get both versions bolded on their own
 function highlightedName(label, query) {
@@ -141,7 +144,7 @@ export function initSearch({ index, center, onSelect = () => {}, onClear = () =>
                     <span class="search-result-name">${highlightedName(result.label, text)}</span>
                     ${textFor(result.context) ? html`<span class="search-result-context">${languageText(result.context)}</span>` : ''}
                 </span>
-                <span class="search-result-tag"${result.tagColor ? html` style="color: ${result.tagColor}"` : ''}>${languageText(result.tag)}</span>
+                <span class="search-result-tag${result.kind === 'place' ? ' search-result-tag-oregon' : ''}"${result.tagColor ? html` style="color: ${result.tagColor}"` : ''}>${result.kind === 'place' ? OREGON_ICON : ''}${languageText(result.tag)}</span>
             </li>
         `);
 
