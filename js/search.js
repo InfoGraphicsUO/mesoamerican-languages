@@ -33,8 +33,8 @@ const resultCount = (count) => localized(
 
 const PLACE_TAG = localized('Place', 'Lugar');
 
-// small oregon outline next to the tag on places from our data, filled w/ the tag color
-const OREGON_ICON = html`<svg class="search-result-tag-icon" viewBox="0 0 24 18" aria-hidden="true"><path d="M2 .6 4.3 1l1.2 2 4.6.2L15 2l7.4-.4 1.2 1.6-.7 2-.7 2.8.3 1.6-.4 1.2v6.8H1.5L.9 15.2.4 14.2l.5-1.8.8-5.2.5-3.6z"/></svg>`;
+// small oregon shape next to the tag on places from our data, css colors it w/ the tag color
+const OREGON_ICON = html`<span class="search-result-tag-icon" aria-hidden="true"></span>`;
 
 // name w/ the matched part bolded, alias matches (like ISO codes) just show the name
 // translated names get both versions bolded on their own
