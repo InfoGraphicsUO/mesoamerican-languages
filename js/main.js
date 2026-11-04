@@ -18,20 +18,23 @@ const layers = ready.then(async (readyView) => {
 const searchIndex = layers.then(({ sites }) => loadSearchIndex(sites, view.spatialReference));
 const searchFocus = layers.then((mapLayers) => createSearchFocus(view, mapLayers));
 
+// search and the interpreters panel share the purple glow, so only the newest pick keeps it
+const interpretersPanel = layers.then(({ siteGlow }) => initInterpretersPanel(view, siteGlow, {
+    onSelect: () => searchFocus.then((focus) => focus.clearGlow(), () => {})
+}));
+
 initSearch({
     index: searchIndex,
     center: () => view && [view.center.longitude, view.center.latitude],
-    onSelect: (result) => searchFocus.then((focus) => focus.show(result)),
+    onSelect: (result) => {
+        interpretersPanel.then((panel) => panel.clear(), () => {});
+        searchFocus.then((focus) => focus.show(result));
+    },
     onClear: () => searchFocus.then((focus) => focus.clear())
 });
 
-layers.then(async ({ siteGlow }) => {
-    try {
-        await initInterpretersPanel(view, siteGlow);
-    } catch (error) {
-        console.error('Unable to load interpreters panel:', error);
-    }
-}).catch((error) => console.error('Unable to add map layers:', error));
+layers.catch((error) => console.error('Unable to add map layers:', error));
+interpretersPanel.catch((error) => console.error('Unable to load interpreters panel:', error));
 
 searchIndex.catch((error) => console.error('Unable to build the search index:', error));
 searchFocus.catch((error) => console.error('Unable to connect search to the map:', error));

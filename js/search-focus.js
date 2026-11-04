@@ -71,7 +71,7 @@ export async function createSearchFocus(view, { pickedPopup }) {
     ]);
 
     // search highlight, the same purple glow as the interpreters but on its own layer
-    // so a search result and an interpreter can be highlighted at the same time
+    // only one of the two shows at a time, js/main.js clears the other when either gets picked
     // a graphics layer draws as soon as graphics are added, a filtered or client-side feature layer
     // took seconds to catch up while the map zoomed. it has no size by zoom, so glowSymbol does that
     const glows = new GraphicsLayer({ id: 'search-glow', title: 'Searched language sites' });
@@ -153,6 +153,13 @@ export async function createSearchFocus(view, { pickedPopup }) {
         glow([]);
     }
 
+    // drop the glow and the popup that go w/ it, but keep a place pin and the view
+    // for when an interpreter takes over the highlight, the pin still marks what was searched
+    function clearGlow() {
+        pickedPopup.hide();
+        glow([]);
+    }
+
     async function show(result) {
         const current = reset();
 
@@ -206,5 +213,5 @@ export async function createSearchFocus(view, { pickedPopup }) {
         frame({ xmin, ymin, xmax, ymax }, PLACE_ZOOM);
     }
 
-    return { show, clear };
+    return { show, clear, clearGlow };
 }
