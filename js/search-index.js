@@ -1,4 +1,5 @@
 import { FAMILIES, OTOMANGUEAN_GROUPS, FIELDS } from './map-layers.js';
+import { COUNTRY_LABELS, FAMILY_LABELS, GROUP_LABELS, localized, localizedLookup, localizedPlaceName, textFor } from './language.js';
 
 // searchable index of our own data, built once from the sites layer
 // results are families, groups, languages, and documented places, each w/ the sites it covers
@@ -12,10 +13,10 @@ const PLACE_FIELDS = {
 
 // kind of each result, in the order they sort when they match equally well
 export const KINDS = {
-    family: { tag: 'Family', order: 0 },
-    group: { tag: 'Group', order: 1 },
-    language: { tag: 'Language', order: 2 },
-    place: { tag: 'Documented place', order: 3 }
+    family: { tag: localized('Family', 'Familia'), order: 0 },
+    group: { tag: localized('Group', 'Grupo'), order: 1 },
+    language: { tag: localized('Language', 'Lengua'), order: 2 },
+    place: { tag: localized('Documented place', 'Lugar documentado'), order: 3 }
 };
 
 // spanish and alternate names so people can search the way they say it
@@ -92,10 +93,24 @@ function markerSlug(family, group) {
 // 'Ensenada, Oaxaca, Mexico' is searched as 'Ensenada', otherwise every place in Oaxaca matched 'oaxaca'
 const placeName = (name) => name.split(',')[0].trim();
 
-const plural = (count, word) => `${count} ${word}${count === 1 ? '' : 's'}`;
+const languageCount = (count) => localized(
+    `${count} ${count === 1 ? 'language' : 'languages'}`,
+    `${count} ${count === 1 ? 'lengua' : 'lenguas'}`
+);
 
-function entry(kind, label, slug) {
-    return { kind, label, slug, context: '', keys: [], sites: [] };
+// join plain and localized parts into one localized() pair, blanks get skipped
+function joinText(parts, separator) {
+    const kept = parts.filter((part) => textFor(part, 'en'));
+    return localized(
+        kept.map((part) => textFor(part, 'en')).join(separator),
+        kept.map((part) => textFor(part, 'es')).join(separator)
+    );
+}
+
+// label: the name as it is in the data, used for matching and sorting
+// display: what the results show, families and groups are translated, languages and places stay as recorded
+function entry(kind, label, slug, display = label) {
+    return { kind, label, display, slug, context: '', keys: [], sites: [] };
 }
 
 // add searchable names to an entry, skipping blanks and repeats
@@ -132,14 +147,14 @@ export function buildSearchIndex(sites, objectIdField) {
         const slug = markerSlug(family, group);
 
         if (family) {
-            if (!families.has(family)) families.set(family, entry('family', family, markerSlug(family)));
+            if (!families.has(family)) families.set(family, entry('family', family, markerSlug(family), localizedLookup(family, FAMILY_LABELS)));
             families.get(family).sites.push(site);
         }
 
         // groups that just repeat the family name (Mayan, Purépecha) arent their own result
         if (group && group !== family) {
             if (!groups.has(group)) {
-                const item = entry('group', group, slug);
+                const item = entry('group', group, slug, localizedLookup(group, GROUP_LABELS));
                 item.family = family;
                 groups.set(group, item);
             }
@@ -165,9 +180,9 @@ export function buildSearchIndex(sites, objectIdField) {
         if (name) {
             const key = [name, value(FIELDS.adminArea), value(FIELDS.country)].map(normalizeText).join('|');
             if (!places.has(key)) {
-                const item = entry('place', name, slug);
+                const item = entry('place', name, slug, localizedPlaceName(name));
                 Object.assign(item, {
-                    area: [value(FIELDS.adminArea), value(FIELDS.country)].filter(Boolean).join(', '),
+                    area: joinText([localizedPlaceName(value(FIELDS.adminArea)), localizedLookup(value(FIELDS.country), COUNTRY_LABELS)], ', '),
                     origin: false
                 });
                 places.set(key, item);
@@ -183,18 +198,21 @@ export function buildSearchIndex(sites, objectIdField) {
     // places show where they are, the languages spoken there are in the popup once picked
     for (const item of families.values()) {
         const count = new Set(item.sites.map((site) => site.attributes[FIELDS.language]).filter(Boolean)).size;
-        item.context = plural(count, 'language');
+        item.context = languageCount(count);
     }
-    for (const item of groups.values()) item.context = item.family;
+    for (const item of groups.values()) item.context = localizedLookup(item.family, FAMILY_LABELS);
     for (const item of languages.values()) {
-        const lineage = item.group && item.group !== item.family ? `${item.family} › ${item.group}` : item.family;
-        item.context = lineage || 'Unclassified';
+        const family = localizedLookup(item.family || 'Unclassified', FAMILY_LABELS);
+        item.context = item.group && item.group !== item.family
+            ? joinText([family, localizedLookup(item.group, GROUP_LABELS)], ' › ')
+            : family;
     }
     for (const item of places.values()) item.context = item.area;
 
     const entries = [...families.values(), ...groups.values(), ...languages.values(), ...places.values()];
     for (const item of entries) {
         addKeys(item, [item.kind === 'place' ? placeName(item.label) : item.label], WEIGHTS.label);
+        addKeys(item, [textFor(item.display, 'es')], WEIGHTS.label); // translated families and groups count as their shown name
         addKeys(item, ALIASES[item.label] || [], WEIGHTS.alias);
     }
 

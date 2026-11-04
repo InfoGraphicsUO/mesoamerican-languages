@@ -1,5 +1,6 @@
 import { mapElement } from './map.js';
-import { html } from './ui.js';
+import { applyLocalizedAttributes } from './language.js';
+import { html, languageText } from './ui.js';
 
 // hover boxes for map features, with each layer supplying render(graphic)
 // these replace the sdk's own popup, so layers using them need popupEnabled: false
@@ -13,10 +14,11 @@ const OFFSET = 10; // gap between the feature and the popup tip, in px
 const EDGE_PADDING = 8; // closest the popup gets to the edge of the map, in px
 
 // creates the detailed info section of a popup
+// labels and values can be plain text or localized() pairs from js/language.js
 // rows example:
 // [
-//     ['Family', 'Mayan'],
-//     ['Country', 'Mexico']
+//     [localized('Family', 'Familia'), localized('Mayan', 'Maya')],
+//     [localized('Country', 'País'), 'Guatemala']
 // ]
 export function detailList(rows) {
 
@@ -35,8 +37,8 @@ export function detailList(rows) {
         <dl class="popup-details">
             ${kept.map(([label, value]) => html`
                 <div>
-                    <dt>${label}</dt>
-                    <dd>${value}</dd>
+                    <dt>${languageText(label)}</dt>
+                    <dd>${languageText(value)}</dd>
                 </div>
             `)}
         </dl>
@@ -50,8 +52,8 @@ export function detailList(rows) {
 export function hoverBox({ title, subtitle, rows = [] }) {
     return html`
         <article class="popup">
-            <h2>${title}</h2>
-            ${subtitle ? html`<p class="popup-subtitle">${subtitle}</p>` : ''}
+            <h2>${languageText(title)}</h2>
+            ${subtitle ? html`<p class="popup-subtitle">${languageText(subtitle)}</p>` : ''}
             ${detailList(rows)}
         </article>
     `;
@@ -119,7 +121,9 @@ function createPopup(view, { closeButton = false } = {}) {
         const button = document.createElement('button');
         button.type = 'button';
         button.className = 'map-popup-close';
-        button.setAttribute('aria-label', 'Close popup');
+        button.dataset.enAriaLabel = 'Close popup';
+        button.dataset.esAriaLabel = 'Cerrar ventana emergente';
+        applyLocalizedAttributes(button); // later switches reach it thru the document
         button.textContent = '×';
         button.addEventListener('click', hide);
         content.append(button);

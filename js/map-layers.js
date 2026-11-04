@@ -1,5 +1,6 @@
 import { MAP, PATHS } from './map.js';
 import { hoverPopup, clickPopup, hoverBox } from './popup.js';
+import { COUNTRY_LABELS, FAMILY_LABELS, GROUP_LABELS, localized, localizedLookup, localizedPlaceName } from './language.js';
 
 // language families in the mapped data, slug matches the marker file names
 // text: the marker's color for text like the search result tags
@@ -144,15 +145,16 @@ export function sitePopup(feature) {
     // build the popup HTML
     // includes alternatives if no data exist (||)
     return hoverBox({
-        title: value(FIELDS.name) || 'Attested site',
-        subtitle: value(FIELDS.language) || 'Language not recorded',
+        // place and language names stay as recorded, the labels and classification get translated
+        title: localizedPlaceName(value(FIELDS.name)) || localized('Attested site', 'Sitio documentado'),
+        subtitle: value(FIELDS.language) || localized('Language not recorded', 'Lengua no registrada'),
         rows: [
-            ['Family', value(FIELDS.family)],
-            ['Group', value(FIELDS.group)],
+            [localized('Family', 'Familia'), localizedLookup(value(FIELDS.family), FAMILY_LABELS)],
+            [localized('Group', 'Grupo'), localizedLookup(value(FIELDS.group), GROUP_LABELS)],
             ['ISO 639-3', value(FIELDS.isoCode) || value(FIELDS.surveyIsoCode)],
-            ['Glottocode', value(FIELDS.glottocode) || value(FIELDS.surveyGlottocode)],
-            ['Area', value(FIELDS.adminArea)],
-            ['Country', value(FIELDS.country)]
+            [localized('Glottocode', 'Glotocódigo'), value(FIELDS.glottocode) || value(FIELDS.surveyGlottocode)],
+            [localized('Area', 'Área'), localizedPlaceName(value(FIELDS.adminArea))],
+            [localized('Country', 'País'), localizedLookup(value(FIELDS.country), COUNTRY_LABELS)]
         ]
     });
 }

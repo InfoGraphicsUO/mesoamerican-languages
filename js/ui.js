@@ -1,5 +1,7 @@
+import { isLocalizedText } from './language.js';
+
 // shared ui tools for safe html
-// exports escape, raw, html
+// exports escape, raw, html, languageText
 
 // turn any value into safe text before it gets added to html
 // null/undefined = empty string
@@ -30,4 +32,11 @@ export function html(strings, ...values) {
 
     // combine template parts w/ rendered values and return another safe fragment
     return raw(strings.reduce((out, part, i) => out + part + (i < values.length ? render(values[i]) : ''), ''));
+}
+
+// both translations of a localized() pair, css shows the one that matches the class on <html>
+// plain strings come back as escaped text
+export function languageText(value) {
+    if (!isLocalizedText(value)) return html`${value}`;
+    return html`<span class="en" lang="en">${value.en}</span><span class="es" lang="es">${value.es}</span>`;
 }

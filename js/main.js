@@ -1,3 +1,4 @@
+import { initLanguageSwitch, setLanguage } from './language.js';
 import { ready } from './map.js';
 import { addMapLayers } from './map-layers.js';
 import { initInterpretersPanel } from './interpreters-panel.js';
@@ -6,6 +7,10 @@ import { initSearch } from './search.js';
 import { createSearchFocus } from './search-focus.js';
 
 // coordinates js files on site load
+
+// the site opens in english, the switch in the top right flips everything to spanish and back
+setLanguage('en');
+initLanguageSwitch(document.getElementById('language-switch'));
 
 let view = null;
 
