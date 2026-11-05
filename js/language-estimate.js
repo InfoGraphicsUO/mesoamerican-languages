@@ -87,15 +87,18 @@ function classification({ family, group }) {
 // view: MapView from ready in js/map.js
 // returns { show(point, { marker }), hide }
 export async function initLanguageEstimate(view) {
-    const [lookupResponse, geotiff, Graphic, GraphicsLayer] = await Promise.all([
+    const [lookupResponse, rasterResponse, geotiff, Graphic, GraphicsLayer] = await Promise.all([
         fetch(LOOKUP_URL),
+        fetch(RASTER_URL),
         import(GEOTIFF_URL),
         $arcgis.import('@arcgis/core/Graphic.js'),
         $arcgis.import('@arcgis/core/layers/GraphicsLayer.js')
     ]);
     if (!lookupResponse.ok) throw new Error(`Language estimate lookup returned ${lookupResponse.status}`);
     const lookup = await lookupResponse.json();
-    const tiff = await geotiff.fromUrl(RASTER_URL);
+    if (!rasterResponse.ok) throw new Error(`Language estimate raster returned ${rasterResponse.status}`);
+    // the whole file in one request, it's small and this works on servers that ignore range requests
+    const tiff = await geotiff.fromArrayBuffer(await rasterResponse.arrayBuffer());
     const image = await tiff.getImage();
     const [originX, originY] = image.getOrigin();
     const [resX, resY] = image.getResolution();
