@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="css/popup.css">
     <link rel="stylesheet" href="css/interpreters-panel.css">
     <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="css/language-estimate.css">
 
     <script type="module" src="js/main.js"></script>
 </head>
@@ -70,6 +71,16 @@
                 </p>
                 <ul id="interpreters-list"></ul>
                 <p class="visually-hidden" id="interpreters-status" role="status" aria-live="polite"></p>
+            </section>
+            <!-- most likely languages at a clicked or searched point, js/language-estimate.js fills it in -->
+            <section class="language-estimate" id="language-estimate" slot="bottom-right" aria-live="polite" hidden>
+                <div class="language-estimate-header">
+                    <h2><span class="en" lang="en">Likely languages here</span><span class="es" lang="es">Lenguas probables aquí</span></h2>
+                    <button class="language-estimate-close" id="language-estimate-close" type="button" aria-label="Close"
+                        data-en-aria-label="Close" data-es-aria-label="Cerrar">×</button>
+                </div>
+                <div id="language-estimate-body"></div>
+                <p class="language-estimate-note"><span class="en" lang="en">Estimated from nearby documented sites, not a census.</span><span class="es" lang="es">Estimado a partir de sitios documentados cercanos, no es un censo.</span></p>
             </section>
         </arcgis-map>
     </main>

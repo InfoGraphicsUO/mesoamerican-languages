@@ -61,7 +61,8 @@ function glowSize(zoom) {
 }
 
 // pickedPopup: from addMapLayers in js/map-layers.js
-export async function createSearchFocus(view, { pickedPopup }) {
+// onPlace(point, { marker }): runs w/ the spot a place pick lands on, for the language estimate
+export async function createSearchFocus(view, { pickedPopup }, { onPlace = () => {} } = {}) {
     const [Graphic, GraphicsLayer, Point, reactiveUtils, webMercatorUtils] = await Promise.all([
         $arcgis.import('@arcgis/core/Graphic.js'),
         $arcgis.import('@arcgis/core/layers/GraphicsLayer.js'),
@@ -176,6 +177,7 @@ export async function createSearchFocus(view, { pickedPopup }) {
             if (item.kind === 'place') {
                 const site = item.sites.find((row) => String(row.attributes[FIELDS.language] ?? '').trim()) || item.sites[0];
                 pickedPopup.show(site.geometry, sitePopup({ attributes: site.attributes }));
+                onPlace(site.geometry, { marker: false });
             }
             return;
         }
@@ -201,6 +203,7 @@ export async function createSearchFocus(view, { pickedPopup }) {
             },
             attributes: { name: result.label }
         }));
+        onPlace(point, { marker: false }); // the pin already marks it
 
         // states and municipalities come back w/ a big extent, towns w/ a small one that the zoom cap handles
         if (!canFrame()) {

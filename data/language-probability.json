@@ -1,0 +1,369 @@
+{
+  "model": {
+    "method": "terrain walking-time Gaussian kernel density, evidence-calibrated",
+    "bandwidth_hours": 3.0,
+    "tobler_slope_factor": 3.5,
+    "max_nearest_km": 60,
+    "observations": 553,
+    "respondents": 212
+  },
+  "bands": [
+    "top1",
+    "top2",
+    "top3",
+    "p1",
+    "p2",
+    "p3",
+    "nearest_km",
+    "another_language",
+    "confidence",
+    "respondents_x10"
+  ],
+  "nodata": 255,
+  "confidence": [
+    {
+      "level": "high",
+      "max_km": 10,
+      "min_respondents": 2.5,
+      "top1": 0.777,
+      "top3": 0.895
+    },
+    {
+      "level": "medium",
+      "max_km": 25,
+      "min_respondents": 1.0,
+      "top1": 0.502,
+      "top3": 0.688
+    },
+    {
+      "level": "low",
+      "max_km": 60,
+      "min_respondents": 0.0,
+      "top1": 0.258,
+      "top3": 0.431
+    }
+  ],
+  "other_share": [
+    [
+      0.004,
+      0.468
+    ],
+    [
+      0.379,
+      0.402
+    ],
+    [
+      0.672,
+      0.402
+    ],
+    [
+      1.182,
+      0.306
+    ],
+    [
+      1.904,
+      0.17
+    ],
+    [
+      3.29,
+      0.096
+    ],
+    [
+      5.368,
+      0.095
+    ],
+    [
+      13.115,
+      0.057
+    ]
+  ],
+  "languages": [
+    {
+      "iso": "cac",
+      "name": "Chuj",
+      "glottocode": "chuj1250",
+      "family": "Mayan",
+      "group": "Mayan"
+    },
+    {
+      "iso": "ctu",
+      "name": "Chol",
+      "glottocode": "chol1282",
+      "family": "Mayan",
+      "group": "Mayan"
+    },
+    {
+      "iso": "cvn",
+      "name": "Valle Nacional Chinantec",
+      "glottocode": "vall1253",
+      "family": "Otomanguean",
+      "group": "Chinantec"
+    },
+    {
+      "iso": "jac",
+      "name": "Popti'",
+      "glottocode": "popt1235",
+      "family": "Mayan",
+      "group": "Mayan"
+    },
+    {
+      "iso": "jmx",
+      "name": "Western Juxtlahuaca Mixtec",
+      "glottocode": "west2643",
+      "family": "Otomanguean",
+      "group": "Mixtec"
+    },
+    {
+      "iso": "kek",
+      "name": "Q'eqchi'",
+      "glottocode": "kekc1242",
+      "family": "Mayan",
+      "group": "Mayan"
+    },
+    {
+      "iso": "kjb",
+      "name": "Q'anjob'al",
+      "glottocode": "qanj1241",
+      "family": "Mayan",
+      "group": "Mayan"
+    },
+    {
+      "iso": "knj",
+      "name": "Akateko",
+      "glottocode": "west2635",
+      "family": "Mayan",
+      "group": "Mayan"
+    },
+    {
+      "iso": "mig",
+      "name": "Santa María Yosoyúa Mixtec",
+      "glottocode": "0",
+      "family": "Otomanguean",
+      "group": "Mixtec"
+    },
+    {
+      "iso": "mih",
+      "name": "Chayuco Mixtec",
+      "glottocode": "chay1249",
+      "family": "Otomanguean",
+      "group": "Mixtec"
+    },
+    {
+      "iso": "mim",
+      "name": "Alacatlatzala Mixtec",
+      "glottocode": "alac1244",
+      "family": "Otomanguean",
+      "group": "Mixtec"
+    },
+    {
+      "iso": "mix",
+      "name": "Mixtepec Mixtec",
+      "glottocode": "mixt1425",
+      "family": "Otomanguean",
+      "group": "Mixtec"
+    },
+    {
+      "iso": "mks",
+      "name": "Silacayoapan Mixtec",
+      "glottocode": "sila1250",
+      "family": "Otomanguean",
+      "group": "Mixtec"
+    },
+    {
+      "iso": "mms",
+      "name": "Southern Mam",
+      "glottocode": "mams1234",
+      "family": "Mayan",
+      "group": "Mayan"
+    },
+    {
+      "iso": "mqh",
+      "name": "Tlazoyaltepec Mixtec",
+      "glottocode": "tlaz1235",
+      "family": "Otomanguean",
+      "group": "Mixtec"
+    },
+    {
+      "iso": "mvc",
+      "name": "Central Mam",
+      "glottocode": "mamc1234",
+      "family": "Mayan",
+      "group": "Mayan"
+    },
+    {
+      "iso": "mvj",
+      "name": "Mam, Todos Santos Cuchumatán",
+      "glottocode": "mamm1241",
+      "family": "Mayan",
+      "group": "Mayan"
+    },
+    {
+      "iso": "mxv",
+      "name": "Metlatónoc Mixtec",
+      "glottocode": "metl1238",
+      "family": "Otomanguean",
+      "group": "Mixtec"
+    },
+    {
+      "iso": "ngu",
+      "name": "Central Guerrero Nahuatl",
+      "glottocode": "guer1241",
+      "family": "Uto-Aztecan",
+      "group": "Nahuan"
+    },
+    {
+      "iso": "nlv",
+      "name": "Orizaba Nahuatl",
+      "glottocode": "oriz1235",
+      "family": "Uto-Aztecan",
+      "group": "Nahuan"
+    },
+    {
+      "iso": "npl",
+      "name": "Nahuatl, Southeastern Puebla",
+      "glottocode": "sout2973",
+      "family": "Uto-Aztecan",
+      "group": "Nahuan"
+    },
+    {
+      "iso": "nsu",
+      "name": "Sierra Negra Nahuatl",
+      "glottocode": "sier1248",
+      "family": "Uto-Aztecan",
+      "group": "Nahuan"
+    },
+    {
+      "iso": "pua",
+      "name": "Western Highland Purepecha",
+      "glottocode": "west2631",
+      "family": "Purépecha",
+      "group": "Purépecha"
+    },
+    {
+      "iso": "quc",
+      "name": "K'iche'",
+      "glottocode": "kich1262",
+      "family": "Mayan",
+      "group": "Mayan"
+    },
+    {
+      "iso": "tcu",
+      "name": "Southeastern Rarámuri",
+      "glottocode": "sout2972",
+      "family": "Uto-Aztecan",
+      "group": "Tarahumara"
+    },
+    {
+      "iso": "trc",
+      "name": "Copala Triqui",
+      "glottocode": "copa1237",
+      "family": "Otomanguean",
+      "group": "Triqui"
+    },
+    {
+      "iso": "trq",
+      "name": "San Martín Itunyoso Triqui",
+      "glottocode": "sanm1298",
+      "family": "Otomanguean",
+      "group": "Triqui"
+    },
+    {
+      "iso": "trs",
+      "name": "Chicahuaxtla Triqui",
+      "glottocode": "chic1273",
+      "family": "Otomanguean",
+      "group": "Triqui"
+    },
+    {
+      "iso": "tsz",
+      "name": "Purepecha",
+      "glottocode": "pure1242",
+      "family": "Purépecha",
+      "group": "Purépecha"
+    },
+    {
+      "iso": "tzh",
+      "name": "Tzeltal",
+      "glottocode": "tzel1254",
+      "family": "Mayan",
+      "group": "Mayan"
+    },
+    {
+      "iso": "tzj",
+      "name": "Tz'utujil",
+      "glottocode": "tzut1248",
+      "family": "Mayan",
+      "group": "Mayan"
+    },
+    {
+      "iso": "vmc",
+      "name": "Juxtlahuaca Mixtec",
+      "glottocode": "juxt1235",
+      "family": "Otomanguean",
+      "group": "Mixtec"
+    },
+    {
+      "iso": "xta",
+      "name": "Alcozauca Mixtec",
+      "glottocode": "alco1235",
+      "family": "Otomanguean",
+      "group": "Mixtec"
+    },
+    {
+      "iso": "xtu",
+      "name": "Cuyamecalco Mixtec",
+      "glottocode": "cuya1240",
+      "family": "Otomanguean",
+      "group": "Mixtec"
+    },
+    {
+      "iso": "yua",
+      "name": "Yucatec Maya",
+      "glottocode": "yuca1254",
+      "family": "Mayan",
+      "group": "Mayan"
+    },
+    {
+      "iso": "zab",
+      "name": "Western Tlacolula Valley Zapotec",
+      "glottocode": "sanj1284",
+      "family": "Otomanguean",
+      "group": "Zapotec"
+    },
+    {
+      "iso": "zac",
+      "name": "Ocotlán Zapotec",
+      "glottocode": "ocot1244",
+      "family": "Otomanguean",
+      "group": "Zapotec"
+    },
+    {
+      "iso": "zao",
+      "name": "Ozolotepec Zapotec",
+      "glottocode": "ozol1235",
+      "family": "Otomanguean",
+      "group": "Zapotec"
+    },
+    {
+      "iso": "zca",
+      "name": "Coatecas Altas Zapotec",
+      "glottocode": "coat1244",
+      "family": "Otomanguean",
+      "group": "Zapotec"
+    },
+    {
+      "iso": "zpt",
+      "name": "San Vicente Coatlán Zapotec",
+      "glottocode": "sanv1242",
+      "family": "Otomanguean",
+      "group": "Zapotec"
+    },
+    {
+      "iso": "ztp",
+      "name": "Loxicha Zapotec",
+      "glottocode": "loxi1235",
+      "family": "Otomanguean",
+      "group": "Zapotec"
+    }
+  ]
+}
