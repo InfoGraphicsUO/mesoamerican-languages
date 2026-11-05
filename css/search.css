@@ -184,6 +184,22 @@
     white-space: nowrap;
 }
 
+.search-result-tag-oregon {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+    padding-top: 0.25rem;
+    font-size: 0.6875rem;
+}
+
+.search-result-tag-icon {
+    flex: none;
+    width: 0.875rem;
+    height: 0.875rem;
+    background: currentColor;
+    mask: url('../img/oregon.svg') center / contain no-repeat; /* same svg as OWDCIC-coverage */
+}
+
 .search-result-geocoder .search-result-tag {
     color: var(--search-other);
 }
