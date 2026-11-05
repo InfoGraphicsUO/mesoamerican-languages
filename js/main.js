@@ -6,6 +6,7 @@ import { loadSearchIndex } from './search-index.js';
 import { initSearch } from './search.js';
 import { createSearchFocus } from './search-focus.js';
 import { initLanguageEstimate } from './language-estimate.js';
+import { initRasterOverlay } from './raster-overlay.js';
 
 // coordinates js files on site load
 
@@ -24,7 +25,10 @@ const layers = ready.then(async (readyView) => {
 const searchIndex = layers.then(({ sites }) => loadSearchIndex(sites, view.spatialReference));
 // clicking anywhere, or landing on a searched place, shows the languages most likely spoken there
 const languageEstimate = layers.then(() => initLanguageEstimate(view));
-languageEstimate.then((estimate) => view.on('click', (event) => estimate.show(event.mapPoint)), () => {});
+languageEstimate.then((estimate) => {
+    view.on('click', (event) => estimate.show(event.mapPoint));
+    initRasterOverlay(view, estimate); // hidden, 1 2 3 4 shows the whole raster
+}, () => {});
 
 const searchFocus = layers.then((mapLayers) => createSearchFocus(view, mapLayers, {
     onPlace: (point, options) => languageEstimate.then((estimate) => estimate.show(point, options), () => {})
