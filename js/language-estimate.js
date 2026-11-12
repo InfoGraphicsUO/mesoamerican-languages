@@ -5,7 +5,7 @@ import { html, languageText } from './ui.js';
 // reads one pixel of data/language-probability.tif, built by analysis/build_raster.py
 // bands: 1-3 top language index, 4-6 percent, 7 km to the nearest documented site,
 // 8 percent for a language nobody reported nearby, 9 confidence level (index into lookup.confidence),
-// 10 effective respondents x 10, 255 = no estimate
+// 10 effective respondents x 10, 255 = no estimate (band 7 is also set on water near a report)
 // exports initLanguageEstimate
 
 const RASTER_URL = 'data/language-probability.tif';
@@ -23,11 +23,12 @@ const CONFIDENCE_TEXT = {
 // people is the raster's effective respondents, each person counted once and fading w/ walking time
 const distanceText = (km) => (km < 1 ? localized('under 1 km', 'menos de 1 km') : localized(`${km} km`, `${km} km`));
 
+// a rough range rather than a count, effective respondents fade w/ walking time so an exact number would mislead
 function peopleText(people) {
-    const count = Math.max(1, Math.round(people));
-    return count === 1
-        ? localized('only one person reported', 'una sola persona reportó')
-        : localized(`only about ${count} people reported`, `solo unas ${count} personas reportaron`);
+    if (people < 1) return localized('a few people', 'unas pocas personas');
+    if (people < 5) return localized('between 1 and 5 people', 'entre 1 y 5 personas');
+    if (people < 10) return localized('between 5 and 10 people', 'entre 5 y 10 personas');
+    return localized('over 10 people', 'más de 10 personas');
 }
 
 // level: index into lookup.confidence, levels: lookup.confidence
@@ -38,27 +39,31 @@ function confidenceDetail(km, people, level, levels) {
         es(textFor(distance, 'es'), textFor(peopleText(people), 'es')));
 
     if (level === 0) {
-        const count = people >= 25.4 ? '25+' : `about ${Math.round(people)}`; // the raster caps the count at 25.4
-        const countEs = people >= 25.4 ? 'más de 25' : `unas ${Math.round(people)}`;
         return both(
-            (d) => `The nearest documented site is ${d} away, with reports from ${count} people nearby.`,
-            (d) => `El sitio documentado más cercano está a ${d}, con reportes de ${countEs} personas cerca.`
+            (d, p) => `The nearest documented site is ${d} away, with reports from ${p} nearby.`,
+            (d, p) => `El sitio documentado más cercano está a ${d}, con reportes de ${p} cerca.`
         );
     }
 
+    // km and people are rounded in the raster, so a value just past a rule can land right on it
+    // when neither rule fails here, the one sitting on its threshold is the one that held it back
     const better = levels[level - 1];
-    const tooFar = km > better.max_km;
-    const tooFew = people < better.min_respondents;
+    let tooFar = km > better.max_km;
+    let tooFew = people < better.min_respondents;
+    if (!tooFar && !tooFew) {
+        tooFar = km >= better.max_km;
+        tooFew = people <= better.min_respondents;
+    }
     if (tooFew && !tooFar) {
         return both(
-            (d, p) => `There's a documented site ${d} away, but ${p} a language near here, so another language may be spoken.`,
-            (d, p) => `Hay un sitio documentado a ${d}, pero ${p} una lengua cerca de aquí, así que podría hablarse otra lengua.`
+            (d, p) => `There's a documented site ${d} away, but only ${p} reported a language near here, so another language may be spoken.`,
+            (d, p) => `Hay un sitio documentado a ${d}, pero solo ${p} reportaron una lengua cerca de aquí, así que podría hablarse otra lengua.`
         );
     }
     if (tooFew) {
         return both(
-            (d, p) => `The nearest documented site is ${d} away, and ${p} a language near here.`,
-            (d, p) => `El sitio documentado más cercano está a ${d} y ${p} una lengua cerca de aquí.`
+            (d, p) => `The nearest documented site is ${d} away, and only ${p} reported a language near here.`,
+            (d, p) => `El sitio documentado más cercano está a ${d} y solo ${p} reportaron una lengua cerca de aquí.`
         );
     }
     return both(
@@ -74,6 +79,12 @@ const OTHER_DETAIL = localized('Not in our nearby reports', 'No está en nuestro
 const NO_ESTIMATE = (maxKm) => localized(
     `Not enough nearby data to estimate. There are no documented sites within ${maxKm} km of this point.`,
     `No hay suficientes datos cercanos para estimar. No hay sitios documentados a menos de ${maxKm} km de este punto.`
+);
+
+// within reach of documented sites, but on water or land walking can't reach from them
+const NO_ESTIMATE_WATER = localized(
+    'No estimate here. This point is on water or can't be reached on foot from the nearby documented sites.',
+    'No hay estimación aquí. Este punto está en el agua o no se puede llegar a pie desde los sitios documentados cercanos.'
 );
 
 // "Mixtec · Otomanguean", the group is left off when it repeats the family
@@ -131,7 +142,9 @@ export async function initLanguageEstimate(view) {
         const nodata = lookup.nodata;
 
         if (values[0] === nodata) {
-            body.innerHTML = String(html`<p class="language-estimate-empty">${languageText(NO_ESTIMATE(maxKm))}</p>`);
+            // band 7 is kept on water within reach of a report, empty everywhere else
+            const message = values[6] !== undefined && values[6] !== nodata ? NO_ESTIMATE_WATER : NO_ESTIMATE(maxKm);
+            body.innerHTML = String(html`<p class="language-estimate-empty">${languageText(message)}</p>`);
             return;
         }
 

@@ -129,10 +129,13 @@ def build(obs_csv, dem_tif, out_dir, web_dir):
     # web raster: EPSG:4326, one byte per band, read one pixel at a time in the browser
     #   1-3 top language index, 4-6 percent, 7 km to nearest report, 8 another language percent,
     #   9 confidence level index into lookup.confidence, 10 effective respondents x 10 (capped at 25.4)
-    #   (255 = no estimate everywhere)
+    #   (255 = no estimate, except band 7 which is set within MAX_NEAREST_KM even on water)
     tmp = f'{out_dir}/_web_6372.tif'
     pct_bands = [grid(np.where(valid, np.round(top_p[:, j] * 100), 255), 255, np.uint8) for j in range(3)]
-    extra = [grid(np.where(valid, np.round(near_t), 255), 255, np.uint8),
+    # km is kept wherever a report is within MAX_NEAREST_KM, also on water and cells walking can't reach,
+    # so the panel can tell those apart from places too far from any report
+    near_all = np.where(nearest_km <= MAX_NEAREST_KM, np.round(nearest_km), 255).astype(np.uint8)
+    extra = [near_all,
              grid(np.where(valid, np.round(other * 100), 255), 255, np.uint8),
              grid(np.where(valid, level, 255), 255, np.uint8),
              grid(np.where(valid, np.round(np.minimum(evidence, 25.4) * 10), 255), 255, np.uint8)]

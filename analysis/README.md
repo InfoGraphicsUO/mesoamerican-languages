@@ -3,7 +3,7 @@
 Estimates the most likely languages at any point from the attested sites, for the
 "Likely languages here" panel (`js/language-estimate.js`).
 
-Open `language-probability.qgz` in QGIS to inspect every layer.
+Open `language-probability.qgz` in QGIS to inspect every layer. The DEM and the downloaded sites aren't committed, so run `run_all.py` once on a fresh clone first.
 
 ## Rebuild
 
@@ -75,7 +75,7 @@ The confidence level needs both conditions (`calibration.json`):
 `data/language-probability.tif` is the web raster: EPSG:4326 at 0.01°, a byte COG, 255 = no estimate.
 - Bands 1–3: top language index (into `languages` in the `.json`)
 - Bands 4–6: calibrated percent
-- Band 7: km to the nearest report
+- Band 7: km to the nearest report, also set on water and unreachable cells within 60 km so the panel can say why there's no estimate
 - Band 8: "another language" percent
 - Band 9: confidence level (index into `confidence`)
 - Band 10: effective respondents × 10, capped at 254
