@@ -23,11 +23,14 @@ const CONFIDENCE_TEXT = {
 // people is the raster's effective respondents, each person counted once and fading w/ walking time
 const distanceText = (km) => (km < 1 ? localized('under 1 km', 'menos de 1 km') : localized(`${km} km`, `${km} km`));
 
+// word joiners keep a range like 5–10 from wrapping at the dash
+const range = (from, to) => `${from}\u2060–\u2060${to}`;
+
 // a rough range rather than a count, effective respondents fade w/ walking time so an exact number would mislead
 function peopleText(people) {
     if (people < 1) return localized('few', 'pocas');
-    if (people < 5) return localized('1–5', '1–5');
-    if (people < 10) return localized('5–10', '5–10');
+    if (people < 5) return localized(range(1, 5), range(1, 5));
+    if (people < 10) return localized(range(5, 10), range(5, 10));
     return localized('10+', 'más de 10');
 }
 
