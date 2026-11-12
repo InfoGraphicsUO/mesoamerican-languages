@@ -25,7 +25,7 @@ const distanceText = (km) => (km < 1 ? localized('under 1 km', 'menos de 1 km') 
 
 // a rough range rather than a count, effective respondents fade w/ walking time so an exact number would mislead
 function peopleText(people) {
-    if (people < 1) return localized('under 1', 'menos de 1');
+    if (people < 1) return localized('few', 'pocas');
     if (people < 5) return localized('1–5', '1–5');
     if (people < 10) return localized('5–10', '5–10');
     return localized('10+', 'más de 10');
@@ -67,14 +67,14 @@ const OTHER_LANGUAGE = localized('Another language', 'Otra lengua');
 const OTHER_DETAIL = localized('Not in our nearby reports', 'No está en nuestros reportes cercanos');
 
 const NO_ESTIMATE = (maxKm) => localized(
-    `Not enough nearby data to estimate. There are no documented sites within ${maxKm} km of this point.`,
-    `No hay suficientes datos cercanos para estimar. No hay sitios documentados a menos de ${maxKm} km de este punto.`
+    `No estimate. No documented sites within ${maxKm} km.`,
+    `Sin estimación. No hay sitios documentados a menos de ${maxKm} km.`
 );
 
 // within reach of documented sites, but on water or land walking can't reach from them
 const NO_ESTIMATE_WATER = localized(
-    `No estimate here. This point is on water or can't be reached on foot from the nearby documented sites.`,
-    'No hay estimación aquí. Este punto está en el agua o no se puede llegar a pie desde los sitios documentados cercanos.'
+    `No estimate. On water or not reachable on foot from nearby sites.`,
+    `Sin estimación. En el agua o sin acceso a pie desde sitios cercanos.`
 );
 
 // "Otomanguean › Mixtec" like search results, the group is left off when it repeats the family
