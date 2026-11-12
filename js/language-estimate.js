@@ -25,25 +25,30 @@ const distanceText = (km) => (km < 1 ? localized('under 1 km', 'menos de 1 km') 
 
 // a rough range rather than a count, effective respondents fade w/ walking time so an exact number would mislead
 function peopleText(people) {
-    if (people < 1) return localized('a few people', 'unas pocas personas');
-    if (people < 5) return localized('between 1 and 5 people', 'entre 1 y 5 personas');
-    if (people < 10) return localized('between 5 and 10 people', 'entre 5 y 10 personas');
-    return localized('over 10 people', 'más de 10 personas');
+    if (people < 1) return localized('under 1', 'menos de 1');
+    if (people < 5) return localized('1–5', '1–5');
+    if (people < 10) return localized('5–10', '5–10');
+    return localized('10+', 'más de 10');
 }
 
-// level: index into lookup.confidence, levels: lookup.confidence
-// the next better level says which rule held this one back
-function confidenceDetail(km, people, level, levels) {
-    const distance = distanceText(km);
-    const both = (en, es) => localized(en(textFor(distance, 'en'), textFor(peopleText(people), 'en')),
-        es(textFor(distance, 'es'), textFor(peopleText(people), 'es')));
+// which rule held the level back
+const LIMIT_TEXT = {
+    far: localized('Limited by distance.', 'Limitado por la distancia.'),
+    few: localized('Limited by few reports.', 'Limitado por pocos reportes.'),
+    both: localized('Limited by distance and few reports.', 'Limitado por la distancia y pocos reportes.')
+};
 
-    if (level === 0) {
-        return both(
-            (d, p) => `The nearest documented site is ${d} away, with reports from ${p} nearby.`,
-            (d, p) => `El sitio documentado más cercano está a ${d}, con reportes de ${p} cerca.`
-        );
-    }
+// level: index into lookup.confidence, levels: lookup.confidence
+// short facts: distance, people reporting nearby, and below high, which rule held it back
+function confidenceDetail(km, people, level, levels) {
+    const facts = (lang, limit) => [
+        `${lang === 'en' ? 'Nearest site' : 'Sitio más cercano'}: ${textFor(distanceText(km), lang)}.`,
+        `${lang === 'en' ? 'People reporting nearby' : 'Personas que reportaron cerca'}: ${textFor(peopleText(people), lang)}.`,
+        limit ? textFor(limit, lang) : ''
+    ].filter(Boolean).join(' ');
+    const detail = (limit) => localized(facts('en', limit), facts('es', limit));
+
+    if (level === 0) return detail(null);
 
     // km and people are rounded in the raster, so a value just past a rule can land right on it
     // when neither rule fails here, the one sitting on its threshold is the one that held it back
@@ -54,22 +59,7 @@ function confidenceDetail(km, people, level, levels) {
         tooFar = km >= better.max_km;
         tooFew = people <= better.min_respondents;
     }
-    if (tooFew && !tooFar) {
-        return both(
-            (d, p) => `There's a documented site ${d} away, but only ${p} reported a language near here, so another language may be spoken.`,
-            (d, p) => `Hay un sitio documentado a ${d}, pero solo ${p} reportaron una lengua cerca de aquí, así que podría hablarse otra lengua.`
-        );
-    }
-    if (tooFew) {
-        return both(
-            (d, p) => `The nearest documented site is ${d} away, and only ${p} reported a language near here.`,
-            (d, p) => `El sitio documentado más cercano está a ${d} y solo ${p} reportaron una lengua cerca de aquí.`
-        );
-    }
-    return both(
-        (d) => `The nearest documented site is ${d} away, so this estimate comes from reports farther off.`,
-        (d) => `El sitio documentado más cercano está a ${d}, así que esta estimación viene de reportes más lejanos.`
-    );
+    return detail(LIMIT_TEXT[tooFar && tooFew ? 'both' : tooFew ? 'few' : 'far']);
 }
 
 // the share left over for languages missing from our nearby reports, bigger where few people reported
