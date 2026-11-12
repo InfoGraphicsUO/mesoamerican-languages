@@ -5,6 +5,8 @@ import { initInterpretersPanel } from './interpreters-panel.js';
 import { loadSearchIndex } from './search-index.js';
 import { initSearch } from './search.js';
 import { createSearchFocus } from './search-focus.js';
+import { initLanguageEstimate } from './language-estimate.js';
+import { initRasterOverlay } from './raster-overlay.js';
 
 // coordinates js files on site load
 
@@ -21,7 +23,16 @@ const layers = ready.then(async (readyView) => {
 });
 
 const searchIndex = layers.then(({ sites }) => loadSearchIndex(sites, view.spatialReference));
-const searchFocus = layers.then((mapLayers) => createSearchFocus(view, mapLayers));
+// clicking anywhere, or landing on a searched place, shows the languages most likely spoken there
+const languageEstimate = layers.then(() => initLanguageEstimate(view));
+languageEstimate.then((estimate) => {
+    view.on('click', (event) => estimate.show(event.mapPoint));
+    initRasterOverlay(view, estimate); // hidden, 1 2 3 4 shows the whole raster
+}, () => {});
+
+const searchFocus = layers.then((mapLayers) => createSearchFocus(view, mapLayers, {
+    onPlace: (point, options) => languageEstimate.then((estimate) => estimate.show(point, options), () => {})
+}));
 
 // search and the interpreters panel share the purple glow, so only the newest pick keeps it
 const interpretersPanel = layers.then(({ siteGlow }) => initInterpretersPanel(view, siteGlow, {
@@ -47,11 +58,13 @@ initSearch({
     onClear: () => {
         interpretersPanel.then((panel) => panel.showAll(), () => {});
         searchFocus.then((focus) => focus.clear());
+        languageEstimate.then((estimate) => estimate.hide(), () => {});
     }
 });
 
 layers.catch((error) => console.error('Unable to add map layers:', error));
 interpretersPanel.catch((error) => console.error('Unable to load interpreters panel:', error));
+languageEstimate.catch((error) => console.error('Unable to load language estimates:', error));
 
 searchIndex.catch((error) => console.error('Unable to build the search index:', error));
 searchFocus.catch((error) => console.error('Unable to connect search to the map:', error));

@@ -1,0 +1,554 @@
+respondent,lon,lat,iso,language,glottocode,family,group,role,place,weight
+R_1gURDHltXT6DVyA,-96.7588,16.806,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,Santa Inés Yatzeche Municipality,0.75
+R_1gURDHltXT6DVyA,-96.725938888,16.837875277,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,Santa Ana Zegache,0.75
+R_1gURDHltXT6DVyA,-96.70583,16.80722,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,San Sebastián Ocotlán,0.75
+R_1gURDHltXT6DVyA,-96.722413888,16.804263055,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,town_origin,Santiago Apóstol,0.75
+R_262Xbsz2Gp1f7DF,-96.683888888,16.803055555,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,San Antonino Castillo Velasco,0.75
+R_262Xbsz2Gp1f7DF,-96.721388888,16.761944444,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,Asunción Ocotlán,0.75
+R_262Xbsz2Gp1f7DF,-96.7588,16.806,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,Santa Inés Yatzeche Municipality,0.75
+R_262Xbsz2Gp1f7DF,-96.722413888,16.804263055,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,town_origin,Santiago Apóstol,0.75
+R_3FXlGZtKaDp23fa,-91.58333333,15.38333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Sebastián Huehuetenango,1.0
+R_3FXlGZtKaDp23fa,-91.6051,15.5116,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,Todos Santos Cuchumatán,1.0
+R_2Ev26WTohIUk1Vo,-91.476111111,15.314722222,knj,Akateko,west2635,Mayan,Mayan,intelligible_place,Huehuetenango,1.0
+R_3FXlGZtKaDp23fa,-91.38233,15.39511,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,Chancol,1.0
+R_2XmJBKllvhr6LI6,-91.63333333,15.43333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Juan Atitán,0.6
+R_2XmJBKllvhr6LI6,-91.6051,15.5116,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,Todos Santos Cuchumatán,0.6
+R_2XmJBKllvhr6LI6,-91.58333333,15.38333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Sebastián Huehuetenango,0.6
+R_2XmJBKllvhr6LI6,-91.456761,15.3566902,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,Chiantla,0.6
+R_2XmJBKllvhr6LI6,-91.66023,15.45515,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,Cuate,0.6
+R_XI22HGCHou1Fefv,-91.63333333,15.43333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,San Juan Atitán,1.0
+R_3q9XJNPw2psPUx7,-91.755234,15.80122,cac,Chuj,chuj1250,Mayan,Mayan,intelligible_place,Nentón,0.333333
+R_3q9XJNPw2psPUx7,-91.755234,15.80122,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,Nentón,0.333333
+R_3q9XJNPw2psPUx7,-91.755234,15.80122,knj,Akateko,west2635,Mayan,Mayan,intelligible_place,Nentón,0.333333
+R_3q9XJNPw2psPUx7,-91.22924,14.80696,cac,Chuj,chuj1250,Mayan,Mayan,town_origin,Xequel,0.333333
+R_3q9XJNPw2psPUx7,-91.22924,14.80696,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,town_origin,Xequel,0.333333
+R_3q9XJNPw2psPUx7,-91.22924,14.80696,knj,Akateko,west2635,Mayan,Mayan,town_origin,Xequel,0.333333
+R_b1I3VxPVcF0ltuh,-91.56666667,15.73333333,knj,Akateko,west2635,Mayan,Mayan,intelligible_place,San Sebastián Coatán,1.0
+R_b1I3VxPVcF0ltuh,-91.66524,15.75943,knj,Akateko,west2635,Mayan,Mayan,town_origin,Chenicham II,1.0
+R_VHWtHQYcaXqpiy5,-97.021944444,18.579722222,nlv,Orizaba Nahuatl,oriz1235,Uto-Aztecan,Nahuan,town_origin,"Tlaxcantla, Veracruz de Ignacio de la Llave, Mexico",1.0
+R_3JrQJcSC8g8OyEE,-97.28766,18.2917,npl,"Nahuatl, Southeastern Puebla",sout2973,Uto-Aztecan,Nahuan,town_origin,San José Miahuatlán,1.0
+R_0SVojxBrBmfNO9z,-99.501334,17.551944,mim,Alacatlatzala Mixtec,alac1244,Otomanguean,Mixtec,town_origin,Chilpancingo de los Bravo,1.0
+R_3JskUBXNrbccp47,-96.93,18.64,nlv,Orizaba Nahuatl,oriz1235,Uto-Aztecan,Nahuan,town_origin,Zongolica Municipality,1.0
+R_1dbI05EqrtoqEoo,-98.408055555,17.195555555,mxv,Metlatónoc Mixtec,metl1238,Otomanguean,Mixtec,town_origin,Metlatónoc,1.0
+R_33CpgwyMAVJ30vK,-97.515277777,17.118055555,mig,Santa María Yosoyúa Mixtec,0,Otomanguean,Mixtec,town_origin,Santa Maria Yosoyúa,1.0
+R_1QmdrbUBUCa4R02,-91.616666666,15.316666666,quc,K'iche',kich1262,Mayan,Mayan,town_origin,Malacatancito,1.0
+R_sqgvn51XqCRCQKJ,-97.515277777,17.118055555,mig,Santa María Yosoyúa Mixtec,0,Otomanguean,Mixtec,town_origin,Santa Maria Yosoyúa,1.0
+R_1CCt3pcpD3Vs0g9,-101.553333333,19.793611111,tsz,Purepecha,pure1242,Purépecha,Purépecha,town_origin,Zipiajo,1.0
+R_2eX8IcMsMhzTVI9,-91.45,15.71666667,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,town_origin,San Pedro Soloma,1.0
+R_3JKGF0IrroXxDRE,-97.7625,17.14444,mim,Alacatlatzala Mixtec,alac1244,Otomanguean,Mixtec,intelligible_place,Santo Tomás Ocotepec,1.0
+R_3JKGF0IrroXxDRE,-97.79194,17.21583,mim,Alacatlatzala Mixtec,alac1244,Otomanguean,Mixtec,town_origin,"Plan de Guadalupe, Oaxaca, Mexico",1.0
+R_26m2kECwsfZ67uU,-98.101944444,17.303888888,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,town_origin,"San Martín Duraznos, Oaxaca, Mexico",1.0
+R_3KMDyVyJV0pWTu3,-96.93,18.64,nlv,Orizaba Nahuatl,oriz1235,Uto-Aztecan,Nahuan,town_origin,Zongolica Municipality,1.0
+R_uyKCfE1uWBOtY65,-92.096111111,16.907222222,tzh,Tzeltal,tzel1254,Mayan,Mayan,town_origin,Ocosingo,1.0
+R_TiQWI8p5aC1UEyl,-101.55416,19.67252,tsz,Purepecha,pure1242,Purépecha,Purépecha,intelligible_place,Santa Fe de la Laguna,1.0
+R_TiQWI8p5aC1UEyl,-101.63221,19.66943,tsz,Purepecha,pure1242,Purépecha,Purépecha,intelligible_place,San Andrés Tziróndaro,1.0
+R_TiQWI8p5aC1UEyl,-101.611666666,19.679166666,tsz,Purepecha,pure1242,Purépecha,Purépecha,town_origin,San Jerónimo Purenchécuaro,1.0
+R_21mr3UtJdkYLOwD,-101.63221,19.66943,tsz,Purepecha,pure1242,Purépecha,Purépecha,intelligible_place,San Andrés Tziróndaro,1.0
+R_21mr3UtJdkYLOwD,-101.611666666,19.679166666,tsz,Purepecha,pure1242,Purépecha,Purépecha,intelligible_place,San Jerónimo Purenchécuaro,1.0
+R_21mr3UtJdkYLOwD,-101.68639,19.70667,tsz,Purepecha,pure1242,Purépecha,Purépecha,town_origin,Santiago Azajo,1.0
+R_3po20OpAr7vhYbj,-96.668888888,16.539166666,zca,Coatecas Altas Zapotec,coat1244,Otomanguean,Zapotec,town_origin,Coatecas Altas,1.0
+R_271ElY4X7onl43a,-101.55416,19.67252,tsz,Purepecha,pure1242,Purépecha,Purépecha,intelligible_place,Santa Fe de la Laguna,1.0
+R_271ElY4X7onl43a,-101.673888888,19.602222222,tsz,Purepecha,pure1242,Purépecha,Purépecha,town_origin,Puácuaro,1.0
+R_1Kv5OG0EJonVqbk,-91.58333333,15.38333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Sebastián Huehuetenango,1.0
+R_1Kv5OG0EJonVqbk,-91.456761,15.3566902,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,Chiantla,1.0
+R_2sSDmFE0HVgTtaB,-101.63221,19.66943,tsz,Purepecha,pure1242,Purépecha,Purépecha,intelligible_place,San Andrés Tziróndaro,0.75
+R_2sSDmFE0HVgTtaB,-101.611666666,19.679166666,tsz,Purepecha,pure1242,Purépecha,Purépecha,intelligible_place,San Jerónimo Purenchécuaro,0.75
+R_2sSDmFE0HVgTtaB,-101.55416,19.67252,tsz,Purepecha,pure1242,Purépecha,Purépecha,intelligible_place,Santa Fe de la Laguna,0.75
+R_2sSDmFE0HVgTtaB,-101.673888888,19.602222222,tsz,Purepecha,pure1242,Purépecha,Purépecha,town_origin,Puácuaro,0.75
+R_1N9cFEV3NQfTwRU,-96.722413888,16.804263055,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,town_origin,Santiago Apóstol,1.0
+R_3gUBmMxKpxiXnSd,-96.683888888,16.803055555,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,San Antonino Castillo Velasco,1.0
+R_3gUBmMxKpxiXnSd,-96.7588,16.806,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,Santa Inés Yatzeche Municipality,1.0
+R_3gUBmMxKpxiXnSd,-96.722413888,16.804263055,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,town_origin,Santiago Apóstol,1.0
+R_33eQtnWXVHZai8v,-91.45,15.71666667,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,San Pedro Soloma,0.75
+R_33eQtnWXVHZai8v,-91.45,15.6,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,San Juan Ixcoy,0.75
+R_33eQtnWXVHZai8v,-91.315506,15.804456,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,Santa Cruz Barillas,0.75
+R_33eQtnWXVHZai8v,-91.46289,15.72184,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,town_origin,Yulcol,0.75
+R_2sfMikQ4h47TNGp,-98.050277777,17.243888888,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,intelligible_place,San Miguel Cuevas,1.0
+R_2sfMikQ4h47TNGp,-98.01694,17.30306,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,intelligible_place,Santa Rosa Caxtlahuaca,1.0
+R_2sfMikQ4h47TNGp,-98.061944444,17.288888888,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,town_origin,"Santa Catarina Noltepec, Oaxaca, Mexico",1.0
+R_2cttvKdoEEPUVBD,-97.570555555,17.0325,mig,Santa María Yosoyúa Mixtec,0,Otomanguean,Mixtec,intelligible_place,Chalcatongo de Hidalgo,0.75
+R_2cttvKdoEEPUVBD,-97.541124444,17.104639444,mig,Santa María Yosoyúa Mixtec,0,Otomanguean,Mixtec,intelligible_place,San Pedro Molinos,0.75
+R_2cttvKdoEEPUVBD,-97.531944444,17.15,mig,Santa María Yosoyúa Mixtec,0,Otomanguean,Mixtec,intelligible_place,San Mateo Peñasco,0.75
+R_2cttvKdoEEPUVBD,-97.619444444,17.045833333,mig,Santa María Yosoyúa Mixtec,0,Otomanguean,Mixtec,town_origin,San Miguel el Grande,0.75
+R_oY0E3xWsIouLXG1,-97.839722222,17.156666666,trs,Chicahuaxtla Triqui,chic1273,Otomanguean,Triqui,intelligible_place,San Andrés Chicahuaxtla,1.0
+R_oY0E3xWsIouLXG1,-97.88083,17.22806,trs,Chicahuaxtla Triqui,chic1273,Otomanguean,Triqui,town_origin,San Martín Itunyoso,1.0
+R_3r2rKJ1V3tL2ePS,-91.483333333,14.783333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Zunil,1.0
+R_3r2rKJ1V3tL2ePS,-91.45551111,14.81122222,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Cantel,1.0
+R_3r2rKJ1V3tL2ePS,-91.5,14.816666666,quc,K'iche',kich1262,Mayan,Mayan,town_origin,Almolonga,1.0
+R_ba0NLk11L3WhVDP,-98.01694,17.30306,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,intelligible_place,Santa Rosa Caxtlahuaca,1.0
+R_ba0NLk11L3WhVDP,-98.050277777,17.243888888,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,intelligible_place,San Miguel Cuevas,1.0
+R_ba0NLk11L3WhVDP,-98.061944444,17.288888888,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,town_origin,"Santa Catarina Noltepec, Oaxaca, Mexico",1.0
+R_D2K41J6NnNqPAIx,-91.53333333,15.71666667,knj,Akateko,west2635,Mayan,Mayan,intelligible_place,San Rafael La Independencia,1.0
+R_D2K41J6NnNqPAIx,-91.61666667,15.7,knj,Akateko,west2635,Mayan,Mayan,intelligible_place,San Miguel Acatán,1.0
+R_D2K41J6NnNqPAIx,-91.54732,15.688,knj,Akateko,west2635,Mayan,Mayan,town_origin,Los Molinos,1.0
+R_1DCNdCgrJj1oz7M,-91.733333,15.666667,jac,Popti',popt1235,Mayan,Mayan,intelligible_place,Jacaltenango,1.0
+R_1DCNdCgrJj1oz7M,-91.6833,15.6167,jac,Popti',popt1235,Mayan,Mayan,town_origin,Concepción Huista,1.0
+R_2dYAkZhl7aiKauQ,-98.061944444,17.288888888,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,town_origin,"Ensenada, Oaxaca, Mexico",1.0
+R_2rPIKc61Odh21TT,-96.70528,16.92111,mks,Silacayoapan Mixtec,sila1250,Otomanguean,Mixtec,intelligible_place,Ninguno,1.0
+R_2rPIKc61Odh21TT,-98.044722222,17.505555555,mks,Silacayoapan Mixtec,sila1250,Otomanguean,Mixtec,town_origin,Ixpantepec Nieves,1.0
+R_1d7judI9PIcUpci,-96.70583,16.80722,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,San Sebastián Ocotlán,1.0
+R_1d7judI9PIcUpci,-96.722413888,16.804263055,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,town_origin,Santiago Apóstol,1.0
+R_3sh1Gp5WwWuIbw3,-96.7588,16.806,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,Santa Inés Yatzeche Municipality,1.0
+R_3sh1Gp5WwWuIbw3,-96.721388888,16.761944444,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,Asunción Ocotlán,1.0
+R_3sh1Gp5WwWuIbw3,-96.675,16.792222222,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,town_origin,Ocotlán de Morelos,1.0
+R_1HnSFjAaNfUHIVN,-96.668888888,16.539166666,zca,Coatecas Altas Zapotec,coat1244,Otomanguean,Zapotec,town_origin,Coatecas Altas,1.0
+R_3egDYbc8Jg1Iwrs,-91.63333333,15.43333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Juan Atitán,1.0
+R_3egDYbc8Jg1Iwrs,-91.56666667,15.73333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Sebastián Coatán,1.0
+R_3egDYbc8Jg1Iwrs,-91.45,15.6,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,San Juan Ixcoy,1.0
+R_2sR0BChkJwlQkId,-96.473888888,16.031666666,ztp,Loxicha Zapotec,loxi1235,Otomanguean,Zapotec,town_origin,San Pedro el Alto,1.0
+R_1Lveo6v1a3TKnIf,-92.343333333,16.786111111,tzh,Tzeltal,tzel1254,Mayan,Mayan,intelligible_place,Oxchuc,1.0
+R_1Lveo6v1a3TKnIf,-92.216666666,16.6,tzh,Tzeltal,tzel1254,Mayan,Mayan,town_origin,Chanal Municipality,1.0
+R_1l6GKn1s29Qkz3i,-91.6833,15.6167,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,Concepción Huista,1.0
+R_1l6GKn1s29Qkz3i,-91.60809,15.51747,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,Tierra Común,1.0
+R_2Qh6egWHF0HkfHZ,-91.63333333,15.43333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,San Juan Atitán,1.0
+R_1rk6eOr3NTz4Pxe,-96.465555555,15.996388888,ztp,Loxicha Zapotec,loxi1235,Otomanguean,Zapotec,intelligible_place,Llano Flor,0.75
+R_1rk6eOr3NTz4Pxe,-96.47806,15.97139,ztp,Loxicha Zapotec,loxi1235,Otomanguean,Zapotec,intelligible_place,Santiago la Galera,0.75
+R_1rk6eOr3NTz4Pxe,-96.44083,15.97722,ztp,Loxicha Zapotec,loxi1235,Otomanguean,Zapotec,intelligible_place,Lagunilla,0.75
+R_1rk6eOr3NTz4Pxe,-96.45889,15.98167,ztp,Loxicha Zapotec,loxi1235,Otomanguean,Zapotec,town_origin,"Los Naranjos Esquipulas, Oaxaca, Mexico",0.75
+R_1pLO9Fom3PhWHRW,-97.829722222,17.304722222,mix,Mixtepec Mixtec,mixt1425,Otomanguean,Mixtec,town_origin,San Juan Mixtepec Distrito 08,1.0
+R_3NyyJSRNg1t78cz,-89.418333333,20.302777777,yua,Yucatec Maya,yuca1254,Mayan,Mayan,town_origin,Oxkutzcab,1.0
+R_3GlxY7NBFbnRGWt,-91.6051,15.5116,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,Todos Santos Cuchumatán,1.0
+R_bDvue8i2xhP3mJb,-91.64071,15.55159,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,Chicoy,1.0
+R_1LG2YtgCLTtBLMl,-91.6051,15.5116,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,Todos Santos Cuchumatán,1.0
+R_2Ugr0Tatv0Aa4bE,-91.6051,15.5116,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,Todos Santos Cuchumatán,1.0
+R_2Ugr0Tatv0Aa4bE,-91.52276,15.42659,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,Chóchal,1.0
+R_1QVIrVgydSdTEGt,-91.6833,15.6167,jac,Popti',popt1235,Mayan,Mayan,intelligible_place,Concepción Huista,1.0
+R_yPeR27P7gQTHtZL,-91.6051,15.5116,jac,Popti',popt1235,Mayan,Mayan,intelligible_place,Todos Santos Cuchumatán,1.0
+R_yPeR27P7gQTHtZL,-91.475833333,15.314166666,jac,Popti',popt1235,Mayan,Mayan,town_origin,Huehuetenango Department,1.0
+R_1QaPUJXhULM5px7,-91.71177,15.66662,jac,Popti',popt1235,Mayan,Mayan,intelligible_place,Jacaltenango,1.0
+R_1QaPUJXhULM5px7,-91.70471,15.67869,jac,Popti',popt1235,Mayan,Mayan,town_origin,San Marcos Huista,1.0
+R_DSp3pmRR1XkLjcB,-91.6051,15.5116,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,Todos Santos Cuchumatán,1.0
+R_2BlIwC9aeQFvTgF,-96.93,18.64,nlv,Orizaba Nahuatl,oriz1235,Uto-Aztecan,Nahuan,town_origin,Zongolica Municipality,1.0
+R_D2he4diVHfL4mJj,-91.92426,15.12918,mms,Southern Mam,mams1234,Mayan,Mayan,town_origin,Tuiquinamble,1.0
+R_1GUlJf02UsLQKsl,-97.958888888,17.196388888,trc,Copala Triqui,copa1237,Otomanguean,Triqui,intelligible_place,La Sabana,0.6
+R_1GUlJf02UsLQKsl,-97.892861111,17.154194444,trc,Copala Triqui,copa1237,Otomanguean,Triqui,intelligible_place,Concepción Carrizal,0.6
+R_1GUlJf02UsLQKsl,-97.98028,17.21667,trc,Copala Triqui,copa1237,Otomanguean,Triqui,intelligible_place,Agua Fría Copala,0.6
+R_1GUlJf02UsLQKsl,-98.01056,17.26806,trc,Copala Triqui,copa1237,Otomanguean,Triqui,intelligible_place,Santiago Naranjas,0.6
+R_1GUlJf02UsLQKsl,-97.98278,17.19889,trc,Copala Triqui,copa1237,Otomanguean,Triqui,town_origin,La Cumbre Yerba Santa,0.6
+R_1k0T4UTuzLZv1uq,-97.958888888,17.196388888,trc,Copala Triqui,copa1237,Otomanguean,Triqui,intelligible_place,La Sabana,0.6
+R_1k0T4UTuzLZv1uq,-97.892861111,17.154194444,trc,Copala Triqui,copa1237,Otomanguean,Triqui,intelligible_place,Concepción Carrizal,0.6
+R_1k0T4UTuzLZv1uq,-95.36889,18.37472,trc,Copala Triqui,copa1237,Otomanguean,Triqui,intelligible_place,Ojo de Agua,0.6
+R_1k0T4UTuzLZv1uq,-97.98028,17.21667,trc,Copala Triqui,copa1237,Otomanguean,Triqui,intelligible_place,Agua Fría Copala,0.6
+R_1k0T4UTuzLZv1uq,-97.98278,17.19889,trc,Copala Triqui,copa1237,Otomanguean,Triqui,town_origin,La Cumbre Yerba Santa,0.6
+R_1LdOtOeyUI7uAot,-91.516666666,14.833333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Quetzaltenango,1.0
+R_1LdOtOeyUI7uAot,-91.483333333,14.783333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Zunil,1.0
+R_1LdOtOeyUI7uAot,-91.5,14.816666666,quc,K'iche',kich1262,Mayan,Mayan,town_origin,Almolonga,1.0
+R_1loerUP2BTclvfx,-91.229922222,14.638552777,tzj,Tz'utujil,tzut1248,Mayan,Mayan,intelligible_place,Santiago Atitlán,0.75
+R_1loerUP2BTclvfx,-91.28666,14.69453,tzj,Tz'utujil,tzut1248,Mayan,Mayan,intelligible_place,San Juan La Laguna,0.75
+R_1loerUP2BTclvfx,-91.27201,14.69297,tzj,Tz'utujil,tzut1248,Mayan,Mayan,intelligible_place,San Pedro La Laguna,0.75
+R_1loerUP2BTclvfx,-91.273,14.691772222,tzj,Tz'utujil,tzut1248,Mayan,Mayan,town_origin,San Pedro La Laguna,0.75
+R_vI98zyNWM0cLwvT,-91.483333333,14.783333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Zunil,1.0
+R_vI98zyNWM0cLwvT,-91.516666666,14.833333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Quetzaltenango,1.0
+R_vI98zyNWM0cLwvT,-91.5,14.816666666,quc,K'iche',kich1262,Mayan,Mayan,town_origin,Almolonga,1.0
+R_21nWgVEpxPCdPcL,-91.9471876,15.4078474,mms,Southern Mam,mams1234,Mayan,Mayan,intelligible_place,Cuilco,0.6
+R_21nWgVEpxPCdPcL,-91.476111111,15.314722222,mms,Southern Mam,mams1234,Mayan,Mayan,intelligible_place,Huehuetenango,0.6
+R_21nWgVEpxPCdPcL,-91.8333,15.5,mms,Southern Mam,mams1234,Mayan,Mayan,intelligible_place,La Libertad,0.6
+R_21nWgVEpxPCdPcL,-91.8667,15.6333,mms,Southern Mam,mams1234,Mayan,Mayan,intelligible_place,La Democracia,0.6
+R_21nWgVEpxPCdPcL,-91.27216,15.7263,mms,Southern Mam,mams1234,Mayan,Mayan,town_origin,Peña Flor,0.6
+R_3hzLK1WW66LBC7D,-96.70583,16.80722,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,San Sebastián Ocotlán,1.0
+R_3hzLK1WW66LBC7D,-96.721388888,16.761944444,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,Asunción Ocotlán,1.0
+R_3hzLK1WW66LBC7D,-96.722413888,16.804263055,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,town_origin,Santiago Apóstol,1.0
+R_3EfGIvit74Dq15d,-91.483333333,14.783333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Zunil,1.0
+R_3EfGIvit74Dq15d,-91.5,14.816666666,quc,K'iche',kich1262,Mayan,Mayan,town_origin,Almolonga,1.0
+R_1KjwQnE0lc2zR0A,-91.483333333,14.783333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Zunil,1.0
+R_1KjwQnE0lc2zR0A,-91.5,14.816666666,quc,K'iche',kich1262,Mayan,Mayan,town_origin,Almolonga,1.0
+R_2RVM3m7Z7q1S4ws,-91.483333333,14.783333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Zunil,1.0
+R_2RVM3m7Z7q1S4ws,-91.45,14.88333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Salcajá,1.0
+R_2RVM3m7Z7q1S4ws,-91.5,14.816666666,quc,K'iche',kich1262,Mayan,Mayan,town_origin,Almolonga,1.0
+R_15S22ZhQuaQrDeE,-98.101944444,17.303888888,jmx,Western Juxtlahuaca Mixtec,west2643,Otomanguean,Mixtec,town_origin,"San Martín Duraznos, Oaxaca, Mexico",1.0
+R_5uDJC2HcmnOaX4p,-96.46664,15.74757,ztp,Loxicha Zapotec,loxi1235,Otomanguean,Zapotec,town_origin,San Pedro Pochutla,1.0
+R_5iORe3Z25kZ7LZ7,-92.096111111,16.907222222,tzh,Tzeltal,tzel1254,Mayan,Mayan,town_origin,Ocosingo,1.0
+R_43M35l7yW1UAqT7,-91.6051,15.5116,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,Todos Santos Cuchumatán,1.0
+R_43M35l7yW1UAqT7,-91.58333333,15.38333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Sebastián Huehuetenango,1.0
+R_43M35l7yW1UAqT7,-91.54255,15.46463,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,La Ventosa,1.0
+R_6GuHem9cNhAZLOS,-98.050277777,17.243888888,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,intelligible_place,San Miguel Cuevas,0.75
+R_6GuHem9cNhAZLOS,-98.01222,17.28139,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,intelligible_place,Unión de Cárdenas,0.75
+R_6GuHem9cNhAZLOS,-98.248611111,17.313611111,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,intelligible_place,Barrio Guadalupe San Miguel,0.75
+R_6GuHem9cNhAZLOS,-98.01061,17.33503,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,town_origin,Santiago Juxtlahuaca,0.75
+R_3ByD5A14f9mrhEU,-97.829722222,17.304722222,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,intelligible_place,San Juan Mixtepec Distrito 08,1.0
+R_3ByD5A14f9mrhEU,-98.01061,17.33503,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,town_origin,Santiago Juxtlahuaca,1.0
+R_3MQWCng2Chvq0mB,-97.829722222,17.304722222,mix,Mixtepec Mixtec,mixt1425,Otomanguean,Mixtec,intelligible_place,San Juan Mixtepec Distrito 08,1.0
+R_3MQWCng2Chvq0mB,-97.90722,17.34278,mix,Mixtepec Mixtec,mixt1425,Otomanguean,Mixtec,town_origin,"Tinuma de Zaragoza, Oaxaca, Mexico",1.0
+R_1mOdnRd5R9pOBX3,-97.9375,17.5325,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,intelligible_place,San Isidro Zaragoza,0.6
+R_1mOdnRd5R9pOBX3,-97.9425,17.557222222,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,intelligible_place,San Marcos de Garzón,0.6
+R_1mOdnRd5R9pOBX3,-97.882222222,17.583611111,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,intelligible_place,Yucuquimi de Ocampo,0.6
+R_1mOdnRd5R9pOBX3,-97.841944444,17.577222222,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,intelligible_place,San Juan Diquiyú,0.6
+R_1mOdnRd5R9pOBX3,-97.93694,17.48917,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,town_origin,"Santa María Tindú, Oaxaca, Mexico",0.6
+R_50x8xggt2Qt6QsR,-96.468333333,16.017777777,ztp,Loxicha Zapotec,loxi1235,Otomanguean,Zapotec,intelligible_place,El Potrero Jazmín,1.0
+R_50x8xggt2Qt6QsR,-96.45889,15.98167,ztp,Loxicha Zapotec,loxi1235,Otomanguean,Zapotec,town_origin,"Los Naranjos Esquipulas, Oaxaca, Mexico",1.0
+R_5HiyaDwm31iPaQ5,-98.002777777,16.941944444,mih,Chayuco Mixtec,chay1249,Otomanguean,Mixtec,intelligible_place,Santa María de la Lima,0.75
+R_5HiyaDwm31iPaQ5,-97.92704,17.02376,mih,Chayuco Mixtec,chay1249,Otomanguean,Mixtec,intelligible_place,Putla Villa de Guerrero,0.75
+R_5HiyaDwm31iPaQ5,-98.118055555,16.966666666,mih,Chayuco Mixtec,chay1249,Otomanguean,Mixtec,intelligible_place,San Miguel Tejalpan,0.75
+R_5HiyaDwm31iPaQ5,-98.046666666,16.912777777,mih,Chayuco Mixtec,chay1249,Otomanguean,Mixtec,town_origin,"San José de las Flores, Oaxaca, Mexico",0.75
+R_1cjXhvZkbguqsvq,-102.188888888,19.693888888,tsz,Purepecha,pure1242,Purépecha,Purépecha,town_origin,Cocucho,1.0
+R_3r2OAVRjWDLEhkO,-98.01694,17.30306,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,town_origin,Santa Rosa Caxtlahuaca,1.0
+R_5qTFfn8rbEBcCZl,-92.096111111,16.907222222,tzh,Tzeltal,tzel1254,Mayan,Mayan,intelligible_place,Ocosingo,1.0
+R_5qTFfn8rbEBcCZl,-91.982222222,17.509166666,tzh,Tzeltal,tzel1254,Mayan,Mayan,intelligible_place,Palenque,1.0
+R_5qTFfn8rbEBcCZl,-92.637563888,16.737022222,tzh,Tzeltal,tzel1254,Mayan,Mayan,intelligible_place,San Cristóbal de Las Casas,1.0
+R_1ghVykrENfQygs2,-96.668888888,16.539166666,zca,Coatecas Altas Zapotec,coat1244,Otomanguean,Zapotec,town_origin,Coatecas Altas,1.0
+R_6SAGFgv9HXeLO7a,-98.050277777,17.243888888,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,intelligible_place,San Miguel Cuevas,1.0
+R_6SAGFgv9HXeLO7a,-98.061944444,17.288888888,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,intelligible_place,Santa Catarina Noltepec,1.0
+R_6SAGFgv9HXeLO7a,-98.01694,17.30306,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,town_origin,Santa Rosa Caxtlahuaca,1.0
+R_1JiUsabSQk3TUaZ,-98.511111111,17.021388888,mxv,Metlatónoc Mixtec,metl1238,Otomanguean,Mixtec,intelligible_place,Chilixtlahuaca,1.0
+R_1JiUsabSQk3TUaZ,-98.4625,16.93111,mxv,Metlatónoc Mixtec,metl1238,Otomanguean,Mixtec,intelligible_place,Chimalapa,1.0
+R_1JiUsabSQk3TUaZ,-98.49778,17.00833,mxv,Metlatónoc Mixtec,metl1238,Otomanguean,Mixtec,town_origin,"Llano Perdido, Guerrero, Mexico",1.0
+R_5Lu6rY7qlbyKnpZ,-98.408055555,17.195555555,mxv,Metlatónoc Mixtec,metl1238,Otomanguean,Mixtec,town_origin,Metlatónoc,1.0
+R_3MGbvba5AIWoDcl,-91.27201,14.69297,tzj,Tz'utujil,tzut1248,Mayan,Mayan,town_origin,San Pedro La Laguna,1.0
+R_6gGXdIkqZbLCB5n,-91.6051,15.5116,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,Todos Santos Cuchumatán,1.0
+R_6gGXdIkqZbLCB5n,-91.58333333,15.38333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Sebastián Huehuetenango,1.0
+R_6gGXdIkqZbLCB5n,-91.63333333,15.43333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,San Juan Atitán,1.0
+R_6is577SDHLtCo34,-90.14597,15.98998,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Canlech,0.3
+R_6is577SDHLtCo34,-90.18116,16.03058,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Linterna Uno,0.3
+R_6is577SDHLtCo34,-90.22878,16.03888,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Linterna Dos,0.3
+R_6is577SDHLtCo34,-89.85082,15.80801,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,La Ceiba,0.3
+R_6is577SDHLtCo34,-90.16906,16.33289,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Las Pozas,0.3
+R_6is577SDHLtCo34,-90.17908,16.18087,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Santa Rosa La Laguna,0.3
+R_6is577SDHLtCo34,-90.12808,15.94366,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Yalpemech,0.3
+R_6is577SDHLtCo34,-90.04061,15.86587,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Raxruhá,0.3
+R_6is577SDHLtCo34,-90.13683,15.99892,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Nueva Samaritana,0.3
+R_6is577SDHLtCo34,-90.16686,16.01045,kek,Q'eqchi',kekc1242,Mayan,Mayan,town_origin,Cruce del Pato,0.3
+R_5qUAlTop9jTEj2F,-90.16686,16.01045,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Cruce del Pato,0.375
+R_5qUAlTop9jTEj2F,-90.18116,16.03058,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Linterna Uno,0.375
+R_5qUAlTop9jTEj2F,-90.1055,15.92437,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Nacimiento Raxquiché,0.375
+R_5qUAlTop9jTEj2F,-89.85082,15.80801,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,La Ceiba,0.375
+R_5qUAlTop9jTEj2F,-90.17908,16.18087,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Santa Rosa La Laguna,0.375
+R_5qUAlTop9jTEj2F,-90.09796,15.89583,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Valle Verde,0.375
+R_5qUAlTop9jTEj2F,-90.13683,15.99892,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Nueva Samaritana,0.375
+R_5qUAlTop9jTEj2F,-90.14597,15.98998,kek,Q'eqchi',kekc1242,Mayan,Mayan,town_origin,Canlech,0.375
+R_3jGnkcsjtYQDe8h,-90.13683,15.99892,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Nueva Samaritana,0.333333
+R_3jGnkcsjtYQDe8h,-90.14597,15.98998,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Canlech,0.333333
+R_3jGnkcsjtYQDe8h,-90.12808,15.94366,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Yalpemech,0.333333
+R_3jGnkcsjtYQDe8h,-90.18116,16.03058,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Linterna Uno,0.333333
+R_3jGnkcsjtYQDe8h,-90.22878,16.03888,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Linterna Dos,0.333333
+R_3jGnkcsjtYQDe8h,-89.85082,15.80801,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,La Ceiba,0.333333
+R_3jGnkcsjtYQDe8h,-90.16906,16.33289,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Las Pozas,0.333333
+R_3jGnkcsjtYQDe8h,-90.17908,16.18087,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Santa Rosa La Laguna,0.333333
+R_3jGnkcsjtYQDe8h,-90.16686,16.01045,kek,Q'eqchi',kekc1242,Mayan,Mayan,town_origin,Cruce del Pato,0.333333
+R_7eh0oqxWmfV2l4l,-90.13683,15.99892,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Nueva Samaritana,0.5
+R_7eh0oqxWmfV2l4l,-90.18116,16.03058,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Linterna Uno,0.5
+R_7eh0oqxWmfV2l4l,-89.85082,15.80801,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,La Ceiba,0.5
+R_7eh0oqxWmfV2l4l,-90.17908,16.18087,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Santa Rosa La Laguna,0.5
+R_7eh0oqxWmfV2l4l,-90.42894,16.29035,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Roto Nuevo,0.5
+R_7eh0oqxWmfV2l4l,-90.14597,15.98998,kek,Q'eqchi',kekc1242,Mayan,Mayan,town_origin,Canlech,0.5
+R_3mWAzzQ6fDl8N8U,-90.18116,16.03058,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Linterna Uno,0.428571
+R_3mWAzzQ6fDl8N8U,-90.22878,16.03888,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Linterna Dos,0.428571
+R_3mWAzzQ6fDl8N8U,-90.14597,15.98998,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Canlech,0.428571
+R_3mWAzzQ6fDl8N8U,-90.12808,15.94366,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Yalpemech,0.428571
+R_3mWAzzQ6fDl8N8U,-90.16906,16.33289,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Las Pozas,0.428571
+R_3mWAzzQ6fDl8N8U,-90.17908,16.18087,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Santa Rosa La Laguna,0.428571
+R_3mWAzzQ6fDl8N8U,-90.16686,16.01045,kek,Q'eqchi',kekc1242,Mayan,Mayan,town_origin,Cruce del Pato,0.428571
+R_77OrRkm2bYwftJu,-90.14597,15.98998,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Canlech,0.75
+R_77OrRkm2bYwftJu,-90.04061,15.86587,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Raxruhá,0.75
+R_77OrRkm2bYwftJu,-90.18116,16.03058,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Linterna Uno,0.75
+R_77OrRkm2bYwftJu,-90.16686,16.01045,kek,Q'eqchi',kekc1242,Mayan,Mayan,town_origin,Cruce del Pato,0.75
+R_3qCwTwGcWyP0X44,-89.8605,15.8051,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Fray Bartolomé de Las Casas,0.5
+R_3qCwTwGcWyP0X44,-90.04061,15.86587,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Raxruhá,0.5
+R_3qCwTwGcWyP0X44,-89.60518,15.79122,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Chahal,0.5
+R_3qCwTwGcWyP0X44,-90.22199,16.00687,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Tzulul,0.5
+R_3qCwTwGcWyP0X44,-89.62121,16.41389,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Nueva Esperanza,0.5
+R_3qCwTwGcWyP0X44,-90.16686,16.01045,kek,Q'eqchi',kekc1242,Mayan,Mayan,town_origin,Cruce del Pato,0.5
+R_7EGgaCXMCYBqNmb,-90.14597,15.98998,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Canlech,1.0
+R_7EGgaCXMCYBqNmb,-90.18116,16.03058,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Linterna Uno,1.0
+R_7EGgaCXMCYBqNmb,-90.16686,16.01045,kek,Q'eqchi',kekc1242,Mayan,Mayan,town_origin,Cruce del Pato,1.0
+R_7VvSSQ0qshhBrqH,-90.39856,15.55318,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Comunidad Nueva Libertad,1.0
+R_7VvSSQ0qshhBrqH,-90.41487,15.97991,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,La Torre,1.0
+R_7EtfTeaRyoSLdaY,-91.45,15.6,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,San Juan Ixcoy,1.0
+R_7EtfTeaRyoSLdaY,-91.4125,15.58962,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,town_origin,Jolomhuitz,1.0
+R_7R8FpMWb7jJmBJN,-91.483333333,14.783333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Zunil,1.0
+R_7R8FpMWb7jJmBJN,-91.45551111,14.81122222,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Cantel,1.0
+R_7R8FpMWb7jJmBJN,-91.5,14.816666666,quc,K'iche',kich1262,Mayan,Mayan,town_origin,Almolonga,1.0
+R_6JskNSxMdHIDErF,-91.45551111,14.81122222,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Cantel,1.0
+R_6JskNSxMdHIDErF,-91.483333333,14.783333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Zunil,1.0
+R_6JskNSxMdHIDErF,-91.5,14.816666666,quc,K'iche',kich1262,Mayan,Mayan,town_origin,Almolonga,1.0
+R_6EYXQ0fECts4zQU,-91.66666667,15.41666667,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Rafael Petzal,0.6
+R_6EYXQ0fECts4zQU,-91.7155659,15.4053531,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,Colotenango,0.6
+R_6EYXQ0fECts4zQU,-91.76666667,15.5,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Pedro Necta,0.6
+R_6EYXQ0fECts4zQU,-91.8667,15.6333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,La Democracia,0.6
+R_6EYXQ0fECts4zQU,-91.61267,15.39696,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,Piol,0.6
+R_6WISutfaT2xTKs0,-91.48333333,15.83333333,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,San Mateo Ixtatán,0.75
+R_6WISutfaT2xTKs0,-91.4586,15.7333,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,Santa Eulalia,0.75
+R_6WISutfaT2xTKs0,-91.61666667,15.7,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,San Miguel Acatán,0.75
+R_6WISutfaT2xTKs0,-91.56666667,15.73333333,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,town_origin,San Sebastián Coatán,0.75
+R_1VJjBVuStmkAjmV,-91.755234,15.80122,cac,Chuj,chuj1250,Mayan,Mayan,intelligible_place,Nentón,1.0
+R_7PgUAx8NevNg3jb,-91.483333333,14.783333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Zunil,1.0
+R_7PgUAx8NevNg3jb,-91.5,14.816666666,quc,K'iche',kich1262,Mayan,Mayan,town_origin,Almolonga,1.0
+R_1QDqnyUwTX8Uqux,-91.45551111,14.81122222,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Cantel,1.0
+R_1QDqnyUwTX8Uqux,-91.483333333,14.783333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Zunil,1.0
+R_1QDqnyUwTX8Uqux,-91.5,14.816666666,quc,K'iche',kich1262,Mayan,Mayan,town_origin,Almolonga,1.0
+R_3WwZ97qm4FGkXon,-91.28666,14.69453,tzj,Tz'utujil,tzut1248,Mayan,Mayan,intelligible_place,San Juan La Laguna,1.0
+R_3WwZ97qm4FGkXon,-91.229922222,14.638552777,tzj,Tz'utujil,tzut1248,Mayan,Mayan,intelligible_place,Santiago Atitlán,1.0
+R_3WwZ97qm4FGkXon,-91.27201,14.69297,tzj,Tz'utujil,tzut1248,Mayan,Mayan,intelligible_place,San Pedro La Laguna,1.0
+R_6QiRGadIQwedBV2,-96.45889,15.98167,ztp,Loxicha Zapotec,loxi1235,Otomanguean,Zapotec,town_origin,"Los Naranjos Esquipulas, Oaxaca, Mexico",1.0
+R_5urOHqZYP6hJSCN,-96.473888888,16.031666666,ztp,Loxicha Zapotec,loxi1235,Otomanguean,Zapotec,town_origin,San Pedro el Alto,1.0
+R_3chaKp8XsOAp5Qt,-91.483333333,14.783333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Zunil,1.0
+R_3chaKp8XsOAp5Qt,-91.45551111,14.81122222,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Cantel,1.0
+R_3chaKp8XsOAp5Qt,-91.5,14.816666666,quc,K'iche',kich1262,Mayan,Mayan,town_origin,Almolonga,1.0
+R_5YtU3xtLWm8KAdg,-91.483333333,14.783333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Zunil,1.0
+R_5YtU3xtLWm8KAdg,-91.5,14.816666666,quc,K'iche',kich1262,Mayan,Mayan,town_origin,Almolonga,1.0
+R_1Culn3N23QUJwM9,-91.6051,15.5116,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,Todos Santos Cuchumatán,1.0
+R_1Culn3N23QUJwM9,-91.66023,15.45515,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,Cuate,1.0
+R_7EgX918PIKGvXk3,-91.53333333,15.71666667,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,San Rafael La Independencia,1.0
+R_5eg0nFI95VW8nIH,-97.98028,17.21667,trq,San Martín Itunyoso Triqui,sanm1298,Otomanguean,Triqui,intelligible_place,Agua Fría Copala,1.0
+R_5eg0nFI95VW8nIH,-97.975,17.225305555,trq,San Martín Itunyoso Triqui,sanm1298,Otomanguean,Triqui,town_origin,"Ojo de Agua Copala, Oaxaca, Mexico",1.0
+R_1KM6Pfig1ps7z1f,-96.45889,15.98167,ztp,Loxicha Zapotec,loxi1235,Otomanguean,Zapotec,intelligible_place,Los Naranjos Esquipulas,1.0
+R_1KM6Pfig1ps7z1f,-96.473888888,16.031666666,ztp,Loxicha Zapotec,loxi1235,Otomanguean,Zapotec,town_origin,San Pedro el Alto,1.0
+R_3v2Og7RLWxBA3de,-91.48333333,15.83333333,cac,Chuj,chuj1250,Mayan,Mayan,intelligible_place,San Mateo Ixtatán,1.0
+R_1PoWk8GggKRCZ0B,-91.6051,15.5116,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,Todos Santos Cuchumatán,1.0
+R_1PoWk8GggKRCZ0B,-91.58333333,15.38333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Sebastián Huehuetenango,1.0
+R_1PoWk8GggKRCZ0B,-91.456761,15.3566902,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,Chiantla,1.0
+R_64BO1WCE441i7i9,-101.63221,19.66943,tsz,Purepecha,pure1242,Purépecha,Purépecha,intelligible_place,San Andrés Tziróndaro,1.0
+R_64BO1WCE441i7i9,-101.55416,19.67252,tsz,Purepecha,pure1242,Purépecha,Purépecha,intelligible_place,Santa Fe de la Laguna,1.0
+R_64BO1WCE441i7i9,-101.611666666,19.679166666,tsz,Purepecha,pure1242,Purépecha,Purépecha,town_origin,San Jerónimo Purenchécuaro,1.0
+R_7R2SSwj9HvYHPc5,-96.466666666,16.092777777,ztp,Loxicha Zapotec,loxi1235,Otomanguean,Zapotec,intelligible_place,San Miguel Suchixtepec,0.5
+R_7R2SSwj9HvYHPc5,-96.45889,15.98167,ztp,Loxicha Zapotec,loxi1235,Otomanguean,Zapotec,intelligible_place,Los Naranjo Esquipulas,0.5
+R_7R2SSwj9HvYHPc5,-96.61667,16.01655,ztp,Loxicha Zapotec,loxi1235,Otomanguean,Zapotec,intelligible_place,San Agustín Loxicha,0.5
+R_7R2SSwj9HvYHPc5,-96.404722222,16.087777777,ztp,Loxicha Zapotec,loxi1235,Otomanguean,Zapotec,intelligible_place,San Marcial Ozolotepec,0.5
+R_7R2SSwj9HvYHPc5,-96.491150277,15.926944444,ztp,Loxicha Zapotec,loxi1235,Otomanguean,Zapotec,intelligible_place,Candelaria Loxicha,0.5
+R_7R2SSwj9HvYHPc5,-96.473888888,16.031666666,ztp,Loxicha Zapotec,loxi1235,Otomanguean,Zapotec,town_origin,San Pedro el Alto,0.5
+R_1Mul6chu7IatawK,-98.050277777,17.243888888,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,town_origin,"San Miguel Cuevas- Nuu Yuku, Oaxaca, Mexico",1.0
+R_3aS9gpHGTktKyVN,-97.93694,17.48917,mix,Mixtepec Mixtec,mixt1425,Otomanguean,Mixtec,intelligible_place,Santa María Tindú,0.75
+R_3aS9gpHGTktKyVN,-97.90722,17.34278,mix,Mixtepec Mixtec,mixt1425,Otomanguean,Mixtec,intelligible_place,Tinuma de Zaragoza,0.75
+R_3aS9gpHGTktKyVN,-97.93844,17.43782,mix,Mixtepec Mixtec,mixt1425,Otomanguean,Mixtec,intelligible_place,Santos Reyes Tepejillo,0.75
+R_3aS9gpHGTktKyVN,-97.913333333,17.386111111,mix,Mixtepec Mixtec,mixt1425,Otomanguean,Mixtec,town_origin,"San Juan Cahuayaxi, Oaxaca, Mexico",0.75
+R_3s5HIVrAI0DG6oU,-91.7155659,15.4053531,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,Colotenango,1.0
+R_3s5HIVrAI0DG6oU,-91.77702,15.38982,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,Polajá,1.0
+R_6zGD2B0LUPLq9O1,-96.54,17.01583,zab,Western Tlacolula Valley Zapotec,sanj1284,Otomanguean,Zapotec,intelligible_place,Macuilxóchitl de Artigas Carranza,0.75
+R_6zGD2B0LUPLq9O1,-96.471666666,16.993611111,zab,Western Tlacolula Valley Zapotec,sanj1284,Otomanguean,Zapotec,intelligible_place,Santa Ana del Valle,0.75
+R_6zGD2B0LUPLq9O1,-96.583333333,17.006944444,zab,Western Tlacolula Valley Zapotec,sanj1284,Otomanguean,Zapotec,intelligible_place,San Jerónimo Tlacochahuaya,0.75
+R_6zGD2B0LUPLq9O1,-96.52,17.029166666,zab,Western Tlacolula Valley Zapotec,sanj1284,Otomanguean,Zapotec,town_origin,Teotitlán del Valle,0.75
+R_7ySGXb7OkxJXyO5,-99.48167,17.93444,ngu,Central Guerrero Nahuatl,guer1241,Uto-Aztecan,Nahuan,intelligible_place,San Marcos Oacatzingo,0.75
+R_7ySGXb7OkxJXyO5,-99.33902,17.92537,ngu,Central Guerrero Nahuatl,guer1241,Uto-Aztecan,Nahuan,intelligible_place,San Francisco Ozomatlán,0.75
+R_7ySGXb7OkxJXyO5,-99.48013,17.75633,ngu,Central Guerrero Nahuatl,guer1241,Uto-Aztecan,Nahuan,intelligible_place,Huitziltepec,0.75
+R_7ySGXb7OkxJXyO5,-99.194722222,19.536666666,ngu,Central Guerrero Nahuatl,guer1241,Uto-Aztecan,Nahuan,town_origin,Tlalnepantla,0.75
+R_5PZRgVGZKiS2Zaq,-97.829722222,17.304722222,mix,Mixtepec Mixtec,mixt1425,Otomanguean,Mixtec,intelligible_place,San Juan Mixtepec Distrito 08,1.0
+R_7sB0mFpaM8ByRQM,-97.49583,17.09667,mig,Santa María Yosoyúa Mixtec,0,Otomanguean,Mixtec,intelligible_place,Santa Cruz,1.0
+R_7sB0mFpaM8ByRQM,-97.49722,17.11889,mig,Santa María Yosoyúa Mixtec,0,Otomanguean,Mixtec,intelligible_place,Guadalupe Yosoyúa,1.0
+R_7sB0mFpaM8ByRQM,-97.515277777,17.118055555,mig,Santa María Yosoyúa Mixtec,0,Otomanguean,Mixtec,intelligible_place,Santa Maria Yosoyúa,1.0
+R_1q8t3YUcd6dkK8G,-91.7155659,15.4053531,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,Colotenango,0.6
+R_1q8t3YUcd6dkK8G,-91.78333333,15.28333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,Concepción Tutuapa,0.6
+R_1q8t3YUcd6dkK8G,-91.795833333,14.965277777,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Marcos,0.6
+R_1q8t3YUcd6dkK8G,-91.75,15.25,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Miguel Ixtahuacán,0.6
+R_1q8t3YUcd6dkK8G,-91.76666667,15.5,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,San Pedro Necta,0.6
+R_3lGYc7Trxy6kpbP,-91.58333333,15.38333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Sebastián Huehuetenango,1.0
+R_3lGYc7Trxy6kpbP,-91.64071,15.55159,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,Chicoy,1.0
+R_7GAMiethL13U9T8,-102.67889,23.05389,nlv,Orizaba Nahuatl,oriz1235,Uto-Aztecan,Nahuan,town_origin,Colonia Buenavista,1.0
+R_6PKWAFoz7uvvDih,-102.11194,19.68139,pua,Western Highland Purepecha,west2631,Purépecha,Purépecha,intelligible_place,Santa María Urapicho,0.6
+R_6PKWAFoz7uvvDih,-102.119638888,19.66025,pua,Western Highland Purepecha,west2631,Purépecha,Purépecha,intelligible_place,Ninguno,0.6
+R_6PKWAFoz7uvvDih,-102.221111111,19.796944444,pua,Western Highland Purepecha,west2631,Purépecha,Purépecha,intelligible_place,Ocumicho,0.6
+R_6PKWAFoz7uvvDih,-102.288888888,19.803055555,pua,Western Highland Purepecha,west2631,Purépecha,Purépecha,intelligible_place,Patamban,0.6
+R_6PKWAFoz7uvvDih,-102.188888888,19.693888888,pua,Western Highland Purepecha,west2631,Purépecha,Purépecha,town_origin,Cocucho,0.6
+R_2vjgiIpmTgqlmaP,-91.4125,15.58962,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,Jolomhuitz,1.0
+R_2vjgiIpmTgqlmaP,-91.37677,15.59056,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,town_origin,Sachán,1.0
+R_2tJxESlUEIzMdO6,-98.031173888,17.345856388,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,intelligible_place,San Sebastián Tecomaxtlahuaca,1.0
+R_1D2k4bVQNov1JM5,-91.58333,15.93333,cac,Chuj,chuj1250,Mayan,Mayan,intelligible_place,Ixtenam,1.0
+R_1D2k4bVQNov1JM5,-91.8109,15.90924,cac,Chuj,chuj1250,Mayan,Mayan,intelligible_place,Chacaj,1.0
+R_1D2k4bVQNov1JM5,-91.755234,15.80122,cac,Chuj,chuj1250,Mayan,Mayan,town_origin,Nentón,1.0
+R_7canDxER5Xse6fn,-91.62127,15.85759,cac,Chuj,chuj1250,Mayan,Mayan,intelligible_place,Yolcultac,0.428571
+R_7canDxER5Xse6fn,-91.22924,14.80696,cac,Chuj,chuj1250,Mayan,Mayan,intelligible_place,Xequel,0.428571
+R_7canDxER5Xse6fn,-91.56536,15.87286,cac,Chuj,chuj1250,Mayan,Mayan,intelligible_place,Guaisná,0.428571
+R_7canDxER5Xse6fn,-91.5517,15.88167,cac,Chuj,chuj1250,Mayan,Mayan,intelligible_place,Patalcal,0.428571
+R_7canDxER5Xse6fn,-91.53601,15.8754,cac,Chuj,chuj1250,Mayan,Mayan,intelligible_place,Ocanté,0.428571
+R_7canDxER5Xse6fn,-91.56878,15.85057,cac,Chuj,chuj1250,Mayan,Mayan,intelligible_place,Guayabquej,0.428571
+R_7canDxER5Xse6fn,-91.59962,15.86486,cac,Chuj,chuj1250,Mayan,Mayan,town_origin,Sebep,0.428571
+R_1z6y8SfLrjZBreF,-91.48333333,15.83333333,cac,Chuj,chuj1250,Mayan,Mayan,intelligible_place,San Mateo Ixtatán,1.0
+R_1z6y8SfLrjZBreF,-91.8109,15.90924,cac,Chuj,chuj1250,Mayan,Mayan,town_origin,Chacaj,1.0
+R_1lcnkJP3FT8ncrv,-91.48333333,15.83333333,cac,Chuj,chuj1250,Mayan,Mayan,intelligible_place,San Mateo Ixtatán,1.0
+R_1lcnkJP3FT8ncrv,-91.62127,15.85759,cac,Chuj,chuj1250,Mayan,Mayan,town_origin,Yolcultac,1.0
+R_5Mw2s1Ued4Rl5x7,-97.088333333,18.699444444,nlv,Orizaba Nahuatl,oriz1235,Uto-Aztecan,Nahuan,town_origin,Atlahuilco,1.0
+R_2bStSqDnc6jMCHf,-97.06991,18.72998,nlv,Orizaba Nahuatl,oriz1235,Uto-Aztecan,Nahuan,intelligible_place,Tequila,0.6
+R_2bStSqDnc6jMCHf,-97.045555555,18.673055555,nlv,Orizaba Nahuatl,oriz1235,Uto-Aztecan,Nahuan,intelligible_place,Los Reyes,0.6
+R_2bStSqDnc6jMCHf,-102.33036,21.24893,nlv,Orizaba Nahuatl,oriz1235,Uto-Aztecan,Nahuan,intelligible_place,San Juan de los Lagos,0.6
+R_2bStSqDnc6jMCHf,-97.04025,18.62233,nlv,Orizaba Nahuatl,oriz1235,Uto-Aztecan,Nahuan,intelligible_place,Texhuacán,0.6
+R_2bStSqDnc6jMCHf,-96.90917,18.7275,nlv,Orizaba Nahuatl,oriz1235,Uto-Aztecan,Nahuan,town_origin,"San Francisco Atitla, Veracruz de Ignacio de la Llave, Mexico",0.6
+R_3P7HuAv6rBq9X8J,-97.895555555,17.312777777,mix,Mixtepec Mixtec,mixt1425,Otomanguean,Mixtec,intelligible_place,Los Tejocotes,0.6
+R_3P7HuAv6rBq9X8J,-97.65944,17.30556,mix,Mixtepec Mixtec,mixt1425,Otomanguean,Mixtec,intelligible_place,El Capulín,0.6
+R_3P7HuAv6rBq9X8J,-97.90722,17.34278,mix,Mixtepec Mixtec,mixt1425,Otomanguean,Mixtec,intelligible_place,Tinuma de Zaragoza,0.6
+R_3P7HuAv6rBq9X8J,-97.93306,17.33889,mix,Mixtepec Mixtec,mixt1425,Otomanguean,Mixtec,intelligible_place,Mesón de Guadalupe Primera Sección,0.6
+R_3P7HuAv6rBq9X8J,-97.829722222,17.304722222,mix,Mixtepec Mixtec,mixt1425,Otomanguean,Mixtec,town_origin,San Juan Mixtepec Distrito 08,0.6
+R_1S44hk7IDx49bvX,-91.6051,15.5116,mvc,Central Mam,mamc1234,Mayan,Mayan,intelligible_place,Todos Santos Cuchumatán,1.0
+R_1S44hk7IDx49bvX,-91.456761,15.3566902,mvc,Central Mam,mamc1234,Mayan,Mayan,intelligible_place,Chiantla,1.0
+R_3w1XLWHJaqvRYqZ,-97.13,18.71861,nlv,Orizaba Nahuatl,oriz1235,Uto-Aztecan,Nahuan,intelligible_place,Vista Hermosa,0.75
+R_3w1XLWHJaqvRYqZ,-97.13056,18.72639,nlv,Orizaba Nahuatl,oriz1235,Uto-Aztecan,Nahuan,intelligible_place,Loma Linda,0.75
+R_3w1XLWHJaqvRYqZ,-97.188611111,18.728611111,nlv,Orizaba Nahuatl,oriz1235,Uto-Aztecan,Nahuan,intelligible_place,Atzompa,0.75
+R_3w1XLWHJaqvRYqZ,-97.12972,18.70972,nlv,Orizaba Nahuatl,oriz1235,Uto-Aztecan,Nahuan,town_origin,Atlehuaya,0.75
+R_3qfkOSaHhfAIgyw,-91.6051,15.5116,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,Todos Santos Cuchumatán,1.0
+R_3qfkOSaHhfAIgyw,-91.63333333,15.43333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,San Juan Atitán,1.0
+R_7pJC67UaaTFS45r,-91.61852,15.59688,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,Onlaj,1.0
+R_54t61775rX3giaZ,-91.61852,15.59688,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,Onlaj,1.0
+R_7YRxIYnRy6P5rbz,-91.63333333,15.43333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Juan Atitán,1.0
+R_7YRxIYnRy6P5rbz,-91.6051,15.5116,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,Todos Santos Cuchumatán,1.0
+R_7YRxIYnRy6P5rbz,-91.58333333,15.38333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,San Sebastián Huehuetenango,1.0
+R_2rVUAswcpGmT7nH,-98.002777777,16.941944444,mih,Chayuco Mixtec,chay1249,Otomanguean,Mixtec,intelligible_place,Santa María de la Lima,0.75
+R_2rVUAswcpGmT7nH,-97.92704,17.02376,mih,Chayuco Mixtec,chay1249,Otomanguean,Mixtec,intelligible_place,Putla Villa de Guerrero,0.75
+R_2rVUAswcpGmT7nH,-98.17167,16.89194,mih,Chayuco Mixtec,chay1249,Otomanguean,Mixtec,intelligible_place,Guadalupe Mano de León,0.75
+R_2rVUAswcpGmT7nH,-98.046666666,16.912777777,mih,Chayuco Mixtec,chay1249,Otomanguean,Mixtec,town_origin,"San José de las Flores, Oaxaca, Mexico",0.75
+R_7B28MHyffsqHchH,-91.6051,15.5116,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,Todos Santos Cuchumatán,1.0
+R_7B28MHyffsqHchH,-91.63333333,15.43333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Juan Atitán,1.0
+R_7B28MHyffsqHchH,-91.58333333,15.38333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Sebastián Huehuetenango,1.0
+R_1f0Nhc3yLqob0yu,-96.825,17.070833333,mqh,Tlazoyaltepec Mixtec,tlaz1235,Otomanguean,Mixtec,town_origin,San Andrés Ixtlahuaca,1.0
+R_2Ev26WTohIUk1Vo,-91.5154,15.74059,knj,Akateko,west2635,Mayan,Mayan,town_origin,Chemalito,1.0
+R_7GjhwmYfvtmR329,-101.64889,19.64583,tsz,Purepecha,pure1242,Purépecha,Purépecha,intelligible_place,San José Oponguio,1.0
+R_7GjhwmYfvtmR329,-101.673888888,19.602222222,tsz,Purepecha,pure1242,Purépecha,Purépecha,town_origin,Puácuaro,1.0
+R_3dRVueZVruzf0rH,-105.6674,26.9284,tcu,Southeastern Rarámuri,sout2972,Uto-Aztecan,Tarahumara,town_origin,Hidalgo del Parral,1.0
+R_2B4rLujri4RoJrP,-90.36164,15.41848,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,town_origin,Santa Eloisa,1.0
+R_1Ok3oMJdk0DGxdr,-91.37677,15.59056,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,Sachán,1.0
+R_1Ok3oMJdk0DGxdr,-90.36164,15.41848,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,town_origin,Santa Eloisa,1.0
+R_2EGJZsvxQdSyjbC,-91.55608,14.93186,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,Xeaj,0.333333
+R_2EGJZsvxQdSyjbC,-91.55608,14.93186,mms,Southern Mam,mams1234,Mayan,Mayan,intelligible_place,Xeaj,0.333333
+R_2EGJZsvxQdSyjbC,-91.55608,14.93186,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Xeaj,0.333333
+R_2EGJZsvxQdSyjbC,-91.79472,14.63877,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,Labor Nueva Candelaria,0.333333
+R_2EGJZsvxQdSyjbC,-91.79472,14.63877,mms,Southern Mam,mams1234,Mayan,Mayan,intelligible_place,Labor Nueva Candelaria,0.333333
+R_2EGJZsvxQdSyjbC,-91.79472,14.63877,kek,Q'eqchi',kekc1242,Mayan,Mayan,intelligible_place,Labor Nueva Candelaria,0.333333
+R_2EGJZsvxQdSyjbC,-91.3736,15.21755,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,town_origin,Las Cruces,0.333333
+R_2EGJZsvxQdSyjbC,-91.3736,15.21755,mms,Southern Mam,mams1234,Mayan,Mayan,town_origin,Las Cruces,0.333333
+R_2EGJZsvxQdSyjbC,-91.3736,15.21755,kek,Q'eqchi',kekc1242,Mayan,Mayan,town_origin,Las Cruces,0.333333
+R_1OPjiBOonZsfqP9,-91.4586,15.7333,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,Santa Eulalia,0.75
+R_1OPjiBOonZsfqP9,-91.45,15.71666667,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,San Pedro Soloma,0.75
+R_1OPjiBOonZsfqP9,-91.61666667,15.7,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,San Miguel Acatán,0.75
+R_1OPjiBOonZsfqP9,-91.71393,15.50681,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,town_origin,La Florida,0.75
+R_778bHSxkOIcAx92,-91.483333333,14.783333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Zunil,1.0
+R_778bHSxkOIcAx92,-91.5,14.816666666,quc,K'iche',kich1262,Mayan,Mayan,town_origin,Almolonga,1.0
+R_1b4bKIKYUrvxkoV,-98.061944444,17.288888888,xtu,Cuyamecalco Mixtec,cuya1240,Otomanguean,Mixtec,town_origin,"Santa cantarina, Oaxaca, Mexico",1.0
+R_5IcqL8IBnwI91I9,-91.483333333,14.783333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Zunil,1.0
+R_5IcqL8IBnwI91I9,-91.45551111,14.81122222,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Cantel,1.0
+R_5IcqL8IBnwI91I9,-91.5,14.816666666,quc,K'iche',kich1262,Mayan,Mayan,town_origin,Almolonga,1.0
+R_2C2NdSAgmi7n22i,-91.483333333,14.783333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Zunil,1.0
+R_2C2NdSAgmi7n22i,-91.5,14.816666666,quc,K'iche',kich1262,Mayan,Mayan,town_origin,Almolonga,1.0
+R_6c6Mpz9hkmNfz05,-91.483333333,14.783333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Zunil,0.75
+R_6c6Mpz9hkmNfz05,-91.45551111,14.81122222,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Cantel,0.75
+R_6c6Mpz9hkmNfz05,-91.516666666,14.833333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Quetzaltenango,0.75
+R_6c6Mpz9hkmNfz05,-91.5,14.816666666,quc,K'iche',kich1262,Mayan,Mayan,town_origin,Almolonga,0.75
+R_1rjaaYi5cjso2aj,-91.516666666,14.833333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Quetzaltenango,1.0
+R_1rjaaYi5cjso2aj,-91.5,14.816666666,quc,K'iche',kich1262,Mayan,Mayan,town_origin,Almolonga,1.0
+R_1h6hAReRqOqrGkH,-91.483333333,14.783333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Zunil,1.0
+R_1h6hAReRqOqrGkH,-91.5,14.816666666,quc,K'iche',kich1262,Mayan,Mayan,town_origin,Almolonga,1.0
+R_7y1U0RRfC9BUPB5,-96.45889,15.98167,zao,Ozolotepec Zapotec,ozol1235,Otomanguean,Zapotec,intelligible_place,Los Naranjos Esquipulas,0.6
+R_7y1U0RRfC9BUPB5,-96.48,16.01611,zao,Ozolotepec Zapotec,ozol1235,Otomanguean,Zapotec,intelligible_place,Cerro de las Nubes,0.6
+R_7y1U0RRfC9BUPB5,-96.48809,16.00297,zao,Ozolotepec Zapotec,ozol1235,Otomanguean,Zapotec,intelligible_place,Malvarisco,0.6
+R_7y1U0RRfC9BUPB5,-96.468333333,16.017777777,zao,Ozolotepec Zapotec,ozol1235,Otomanguean,Zapotec,town_origin,"El Potrero Jazmín, San Pedro El Alto, Oaxaca, Mexico",0.6
+R_7y1U0RRfC9BUPB5,-96.473888888,16.031666666,zao,Ozolotepec Zapotec,ozol1235,Otomanguean,Zapotec,town_origin,San Pedro el Alto,0.6
+R_5SuVPfdUIh7Nnyx,-97.88083,17.22806,mix,Mixtepec Mixtec,mixt1425,Otomanguean,Mixtec,intelligible_place,San Martín Itunyoso,0.75
+R_5SuVPfdUIh7Nnyx,-98.031173888,17.345856388,mix,Mixtepec Mixtec,mixt1425,Otomanguean,Mixtec,intelligible_place,San Sebastián Tecomaxtlahuaca,0.75
+R_5SuVPfdUIh7Nnyx,-98.13417,17.2975,mix,Mixtepec Mixtec,mixt1425,Otomanguean,Mixtec,intelligible_place,Guadalupe Nundaca,0.75
+R_5SuVPfdUIh7Nnyx,-97.85167,17.09803,mix,Mixtepec Mixtec,mixt1425,Otomanguean,Mixtec,town_origin,"San Marcos, Oaxaca, Mexico",0.75
+R_53rqgFPDV8UowPU,-102.409444444,19.864444444,pua,Western Highland Purepecha,west2631,Purépecha,Purépecha,intelligible_place,La Cantera,1.0
+R_53rqgFPDV8UowPU,-102.465,19.843055555,pua,Western Highland Purepecha,west2631,Purépecha,Purépecha,town_origin,Tarecuato,1.0
+R_1FR39d9VvWPgilp,-96.84585,16.38898,zpt,San Vicente Coatlán Zapotec,sanv1242,Otomanguean,Zapotec,town_origin,San Vicente Coatlán,1.0
+R_3j8U8KkycJbJXKk,-96.479166666,16.954166666,zab,Western Tlacolula Valley Zapotec,sanj1284,Otomanguean,Zapotec,town_origin,Tlacolula de Matamoros,1.0
+R_3VK0V01A1P8rFWg,-97.14996,18.26682,nsu,Sierra Negra Nahuatl,sier1248,Uto-Aztecan,Nahuan,intelligible_place,Coxcatlán,1.0
+R_3VK0V01A1P8rFWg,-97.394166666,18.462777777,nsu,Sierra Negra Nahuatl,sier1248,Uto-Aztecan,Nahuan,intelligible_place,Tehuacán,1.0
+R_5CKEeQvR7NaPEWh,-92.66111,17.15194,ctu,Chol,chol1282,Mayan,Mayan,intelligible_place,Francisco Villa,1.0
+R_5CKEeQvR7NaPEWh,-92.685931944,17.173231666,ctu,Chol,chol1282,Mayan,Mayan,town_origin,Huitiupán,1.0
+R_3qZJjFLX3NXNnB9,-96.722222222,15.812222222,ztp,Loxicha Zapotec,loxi1235,Otomanguean,Zapotec,intelligible_place,San Francisco Cozoaltepec,0.6
+R_3qZJjFLX3NXNnB9,-96.668076388,15.833004444,ztp,Loxicha Zapotec,loxi1235,Otomanguean,Zapotec,intelligible_place,Santo Domingo de Morelos,0.6
+R_3qZJjFLX3NXNnB9,-96.46664,15.74757,ztp,Loxicha Zapotec,loxi1235,Otomanguean,Zapotec,intelligible_place,San Pedro Pochutla,0.6
+R_3qZJjFLX3NXNnB9,-96.691388888,15.899444444,ztp,Loxicha Zapotec,loxi1235,Otomanguean,Zapotec,town_origin,"Santa María Magdalena, San Agustín loxicha, Oaxaca, Mexico",0.6
+R_3qZJjFLX3NXNnB9,-96.61667,16.01655,ztp,Loxicha Zapotec,loxi1235,Otomanguean,Zapotec,town_origin,San Agustín Loxicha,0.6
+R_7sZIOrX5wm09EUZ,-98.050277777,17.243888888,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,intelligible_place,Santa Catarina Noltepec,1.0
+R_7sZIOrX5wm09EUZ,-98.01056,17.26806,vmc,Juxtlahuaca Mixtec,juxt1235,Otomanguean,Mixtec,intelligible_place,Santiago Naranjas,1.0
+R_6tEhGhgo39Oipz0,-91.42994,15.65841,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,Soloma,1.0
+R_6tEhGhgo39Oipz0,-91.31583,15.80361,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,Barillas,1.0
+R_1iwIJnaDYvci8z7,-97.88083,17.22806,trq,San Martín Itunyoso Triqui,sanm1298,Otomanguean,Triqui,town_origin,San Martín Itunyoso,1.0
+R_7GCdqzVIbeL5C0h,-96.39823,18.06149,cvn,Valle Nacional Chinantec,vall1253,Otomanguean,Chinantec,town_origin,San Lucas Ojitlán,1.0
+R_10YQd17EHeETgl9,-100.827583055,19.860274722,tsz,Purepecha,pure1242,Purépecha,Purépecha,town_origin,Zinapécuaro de Figueroa,1.0
+R_7knH7SA6fgXMw8N,-91.58333333,15.38333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Sebastián Huehuetenango,1.0
+R_7knH7SA6fgXMw8N,-91.616666666,15.316666666,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,Malacatancito,1.0
+R_54NVlb4lMy2LxIQ,-91.5,14.816666666,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Almolonga,1.0
+R_7kt5gjGtbrvLXFu,-91.483333333,14.783333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Zunil,1.0
+R_114dWJGOowG0aqb,-91.5,14.816666666,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Almolonga,1.0
+R_114dWJGOowG0aqb,-91.516666666,14.833333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Quetzaltenango,1.0
+R_17uosgkryXBD8UF,-96.70583,16.80722,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,San Sebastián Ocotlán,1.0
+R_17uosgkryXBD8UF,-96.721388888,16.761944444,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,Asunción Ocotlán,1.0
+R_17uosgkryXBD8UF,-96.722413888,16.804263055,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,town_origin,Santiago Apóstol,1.0
+R_7FlgRV8kDdan5NB,-96.725938888,16.837875277,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,Santa Ana Zegache,0.75
+R_7FlgRV8kDdan5NB,-96.721388888,16.761944444,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,Asunción Ocotlán,0.75
+R_7FlgRV8kDdan5NB,-96.7588,16.806,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,Santa Inés Yatzeche Municipality,0.75
+R_7FlgRV8kDdan5NB,-96.722413888,16.804263055,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,town_origin,Santiago Apóstol,0.75
+R_1q2y8HUHG0dRk2X,-97.05861,18.59111,nlv,Orizaba Nahuatl,oriz1235,Uto-Aztecan,Nahuan,intelligible_place,Acatitla,0.6
+R_1q2y8HUHG0dRk2X,-97.11167,18.54861,nlv,Orizaba Nahuatl,oriz1235,Uto-Aztecan,Nahuan,intelligible_place,Acuayucan,0.6
+R_1q2y8HUHG0dRk2X,-97.15222,18.48417,nlv,Orizaba Nahuatl,oriz1235,Uto-Aztecan,Nahuan,intelligible_place,Telpatlán,0.6
+R_1q2y8HUHG0dRk2X,-97.118888888,18.612222222,nlv,Orizaba Nahuatl,oriz1235,Uto-Aztecan,Nahuan,intelligible_place,Tlaquilpa,0.6
+R_1q2y8HUHG0dRk2X,-97.1025,18.569166666,nlv,Orizaba Nahuatl,oriz1235,Uto-Aztecan,Nahuan,town_origin,Astacinga,0.6
+R_5Km4EdoOLa1r1kE,-96.70583,16.80722,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,San Sebastián Ocotlán,0.75
+R_5Km4EdoOLa1r1kE,-96.683888888,16.803055555,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,San Antonino Castillo Velasco,0.75
+R_5Km4EdoOLa1r1kE,-96.721388888,16.761944444,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,Asunción Ocotlán,0.75
+R_5Km4EdoOLa1r1kE,-96.722413888,16.804263055,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,town_origin,Santiago Apóstol,0.75
+R_3L54Xj74kK6C82Q,-91.15676,14.74185,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Panajachel,1.0
+R_3L54Xj74kK6C82Q,-91.516666666,14.833333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Quetzaltenango,1.0
+R_3L54Xj74kK6C82Q,-91.15,14.73333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Barrio Jucanya,1.0
+R_3aI8WtxNjRU50Q1,-91.63333333,15.43333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Juan Atitán,1.0
+R_3aI8WtxNjRU50Q1,-91.58333333,15.38333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Sebastián Huehuetenango,1.0
+R_31dB69PMclGLeL5,-99.13,17.882777777,ngu,Central Guerrero Nahuatl,guer1241,Uto-Aztecan,Nahuan,town_origin,Tlalcozotitlán,1.0
+R_7HqwOPB96Bmvx8R,-91.5,14.816666666,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Almolonga,1.0
+R_7HpL2MimcXjdbtp,-89.62,20.97,yua,Yucatec Maya,yuca1254,Mayan,Mayan,intelligible_place,Mérida,1.0
+R_7HpL2MimcXjdbtp,-89.418333333,20.302777777,yua,Yucatec Maya,yuca1254,Mayan,Mayan,town_origin,Oxkutzcab,1.0
+R_5fMP3KdIUFFIi0V,-91.516666666,14.833333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Quetzaltenango,1.0
+R_5nLEYQ6BYZIQoKd,-97.619444444,17.045833333,mig,Santa María Yosoyúa Mixtec,0,Otomanguean,Mixtec,intelligible_place,San Miguel el Grande,1.0
+R_5nLEYQ6BYZIQoKd,-97.577222222,16.873611111,mig,Santa María Yosoyúa Mixtec,0,Otomanguean,Mixtec,intelligible_place,Santiago Yosondúa,1.0
+R_5nLEYQ6BYZIQoKd,-97.570555555,17.0325,mig,Santa María Yosoyúa Mixtec,0,Otomanguean,Mixtec,town_origin,Chalcatongo de Hidalgo,1.0
+R_3NInFCypSbq7fQh,-91.71177,15.66662,jac,Popti',popt1235,Mayan,Mayan,intelligible_place,Jacaltenango,1.0
+R_3NInFCypSbq7fQh,-91.70471,15.67869,jac,Popti',popt1235,Mayan,Mayan,intelligible_place,San Marcos Huista,1.0
+R_7SAZO3CCUVIkWJf,-98.3425,17.36944,xta,Alcozauca Mixtec,alco1235,Otomanguean,Mixtec,town_origin,Ixcuinatoyac,1.0
+R_7CeIPDOAUST826P,-97.7625,17.14444,mim,Alacatlatzala Mixtec,alac1244,Otomanguean,Mixtec,intelligible_place,Santo Tomás Ocotepec,0.75
+R_7CeIPDOAUST826P,-97.79806,17.175,mim,Alacatlatzala Mixtec,alac1244,Otomanguean,Mixtec,intelligible_place,San Miguel Progreso,0.75
+R_7CeIPDOAUST826P,-97.723611111,17.172222222,mim,Alacatlatzala Mixtec,alac1244,Otomanguean,Mixtec,intelligible_place,Santa Cruz Nundaco,0.75
+R_7CeIPDOAUST826P,-97.79194,17.21583,mim,Alacatlatzala Mixtec,alac1244,Otomanguean,Mixtec,town_origin,"Plan de Guadalupe, Oaxaca, Mexico",0.75
+R_64aFGsFCw75dG3D,-91.63333333,15.43333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Juan Atitán,0.5
+R_64aFGsFCw75dG3D,-91.76666667,15.5,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Pedro Necta,0.5
+R_64aFGsFCw75dG3D,-91.58333333,15.38333333,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Sebastián Huehuetenango,0.5
+R_64aFGsFCw75dG3D,-91.7155659,15.4053531,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,Colotenango,0.5
+R_64aFGsFCw75dG3D,-91.71666667,15.46666667,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,Santiago Chimaltenango,0.5
+R_64aFGsFCw75dG3D,-91.795833333,14.965277777,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,San Marcos,0.5
+R_5S2bgKj8bgk1G3T,-97.723611111,17.172222222,mim,Alacatlatzala Mixtec,alac1244,Otomanguean,Mixtec,intelligible_place,Santa Cruz Nundaco,0.5
+R_5S2bgKj8bgk1G3T,-97.7625,17.14444,mim,Alacatlatzala Mixtec,alac1244,Otomanguean,Mixtec,intelligible_place,Santo Tomás Ocotepec,0.5
+R_5S2bgKj8bgk1G3T,-97.79806,17.175,mim,Alacatlatzala Mixtec,alac1244,Otomanguean,Mixtec,intelligible_place,San Miguel Progreso,0.5
+R_5S2bgKj8bgk1G3T,-97.769444444,17.018055555,mim,Alacatlatzala Mixtec,alac1244,Otomanguean,Mixtec,intelligible_place,Santa María Yucuhiti,0.5
+R_5S2bgKj8bgk1G3T,-97.766539166,17.0151725,mim,Alacatlatzala Mixtec,alac1244,Otomanguean,Mixtec,intelligible_place,Santiago Nuyoó,0.5
+R_5S2bgKj8bgk1G3T,-97.79194,17.21583,mim,Alacatlatzala Mixtec,alac1244,Otomanguean,Mixtec,town_origin,"Plan de Guadalupe, Oaxaca, Mexico",0.5
+R_64pEMzWQVT75kB3,-96.70583,16.80722,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,San Sebastián Ocotlán,1.0
+R_64pEMzWQVT75kB3,-96.722413888,16.804263055,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,town_origin,Santiago Apóstol,1.0
+R_7bOXijIMd4Kej22,-96.721388888,16.761944444,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,Asunción Ocotlán,1.0
+R_7bOXijIMd4Kej22,-96.70583,16.80722,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,San Sebastián Ocotlán,1.0
+R_7bOXijIMd4Kej22,-96.722413888,16.804263055,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,town_origin,Santiago Apóstol,1.0
+R_37dKpZA1IoMLMjb,-98.3375,17.375,xta,Alcozauca Mixtec,alco1235,Otomanguean,Mixtec,intelligible_place,Tlahuapa,1.0
+R_37dKpZA1IoMLMjb,-98.35499,17.36304,xta,Alcozauca Mixtec,alco1235,Otomanguean,Mixtec,intelligible_place,Altamira,1.0
+R_37dKpZA1IoMLMjb,-98.384166666,17.461111111,xta,Alcozauca Mixtec,alco1235,Otomanguean,Mixtec,town_origin,Alcozauca de Guerrero,1.0
+R_3OTZ5jJRuPcASPv,-97.928888888,17.061388888,trq,San Martín Itunyoso Triqui,sanm1298,Otomanguean,Triqui,intelligible_place,San Miguel Copala,1.0
+R_3OTZ5jJRuPcASPv,-97.839722222,17.156666666,trq,San Martín Itunyoso Triqui,sanm1298,Otomanguean,Triqui,intelligible_place,San Andrés Chicahuaxtla,1.0
+R_3OTZ5jJRuPcASPv,-97.88083,17.22806,trq,San Martín Itunyoso Triqui,sanm1298,Otomanguean,Triqui,town_origin,San Martín Itunyoso,1.0
+R_1chGll7MvYfuKHL,-91.71177,15.66662,jac,Popti',popt1235,Mayan,Mayan,intelligible_place,Jacaltenango,0.5
+R_1chGll7MvYfuKHL,-91.70471,15.67869,jac,Popti',popt1235,Mayan,Mayan,intelligible_place,San Marcos Huista,0.5
+R_1chGll7MvYfuKHL,-91.73406,15.72382,jac,Popti',popt1235,Mayan,Mayan,intelligible_place,San Andrés Huista,0.5
+R_1chGll7MvYfuKHL,-91.64452,15.65228,jac,Popti',popt1235,Mayan,Mayan,intelligible_place,Ajul,0.5
+R_1chGll7MvYfuKHL,-91.60851,15.58117,jac,Popti',popt1235,Mayan,Mayan,intelligible_place,Los Ramírez,0.5
+R_1chGll7MvYfuKHL,-91.6008,15.61961,jac,Popti',popt1235,Mayan,Mayan,intelligible_place,Yatolob,0.5
+R_5SdxG7ztRNQXPb8,-91.71177,15.66662,jac,Popti',popt1235,Mayan,Mayan,intelligible_place,Jacaltenango,0.6
+R_5SdxG7ztRNQXPb8,-91.70471,15.67869,jac,Popti',popt1235,Mayan,Mayan,intelligible_place,San Marcos Huista,0.6
+R_5SdxG7ztRNQXPb8,-91.73406,15.72382,jac,Popti',popt1235,Mayan,Mayan,intelligible_place,San Andrés Huista,0.6
+R_5SdxG7ztRNQXPb8,-91.64452,15.65228,jac,Popti',popt1235,Mayan,Mayan,intelligible_place,Ajul,0.6
+R_5SdxG7ztRNQXPb8,-91.42994,15.65841,jac,Popti',popt1235,Mayan,Mayan,intelligible_place,Soloma,0.6
+R_1rQgcrNP7m7BiLv,-96.70583,16.80722,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,San Sebastián Ocotlán,1.0
+R_1rQgcrNP7m7BiLv,-96.683888888,16.803055555,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,intelligible_place,San Antonino Castillo Velasco,1.0
+R_1rQgcrNP7m7BiLv,-96.722413888,16.804263055,zac,Ocotlán Zapotec,ocot1244,Otomanguean,Zapotec,town_origin,Santiago Apóstol,1.0
+R_1krMHKGOpX8Ehpv,-91.35095,15.6067,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,San Carlos Yajaucú,0.75
+R_1krMHKGOpX8Ehpv,-91.4125,15.58962,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,Jolomhuitz,0.75
+R_1krMHKGOpX8Ehpv,-91.42347,15.57171,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,San Lucas,0.75
+R_1krMHKGOpX8Ehpv,-90.86045,15.41912,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,town_origin,Siete Pinos,0.75
+R_7JKPycLe8YD0fZo,-91.41319,15.60586,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,Tixap,0.75
+R_7JKPycLe8YD0fZo,-91.40343,15.59862,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,Chitamil,0.75
+R_7JKPycLe8YD0fZo,-91.4125,15.58962,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,Jolomhuitz,0.75
+R_7JKPycLe8YD0fZo,-91.37677,15.59056,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,town_origin,Sachán,0.75
+R_5wiO5UD8lYCqd4l,-91.6051,15.5116,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,intelligible_place,Todos Santos Cuchumatán,1.0
+R_7EXCCKfQq7D89Qr,-91.5075,15.53741,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,Chemal,1.0
+R_5OT6O5T3awYB2oL,-91.64071,15.55159,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,Chicoy,1.0
+R_7qfwyYYdbSoLlWX,-91.4586,15.7333,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,intelligible_place,Santa Eulalia,1.0
+R_7qfwyYYdbSoLlWX,-91.42155,15.67625,kjb,Q'anjob'al,qanj1241,Mayan,Mayan,town_origin,Majchá,1.0
+R_3laBRTE8V9wade9,-91.28293,14.6875,mvj,"Mam, Todos Santos Cuchumatán",mamm1241,Mayan,Mayan,town_origin,Tzanjay,1.0
+R_1feSM7ErvKffCcp,-91.42072,15.51885,jac,Popti',popt1235,Mayan,Mayan,intelligible_place,Pozo de Parchac,1.0
+R_1feSM7ErvKffCcp,-91.70471,15.67869,jac,Popti',popt1235,Mayan,Mayan,town_origin,San Marcos Huista,1.0
+R_73fvjLxFtIsAGoW,-91.516666666,14.833333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Quetzaltenango,1.0
+R_73fvjLxFtIsAGoW,-91.483333333,14.783333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Zunil,1.0
+R_73fvjLxFtIsAGoW,-91.5,14.816666666,quc,K'iche',kich1262,Mayan,Mayan,town_origin,Almolonga,1.0
+R_5rTLS3pIkEQIdBl,-91.35833333,14.85416667,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Nueva Santa Catarina Ixtahuacan,1.0
+R_5rTLS3pIkEQIdBl,-91.516666666,14.833333333,quc,K'iche',kich1262,Mayan,Mayan,intelligible_place,Quetzaltenango,1.0
+R_5rTLS3pIkEQIdBl,-91.36666667,14.8,quc,K'iche',kich1262,Mayan,Mayan,town_origin,Santa Catarina Ixtahuacan,1.0

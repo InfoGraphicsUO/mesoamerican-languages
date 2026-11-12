@@ -1,0 +1,6 @@
+.cache/
+__pycache__/
+*.aux.xml
+# rebuilt by run_all.py: the DEM is fetched once and cached, the sites are downloaded fresh every run
+output/dem_1km.tif
+output/attested_sites.geojson
