@@ -83,7 +83,7 @@ const NO_ESTIMATE = (maxKm) => localized(
 
 // within reach of documented sites, but on water or land walking can't reach from them
 const NO_ESTIMATE_WATER = localized(
-    'No estimate here. This point is on water or can't be reached on foot from the nearby documented sites.',
+    `No estimate here. This point is on water or can't be reached on foot from the nearby documented sites.`,
     'No hay estimación aquí. Este punto está en el agua o no se puede llegar a pie desde los sitios documentados cercanos.'
 );
 
