@@ -77,12 +77,12 @@ const NO_ESTIMATE_WATER = localized(
     'No hay estimación aquí. Este punto está en el agua o no se puede llegar a pie desde los sitios documentados cercanos.'
 );
 
-// "Mixtec · Otomanguean", the group is left off when it repeats the family
+// "Otomanguean › Mixtec" like search results, the group is left off when it repeats the family
 function classification({ family, group }) {
     const parts = [family, group !== family ? group : ''].filter(Boolean);
     if (!parts.length) return '';
-    const labels = [group !== family ? localizedLookup(group, GROUP_LABELS) : '', localizedLookup(family, FAMILY_LABELS)].filter(Boolean);
-    return localized(labels.map((label) => textFor(label, 'en')).join(' · '), labels.map((label) => textFor(label, 'es')).join(' · '));
+    const labels = [localizedLookup(family, FAMILY_LABELS), group !== family ? localizedLookup(group, GROUP_LABELS) : ''].filter(Boolean);
+    return localized(labels.map((label) => textFor(label, 'en')).join(' › '), labels.map((label) => textFor(label, 'es')).join(' › '));
 }
 
 // view: MapView from ready in js/map.js
