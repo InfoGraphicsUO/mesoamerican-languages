@@ -1,5 +1,4 @@
 import { FAMILY_LABELS, GROUP_LABELS, localized, localizedLookup, textFor } from './language.js';
-import { html, languageText } from './ui.js';
 
 // estimates which languages are most likely spoken at any point on the map
 // reads one pixel of data/language-probability.tif, built by analysis/build_raster.py
@@ -65,9 +64,6 @@ function confidenceDetail(km, people, level, levels) {
     return detail(LIMIT_TEXT[tooFar && tooFew ? 'both' : tooFew ? 'few' : 'far']);
 }
 
-// the share left over for languages missing from our nearby reports, bigger where few people reported
-const OTHER_LANGUAGE = localized('Another language', 'Otra lengua');
-const OTHER_DETAIL = localized('Not in our nearby reports', 'No está en nuestros reportes cercanos');
 
 const NO_ESTIMATE = (maxKm) => localized(
     `No estimate. No documented sites within ${maxKm} km.`,
@@ -81,22 +77,20 @@ const NO_ESTIMATE_WATER = localized(
 );
 
 // "Otomanguean › Mixtec" like search results, the group is left off when it repeats the family
-function classification({ family, group }) {
+export function classification({ family, group }) {
     const parts = [family, group !== family ? group : ''].filter(Boolean);
     if (!parts.length) return '';
     const labels = [localizedLookup(family, FAMILY_LABELS), group !== family ? localizedLookup(group, GROUP_LABELS) : ''].filter(Boolean);
     return localized(labels.map((label) => textFor(label, 'en')).join(' › '), labels.map((label) => textFor(label, 'es')).join(' › '));
 }
 
-// view: MapView from ready in js/map.js
-// returns { show(point, { marker }), hide }
-export async function initLanguageEstimate(view) {
-    const [lookupResponse, rasterResponse, geotiff, Graphic, GraphicsLayer] = await Promise.all([
+// loads the raster and its lookup once
+// returns { estimate(point), image, lookup }, step 2 in js/matches-panel.js lists what estimate() finds
+export async function initLanguageEstimate() {
+    const [lookupResponse, rasterResponse, geotiff] = await Promise.all([
         fetch(LOOKUP_URL),
         fetch(RASTER_URL),
-        import(GEOTIFF_URL),
-        $arcgis.import('@arcgis/core/Graphic.js'),
-        $arcgis.import('@arcgis/core/layers/GraphicsLayer.js')
+        import(GEOTIFF_URL)
     ]);
     if (!lookupResponse.ok) throw new Error(`Language estimate lookup returned ${lookupResponse.status}`);
     const lookup = await lookupResponse.json();
@@ -110,16 +104,6 @@ export async function initLanguageEstimate(view) {
     const height = image.getHeight();
     const maxKm = lookup.model.max_nearest_km;
 
-    const panel = document.getElementById('language-estimate');
-    const body = document.getElementById('language-estimate-body');
-    const closeButton = document.getElementById('language-estimate-close');
-
-    const markers = new GraphicsLayer({ listMode: 'hide' });
-    view.map.add(markers);
-
-    let request = 0; // newest lookup, so a slow tile cant overwrite a later click
-    let current = null; // band values for the last point
-
     // ten band values at a longitude/latitude, or null outside the raster
     async function sample(longitude, latitude) {
         const col = Math.floor((longitude - originX) / resX);
@@ -129,89 +113,39 @@ export async function initLanguageEstimate(view) {
         return Array.from(bands);
     }
 
-    // both translations go in, css shows the current one, so a language switch needs no redraw
-    function render() {
-        const values = current;
-        const nodata = lookup.nodata;
-
-        if (values[0] === nodata) {
-            // band 7 is kept on water within reach of a report, empty everywhere else
-            const message = values[6] !== undefined && values[6] !== nodata ? NO_ESTIMATE_WATER : NO_ESTIMATE(maxKm);
-            body.innerHTML = String(html`<p class="language-estimate-empty">${languageText(message)}</p>`);
-            return;
-        }
-
-        const km = values[6];
-        const otherPercent = values[7];
-        // set in the raster from distance and how many people reported nearby, so a lone report can't read as high
-        const levelIndex = lookup.confidence[values[8]] ? values[8] : lookup.confidence.length - 1;
-        const confidence = lookup.confidence[levelIndex];
-        const people = values[9] / 10;
-        const rows = [0, 1, 2]
-            .filter((i) => values[i] !== nodata && values[3 + i] >= MIN_PERCENT)
-            .map((i) => ({ language: lookup.languages[values[i]], percent: values[3 + i] }));
-
-        body.innerHTML = String(html`
-            <ol class="language-estimate-list">
-                ${rows.map(({ language, percent }) => html`
-                <li>
-                    <span class="language-estimate-name">${language.name}</span>
-                    <span class="language-estimate-percent">${percent}%</span>
-                    <span class="language-estimate-family">${languageText(classification(language))}</span>
-                    <span class="language-estimate-bar" aria-hidden="true"><span style="width: ${percent}%"></span></span>
-                </li>`)}
-                ${otherPercent >= MIN_PERCENT ? html`
-                <li class="language-estimate-other">
-                    <span class="language-estimate-name">${languageText(OTHER_LANGUAGE)}</span>
-                    <span class="language-estimate-percent">${otherPercent}%</span>
-                    <span class="language-estimate-family">${languageText(OTHER_DETAIL)}</span>
-                    <span class="language-estimate-bar" aria-hidden="true"><span style="width: ${otherPercent}%"></span></span>
-                </li>` : ''}
-            </ol>
-            <p class="language-estimate-confidence" data-level="${confidence.level}">
-                <strong>${languageText(CONFIDENCE_TEXT[confidence.level])}</strong>
-                ${languageText(confidenceDetail(km, people, levelIndex, lookup.confidence))}
-            </p>`);
-    }
-
-    // point: anything w/ longitude/latitude, like a click's mapPoint or a geocoded Point
-    // marker: drop a dot where the estimate is for, off when something else already marks it
-    async function show(point, { marker = true } = {}) {
-        const thisRequest = ++request;
-        markers.removeAll();
-        if (marker) {
-            markers.add(new Graphic({
-                geometry: point,
-                symbol: {
-                    type: 'simple-marker',
-                    style: 'circle',
-                    size: 10,
-                    color: [149, 37, 209, 0.25],
-                    outline: { color: [149, 37, 209, 1], width: 2 }
-                }
-            }));
-        }
-        panel.hidden = false;
-
+    // point: anything w/ longitude/latitude, like a site geometry or a geocoded Point
+    // returns { languages: [{ language, percent, classification }], confidence } or { languages: [], message }
+    async function estimate(point) {
         let values = null;
         try {
             values = await sample(point.longitude, point.latitude);
         } catch (error) {
             console.error('Unable to read language estimate:', error);
         }
-        if (thisRequest !== request) return;
-        current = values || [lookup.nodata];
-        render();
+        const nodata = lookup.nodata;
+        if (!values || values[0] === nodata) {
+            // band 7 is kept on water within reach of a report, empty everywhere else
+            const water = values && values[6] !== undefined && values[6] !== nodata;
+            return { languages: [], message: water ? NO_ESTIMATE_WATER : NO_ESTIMATE(maxKm) };
+        }
+
+        // set in the raster from distance and how many people reported nearby, so a lone report can't read as high
+        const levelIndex = lookup.confidence[values[8]] ? values[8] : lookup.confidence.length - 1;
+        const level = lookup.confidence[levelIndex].level;
+        const languages = [0, 1, 2]
+            .filter((i) => values[i] !== nodata && values[3 + i] >= MIN_PERCENT)
+            .map((i) => {
+                const language = lookup.languages[values[i]];
+                return { language, percent: values[3 + i], classification: classification(language) };
+            });
+
+        return {
+            languages,
+            level,
+            confidence: CONFIDENCE_TEXT[level],
+            detail: confidenceDetail(values[6], values[9] / 10, levelIndex, lookup.confidence)
+        };
     }
 
-    function hide() {
-        request += 1;
-        current = null;
-        markers.removeAll();
-        panel.hidden = true;
-    }
-
-    closeButton.addEventListener('click', hide);
-
-    return { show, hide, image, lookup }; // image + lookup are shared w/ js/raster-overlay.js
+    return { estimate, image, lookup }; // image + lookup are shared w/ js/raster-overlay.js
 }

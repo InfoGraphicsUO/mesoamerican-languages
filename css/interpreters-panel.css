@@ -74,22 +74,6 @@
     padding-top: 0.15rem; /* josefin sans sits high */
 }
 
-.interpreters-show-all {
-    flex: none;
-    padding: 0.3rem 0.5rem 0.15rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background: var(--surface);
-    color: var(--text);
-    font: inherit;
-    cursor: pointer;
-}
-
-.interpreters-show-all:hover,
-.interpreters-show-all:focus-visible {
-    background: rgb(25 34 29 / 8%);
-}
-
 .interpreters-empty {
     margin: var(--space-xs) 0;
     color: var(--text-muted);

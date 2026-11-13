@@ -1,0 +1,222 @@
+/* the three steps down the left of the map, markup in index.html */
+
+.steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-start;
+    max-width: calc(100vw - 2rem);
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    font-family: var(--font);
+    color: var(--text);
+}
+
+.step {
+    flex: none;
+    width: min(25rem, calc(100vw - 2rem));
+    transition: width var(--motion-duration) var(--motion-ease);
+    padding: 0.6rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    backdrop-filter: var(--blur);
+}
+
+.step[hidden] {
+    display: none;
+}
+
+/* temporary show all steps checkbox, css below handles what it shows */
+.steps-show-all {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex: none;
+    padding: 0.35rem 0.6rem 0.2rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    font-size: var(--text-sm);
+    cursor: pointer;
+}
+
+.steps-show-all input {
+    margin: 0 0 0.15rem;
+    accent-color: var(--accent-bright);
+}
+
+/* steps not reached yet show their heading and a short hint, dimmed */
+.steps.is-showing-all .step[hidden] {
+    display: block;
+}
+
+.steps.is-showing-all .step[hidden] > * {
+    opacity: 0.6; /* on the contents, so the panel stays solid over the map */
+}
+
+.steps.is-showing-all .step[hidden] > :not(.step-heading, .interpreters-header, .step-waiting) {
+    display: none;
+}
+
+.step-waiting,
+.steps.is-showing-all .step:not([hidden]) .step-waiting {
+    display: none;
+}
+
+.steps.is-showing-all .step[hidden] .step-waiting {
+    display: block;
+    margin: 0;
+    font-size: var(--text-sm);
+}
+
+/* purple heading w/ the step number in a filled dot */
+.steps .step-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0 0.6rem;
+    color: var(--accent-bright);
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.step-heading > span:not(.step-number) {
+    padding-top: 0.15rem; /* josefin sans sits high */
+}
+
+.step-number {
+    display: grid;
+    flex: none;
+    width: 1.75rem;
+    height: 1.75rem;
+    place-items: center;
+    padding-top: 0.15rem;
+    border-radius: 50%;
+    background: var(--accent-bright);
+    color: white;
+    font-size: 1rem;
+}
+
+/* step 2 needs room for its two columns, so the whole column widens once it shows */
+.steps:has(#step-matches:not([hidden])) .step {
+    width: min(46rem, calc(100vw - 2rem));
+}
+
+/* step 1 w/ zoom, home, and the temporary checkbox beside it */
+.steps-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+/* places on the left, the picked place's languages on the right */
+.step-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.step-column {
+    min-width: 0;
+}
+
+.step-subheading {
+    margin: 0 0 0.25rem;
+    color: var(--text-soft);
+    font-size: var(--text-sm);
+    font-weight: 700;
+}
+
+.step-subheading:empty {
+    display: none;
+}
+
+.step-list {
+    max-height: calc(var(--search-row) * 6); /* rows are taller w/ the tag under the name */
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    border: 1px solid var(--border);
+    list-style: none;
+}
+
+.step-list:empty {
+    display: none;
+}
+
+.step-list li + li {
+    border-top: 1px solid var(--border);
+}
+
+/* search result rows as buttons */
+.step-option {
+    width: 100%;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+}
+
+.step-option:hover,
+.step-option:focus-visible {
+    background: rgb(25 34 29 / 7%);
+    outline: none;
+}
+
+/* the tag goes under the name in the narrower columns, so long ones like Verified place of origin fit */
+.step-option .search-result-tag {
+    padding-top: 0.1rem;
+    font-size: var(--text-xs);
+    text-align: left;
+    white-space: normal;
+}
+
+.step-option[aria-pressed="true"] {
+    background: color-mix(in srgb, var(--accent-bright) 12%, transparent);
+    box-shadow: inset 3px 0 0 var(--accent-bright);
+}
+
+.step-note {
+    margin: 0.4rem 0 0;
+    color: var(--text-muted);
+    font-size: var(--text-xs);
+}
+
+.step-note:empty {
+    display: none;
+}
+
+/* step 3 keeps the interpreters panel's own styles, .step's width wins over its fixed one */
+
+.interpreters-header .step-heading {
+    margin-bottom: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .step {
+        transition: none;
+    }
+}
+
+/* on phones the language switch sits above the steps on the right */
+@media (max-width: 600px) {
+    .steps {
+        max-height: calc(100vh - 6rem);
+        margin-top: 3.25rem;
+    }
+
+    .steps .step-heading {
+        font-size: 1rem;
+    }
+
+    .step-columns {
+        grid-template-columns: 1fr;
+    }
+
+    /* no room beside step 1, the buttons and checkbox drop under it */
+    .steps-row {
+        flex-wrap: wrap;
+    }
+}

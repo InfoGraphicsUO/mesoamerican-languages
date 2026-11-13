@@ -5,8 +5,7 @@ import { html, languageText } from './ui.js';
 // lists the interpreters from data/interpreters.json in the panel in index.html
 // clicking one highlights the sites of the languages they cover
 // clicking it again, the clear button, or escape inside the panel clears it
-// a search pick filters the list down to the interpreters who cover what was picked,
-// show all, clearing the search, or escape w/ nothing selected brings the full list back
+// step 3, a language or place picked in step 2 filters the list down to the interpreters who cover it
 
 // sql text value, quotes in names like K'iche' have to be doubled
 const sqlText = (value) => `'${value.replaceAll("'", "''")}'`;
@@ -43,18 +42,17 @@ const EXTERNAL_ICON = html`<svg viewBox="0 0 16 16" width="16" height="16" aria-
 const coverageCount = (count, total) => localized(`${count} of ${total}`, `${count} de ${total}`);
 
 // onSelect(id): runs when an interpreter gets picked, so other highlights can make way for it
-// returns { clear, filter, showAll } for search picks to drop the highlight and narrow the list
+// returns { clear, filter } for step 2 picks to drop the highlight and narrow the list
 export async function initInterpretersPanel(view, siteGlow, { onSelect = () => {} } = {}) {
     const response = await fetch('data/interpreters.json');
     if (!response.ok) throw new Error(`Interpreter data returned ${response.status}`);
     const { providers, languageProviders } = await response.json();
 
-    const panel = document.getElementById('interpreters');
+    const panel = document.getElementById('step-interpreters');
     const list = document.getElementById('interpreters-list');
     const clearButton = document.getElementById('interpreters-clear');
     const filterBar = document.getElementById('interpreters-filter');
     const filterLabel = document.getElementById('interpreters-filter-label');
-    const showAllButton = document.getElementById('interpreters-show-all');
     const empty = document.getElementById('interpreters-empty');
     const status = document.getElementById('interpreters-status');
 
@@ -177,19 +175,10 @@ export async function initInterpretersPanel(view, siteGlow, { onSelect = () => {
     });
 
     // label: what was picked, plain text or a localized() pair
-    // languages: language names from the picked sites, none means there's nothing to filter by
+    // languages: language names for the pick, none means no interpreters match and the empty message shows
     function filter({ label, languages }) {
-        const names = new Set([...languages].filter(Boolean));
-        current = names.size ? { label, languages: names } : null;
+        current = { label, languages: new Set([...languages].filter(Boolean)) };
         refresh();
-    }
-
-    // focus: for show all from inside the panel, the button hides and focus would drop to the page
-    function showAll({ focus = false } = {}) {
-        if (!current) return;
-        current = null;
-        refresh();
-        if (focus) (list.querySelector('[aria-pressed="true"]') || list.querySelector('button'))?.focus();
     }
 
     // redraw the list and keep the selected interpreter's glow scoped to the new filter
@@ -200,14 +189,11 @@ export async function initInterpretersPanel(view, siteGlow, { onSelect = () => {
     }
 
     clearButton.addEventListener('click', () => clear({ focus: true }));
-    showAllButton.addEventListener('click', () => showAll({ focus: true }));
 
-    // escape steps back one level, the selection first and then the filter
+    // escape drops the selection
     panel.addEventListener('keydown', (event) => {
-        if (event.key !== 'Escape') return;
-        if (selectedId) clear({ focus: true });
-        else showAll({ focus: true });
+        if (event.key === 'Escape' && selectedId) clear({ focus: true });
     });
 
-    return { clear: () => clear(), filter, showAll: () => showAll() };
+    return { clear: () => clear(), filter };
 }

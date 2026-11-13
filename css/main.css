@@ -99,10 +99,9 @@ html.lang-es .language-option-es {
     }
 }
 
-/* on phones the search row fills the top, so the switch drops under it on the right */
+/* on phones the switch sits above the steps, css/steps.css leaves room for it */
 @media (max-width: 600px) {
     .language-switch {
         height: 2.25rem;
-        margin-top: 3.25rem;
     }
 }

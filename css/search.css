@@ -1,18 +1,17 @@
-/* search bar and results, markup in index.html and js/search.js */
-
-/* search bar w/ zoom and home in one row, so the results drop below all of them instead of covering the buttons */
-.map-toolbar {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
+/* step 1's search bar and the result rows step 2 reuses, markup in index.html, js/search.js, and js/matches-panel.js */
 
 /* esri's zoom and home buttons, styled to match the bar
    they're calcite buttons inside shadow dom, so only calcite's own css variables reach them
    the border goes around each control, not each button, so the two zoom buttons dont get a doubled line
    between them and only esri's own light divider shows */
-.map-toolbar arcgis-zoom,
-.map-toolbar arcgis-home {
+.map-controls {
+    display: flex;
+    flex: none;
+    gap: 0.5rem;
+}
+
+.map-controls arcgis-zoom,
+.map-controls arcgis-home {
     --calcite-button-background-color: var(--surface);
     --calcite-button-border-color: transparent;
     --calcite-button-corner-radius: var(--radius);
@@ -22,21 +21,43 @@
     border: 1px solid var(--border);
 }
 
+/* the field w/ the arrow button on its right */
 .map-search {
-    --search-accent: var(--accent-bright); /* focus border, and type tags from our data that have no family color */
-    --search-other: var(--text); /* type tag for geocoder places */
-    --search-row: 3.1rem;
-    --map-controls-width: 7.5rem; /* zoom and home beside the bar, plus the gaps */
-
-    position: relative;
-    width: min(27rem, calc(100vw - 2rem - var(--map-controls-width)));
-    flex: none;
+    display: flex;
     font-family: var(--font);
     color: var(--text);
 }
 
+/* the type tags and row heights are shared w/ step 2's lists */
+.steps {
+    --search-accent: var(--accent-bright); /* focus border, and type tags from our data that have no family color */
+    --search-other: var(--text); /* type tag for geocoder places */
+    --search-row: 3.1rem;
+}
+
 .map-search-field {
     position: relative;
+    flex: 1;
+}
+
+.map-search-submit {
+    display: grid;
+    flex: none;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    padding: 0;
+    border: 1px solid var(--accent-bright);
+    border-radius: var(--radius);
+    background: var(--accent-bright);
+    color: white;
+    cursor: pointer;
+}
+
+.map-search-submit:hover,
+.map-search-submit:focus-visible {
+    background: color-mix(in srgb, var(--accent-bright) 85%, black);
+    outline: none;
 }
 
 .map-search-input {
@@ -87,29 +108,6 @@
 }
 
 .map-search-clear[hidden] {
-    display: none;
-}
-
-/* drops over the zoom buttons instead of pushing them down */
-.map-search-results {
-    position: absolute;
-    z-index: 2;
-    top: calc(100% + 0.5rem);
-    left: 0;
-    right: 0;
-    max-height: min(calc(var(--search-row) * 6.5), 60vh); /* about six rows, the half row hints that it scrolls */
-    margin: 0;
-    padding: 0;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background: var(--surface);
-    backdrop-filter: var(--blur);
-    list-style: none;
-}
-
-.map-search-results[hidden] {
     display: none;
 }
 
@@ -204,11 +202,6 @@
     color: var(--search-other);
 }
 
-/* first other place gets a heavier line so it reads as a separate set from our data */
-.search-result-data + .search-result-geocoder {
-    border-top: 1px solid var(--text-muted);
-}
-
 .search-note {
     color: var(--text-muted);
     font-size: var(--text-sm);
@@ -245,24 +238,4 @@
     overflow: hidden;
     clip-path: inset(50%);
     white-space: nowrap;
-}
-
-/* on phones the bar is narrow next to the buttons, so the results use the whole row under them too */
-@media (max-width: 600px) {
-    .map-toolbar {
-        position: relative;
-    }
-
-    .map-search {
-        position: static;
-    }
-
-    .map-search-results {
-        top: calc(100% + 0.5rem);
-    }
-
-    .search-result,
-    .search-note {
-        padding-inline: 0.65rem;
-    }
 }

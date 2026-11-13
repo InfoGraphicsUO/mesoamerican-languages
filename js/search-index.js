@@ -3,7 +3,7 @@ import { COUNTRY_LABELS, FAMILY_LABELS, GROUP_LABELS, localized, localizedLookup
 
 // searchable index of our own data, built once from the sites layer
 // results are families, groups, languages, and documented places, each w/ the sites it covers
-// exports KINDS, normalizeText, matchRange, buildSearchIndex, loadSearchIndex
+// exports KINDS, normalizeText, matchRange, markerSlug, buildSearchIndex, loadSearchIndex
 
 // extra fields the index reads on top of FIELDS
 const PLACE_FIELDS = {
@@ -16,7 +16,7 @@ export const KINDS = {
     family: { tag: localized('Family', 'Familia'), order: 0 },
     group: { tag: localized('Group', 'Grupo'), order: 1 },
     language: { tag: localized('Language', 'Lengua'), order: 2 },
-    place: { tag: localized('Language found in Oregon', 'Lengua encontrada en Oregón'), order: 3 }
+    place: { tag: localized('Verified place of origin', 'Lugar de origen verificado'), order: 3 }
 };
 
 // spanish and alternate names so people can search the way they say it
@@ -81,7 +81,7 @@ export function matchRange(label, query) {
 }
 
 // marker file for a site, mirrors MARKER_EXPRESSION in js/map-layers.js
-function markerSlug(family, group) {
+export function markerSlug(family, group) {
     if (family === 'Otomanguean') {
         const groupSlug = OTOMANGUEAN_GROUPS.find((item) => item.name === group)?.slug;
         if (groupSlug) return groupSlug;
@@ -252,7 +252,7 @@ export function buildSearchIndex(sites, objectIdField) {
 // the service returns up to 2000 sites per query, well above what we have
 export async function loadSearchIndex(layer, spatialReference) {
     const { features } = await layer.queryFeatures({
-        where: '1=1',
+        where: layer.definitionExpression || '1=1', // same sites the map shows
         outFields: [layer.objectIdField, ...Object.values(FIELDS), ...Object.values(PLACE_FIELDS)],
         returnGeometry: true,
         outSpatialReference: spatialReference

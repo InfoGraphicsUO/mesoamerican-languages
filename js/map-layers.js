@@ -44,6 +44,9 @@ export const FIELDS = {
 // place_role value for sites that were reported as a town of origin
 const ORIGIN_ROLE = 'town_origin';
 
+// only communities of origin go on the map and into search, the other attested sites are left out for now
+export const ORIGIN_ONLY = `${FIELDS.placeRole} = '${ORIGIN_ROLE}'`;
+
 // marker shape is decided by place_role. plus = town of origin, circle = anything else
 const SHAPES = [
     { shape: 'plus', label: 'reported origin place' },
@@ -168,6 +171,7 @@ export async function addMapLayers(view) {
         id: 'sites-glow',
         title: 'Highlighted language sites',
         url: SITES_URL,
+        definitionExpression: ORIGIN_ONLY,
         renderer: glowRenderer(),
         outFields: [FIELDS.language], // the filter in js/interpreters-panel.js reads this
         popupEnabled: false,
@@ -179,6 +183,7 @@ export async function addMapLayers(view) {
         id: 'sites',
         title: 'Attested language sites',
         url: SITES_URL, // w/o a layer number the sdk uses the service's first layer
+        definitionExpression: ORIGIN_ONLY,
         copyright: 'UO InfoGraphics Lab',
         opacity: 0.9,
         renderer: siteRenderer(),

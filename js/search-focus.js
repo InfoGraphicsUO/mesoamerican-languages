@@ -13,8 +13,25 @@ const PLACE_ZOOM = 12; // closest a geocoded place gets framed, town extents wou
 const FRAME_GUTTER = 48; // px kept clear between framed results and the map edge or panels
 
 // panels that sit over the map, results get framed in the part of the map they leave open
+// each selector's visible matches count as one box, so the steps read as one tall panel w/o the checkbox beside step 1
 // only their position is read, nothing about them changes
-const OVERLAYS = ['.map-toolbar', '.interpreters-panel'];
+const OVERLAYS = ['.steps .step'];
+
+// one box around every visible match, or null when none show
+function overlayBox(selector) {
+    const rects = [...document.querySelectorAll(selector)]
+        .map((element) => element.getBoundingClientRect())
+        .filter((rect) => rect.width && rect.height);
+    if (!rects.length) return null;
+    const left = Math.min(...rects.map((rect) => rect.left));
+    const top = Math.min(...rects.map((rect) => rect.top));
+    return {
+        left,
+        top,
+        width: Math.max(...rects.map((rect) => rect.right)) - left,
+        height: Math.max(...rects.map((rect) => rect.bottom)) - top
+    };
+}
 
 // web mercator meters per pixel at zoom 0, and the scale that goes w/ one meter per pixel at 96 dpi
 const RESOLUTION_AT_ZOOM_0 = 156543.03392804097;
@@ -28,9 +45,8 @@ function openArea(view) {
     const area = { left: 0, top: 0, right: box.width, bottom: box.height };
 
     for (const selector of OVERLAYS) {
-        const element = document.querySelector(selector);
-        const rect = element?.getBoundingClientRect();
-        if (!rect || !rect.width || !rect.height) continue;
+        const rect = overlayBox(selector);
+        if (!rect) continue;
         const left = rect.left - box.left;
         const top = rect.top - box.top;
 
@@ -61,8 +77,8 @@ function glowSize(zoom) {
 }
 
 // pickedPopup: from addMapLayers in js/map-layers.js
-// onPlace(point, { marker }): runs w/ the spot a place pick lands on, for the language estimate
-export async function createSearchFocus(view, { pickedPopup }, { onPlace = () => {} } = {}) {
+// show() resolves w/ the spot a place pick lands on, for the language estimate, or null
+export async function createSearchFocus(view, { pickedPopup }) {
     const [Graphic, GraphicsLayer, Point, reactiveUtils, webMercatorUtils] = await Promise.all([
         $arcgis.import('@arcgis/core/Graphic.js'),
         $arcgis.import('@arcgis/core/layers/GraphicsLayer.js'),
@@ -168,7 +184,7 @@ export async function createSearchFocus(view, { pickedPopup }, { onPlace = () =>
             const { item } = result;
             const points = item.sites.map((site) => site.geometry).filter(Boolean);
             glow(item.sites);
-            if (!points.length) return;
+            if (!points.length) return null;
             if (canFrame()) framePoints(points, SITE_ZOOM);
             else goTo(points);
 
@@ -177,9 +193,9 @@ export async function createSearchFocus(view, { pickedPopup }, { onPlace = () =>
             if (item.kind === 'place') {
                 const site = item.sites.find((row) => String(row.attributes[FIELDS.language] ?? '').trim()) || item.sites[0];
                 pickedPopup.show(site.geometry, sitePopup({ attributes: site.attributes }));
-                onPlace(site.geometry, { marker: false });
+                return site.geometry;
             }
-            return;
+            return null;
         }
 
         glow([]);
@@ -189,7 +205,7 @@ export async function createSearchFocus(view, { pickedPopup }, { onPlace = () =>
         } catch (error) {
             console.error('Unable to locate place:', error);
         }
-        if (!location || current !== pick) return;
+        if (!location || current !== pick) return null;
 
         const point = new Point({ x: location.x, y: location.y, spatialReference: { wkid: 4326 } });
         pins.add(new Graphic({
@@ -203,17 +219,17 @@ export async function createSearchFocus(view, { pickedPopup }, { onPlace = () =>
             },
             attributes: { name: result.label }
         }));
-        onPlace(point, { marker: false }); // the pin already marks it
 
         // states and municipalities come back w/ a big extent, towns w/ a small one that the zoom cap handles
         if (!canFrame()) {
             goTo({ target: point, zoom: PLACE_ZOOM });
-            return;
+            return point;
         }
         const extent = location.extent || { xmin: location.x, ymin: location.y, xmax: location.x, ymax: location.y };
         const [xmin, ymin] = webMercatorUtils.lngLatToXY(extent.xmin, extent.ymin);
         const [xmax, ymax] = webMercatorUtils.lngLatToXY(extent.xmax, extent.ymax);
         frame({ xmin, ymin, xmax, ymax }, PLACE_ZOOM);
+        return point;
     }
 
     return { show, clear, clearGlow };
