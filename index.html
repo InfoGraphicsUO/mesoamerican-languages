@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="css/popup.css">
     <link rel="stylesheet" href="css/interpreters-panel.css">
     <link rel="stylesheet" href="css/search.css">
-    <link rel="stylesheet" href="css/language-estimate.css">
+    <link rel="stylesheet" href="css/steps.css">
 
     <script type="module" src="js/main.js"></script>
 </head>
@@ -27,26 +27,85 @@
     <main class="app">
         <!-- basemap, center, and zoom get set from MAP in js/map.js -->
         <arcgis-map id="map" aria-label="Interactive map" data-en-aria-label="Interactive map" data-es-aria-label="Mapa interactivo">
-            <!-- search bar w/ the map controls beside it, js/search.js fills in the results -->
-            <div class="map-toolbar" slot="top-left">
-                <div class="map-search" id="search" role="search">
-                    <label class="visually-hidden" for="search-input"><span class="en" lang="en">Search languages and places</span><span class="es" lang="es">Buscar lenguas y lugares</span></label>
-                    <div class="map-search-field">
-                        <input class="map-search-input" id="search-input" type="text" role="combobox"
-                            aria-autocomplete="list" aria-expanded="false" aria-controls="search-results"
-                            placeholder="Search by language, language family, or place…"
-                            data-en-placeholder="Search by language, language family, or place…"
-                            data-es-placeholder="Buscar por lengua, familia lingüística o lugar…"
-                            autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
-                        <button class="map-search-clear" id="search-clear" type="button" aria-label="Clear search"
-                            data-en-aria-label="Clear search" data-es-aria-label="Borrar búsqueda" hidden>×</button>
+            <!-- the three steps down the left, step 2 shows after a search and step 3 after a pick in step 2 -->
+            <div class="steps" slot="top-left">
+                <!-- step 1 w/ zoom, home, and the temporary show all steps checkbox on its right -->
+                <div class="steps-row">
+                    <!-- step 1, js/search.js -->
+                    <section class="step" id="step-search" aria-labelledby="step-search-heading">
+                        <h2 class="step-heading" id="step-search-heading"><span class="step-number" aria-hidden="true">1</span>
+                            <span class="en" lang="en">Start here: Search for a location</span><span class="es" lang="es">Empieza aquí: busca un lugar</span></h2>
+                        <form class="map-search" id="search" role="search">
+                            <label class="visually-hidden" for="search-input"><span class="en" lang="en">Search for a location</span><span class="es" lang="es">Buscar un lugar</span></label>
+                            <div class="map-search-field">
+                                <input class="map-search-input" id="search-input" type="text"
+                                    placeholder="Town, village, hamlet, or rancho…"
+                                    data-en-placeholder="Town, village, hamlet, or rancho…"
+                                    data-es-placeholder="Pueblo, aldea, caserío o rancho…"
+                                    autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
+                                <button class="map-search-clear" id="search-clear" type="button" aria-label="Clear search"
+                                    data-en-aria-label="Clear search" data-es-aria-label="Borrar búsqueda" hidden>×</button>
+                            </div>
+                            <button class="map-search-submit" type="submit" aria-label="Search"
+                                data-en-aria-label="Search" data-es-aria-label="Buscar">
+                                <svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true" focusable="false">
+                                    <path d="M2.5 8h11M9 3.5 13.5 8 9 12.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </form>
+                    </section>
+                    <!-- zoom and home sit beside the search like before -->
+                    <div class="map-controls">
+                        <arcgis-zoom layout="horizontal"></arcgis-zoom>
+                        <arcgis-home></arcgis-home>
                     </div>
-                    <ul class="map-search-results" id="search-results" role="listbox" aria-label="Search results"
-                        data-en-aria-label="Search results" data-es-aria-label="Resultados de búsqueda" hidden></ul>
-                    <p class="visually-hidden" id="search-status" role="status" aria-live="polite"></p>
+                    <!-- temporary, shows steps 2 and 3 before they're reached so the whole path can be reviewed -->
+                    <label class="steps-show-all">
+                        <input type="checkbox" id="steps-show-all">
+                        <span class="en" lang="en">Show all steps</span><span class="es" lang="es">Mostrar todos los pasos</span>
+                    </label>
                 </div>
-                <arcgis-zoom layout="horizontal"></arcgis-zoom>
-                <arcgis-home></arcgis-home>
+
+                <!-- step 2, js/matches-panel.js lists the places, then the languages at the one picked -->
+                <section class="step step-panel" id="step-matches" aria-labelledby="step-matches-heading" hidden>
+                    <h2 class="step-heading" id="step-matches-heading"><span class="step-number" aria-hidden="true">2</span>
+                        <span class="en" lang="en">Select a location/language</span><span class="es" lang="es">Elige un lugar/lengua</span></h2>
+                    <p class="step-note step-waiting"><span class="en" lang="en">Search for a location first.</span><span class="es" lang="es">Primero busca un lugar.</span></p>
+                    <div class="step-columns">
+                        <div class="step-column">
+                            <h3 class="step-subheading" id="matches-places-heading"></h3>
+                            <ul class="step-list" id="matches-places" aria-labelledby="matches-places-heading"></ul>
+                        </div>
+                        <div class="step-column">
+                            <h3 class="step-subheading" id="matches-languages-heading"></h3>
+                            <ul class="step-list" id="matches-languages" aria-labelledby="matches-languages-heading"></ul>
+                            <p class="step-note" id="matches-languages-note"></p>
+                        </div>
+                    </div>
+                    <p class="step-note"><span class="en" lang="en">Likely languages are estimated from research performed in Oregon, with no outside census or data source.</span><span class="es" lang="es">Las lenguas probables se estiman a partir de investigación realizada en Oregón, sin censos ni otras fuentes de datos externas.</span></p>
+                    <p class="visually-hidden" id="matches-status" role="status" aria-live="polite"></p>
+                </section>
+
+                <!-- step 3, js/interpreters-panel.js -->
+                <section class="step step-panel interpreters-panel" id="step-interpreters" aria-labelledby="step-interpreters-heading" hidden>
+                    <div class="interpreters-header">
+                        <h2 class="step-heading" id="step-interpreters-heading"><span class="step-number" aria-hidden="true">3</span>
+                            <span class="en" lang="en">Find an interpreter</span><span class="es" lang="es">Encuentra un intérprete</span></h2>
+                        <button class="interpreters-clear" id="interpreters-clear" type="button" aria-label="Clear interpreter selection"
+                            data-en-aria-label="Clear interpreter selection" data-es-aria-label="Borrar la selección de intérprete" hidden><span class="en" lang="en">Clear</span><span class="es" lang="es">Borrar</span></button>
+                    </div>
+                    <p class="step-note step-waiting"><span class="en" lang="en">Select a language first.</span><span class="es" lang="es">Primero elige una lengua.</span></p>
+                    <div class="interpreters-filter" id="interpreters-filter" hidden>
+                        <p><span class="en" lang="en">Showing interpreters for</span><span class="es" lang="es">Intérpretes para</span>
+                            <strong id="interpreters-filter-label"></strong></p>
+                    </div>
+                    <p class="interpreters-empty" id="interpreters-empty" hidden>
+                        <span class="en" lang="en">No interpreters are listed for <strong class="interpreters-empty-label"></strong> yet.</span><span class="es" lang="es">Todavía no hay intérpretes registrados para <strong class="interpreters-empty-label"></strong>.</span>
+                    </p>
+                    <ul id="interpreters-list"></ul>
+                    <p class="step-note"><span class="en" lang="en">Select a name to see where they can help, or open their website to request an interpreter.</span><span class="es" lang="es">Selecciona un nombre para ver dónde pueden ayudar, o abre su sitio web para pedir un intérprete.</span></p>
+                    <p class="visually-hidden" id="interpreters-status" role="status" aria-live="polite"></p>
+                </section>
             </div>
             <!-- english/spanish switch, both always showing w/ the current one filled in, js/language.js runs it -->
             <button class="language-switch" id="language-switch" slot="top-right" type="button" role="switch" aria-checked="false"
@@ -54,34 +113,6 @@
                 <span class="language-option language-option-en" lang="en">English</span>
                 <span class="language-option language-option-es" lang="es">Español</span>
             </button>
-            <section class="interpreters-panel" id="interpreters" slot="bottom-left">
-                <div class="interpreters-header">
-                    <h2><span class="en" lang="en">Interpreters</span><span class="es" lang="es">Intérpretes</span></h2>
-                    <button class="interpreters-clear" id="interpreters-clear" type="button" aria-label="Clear interpreter selection"
-                        data-en-aria-label="Clear interpreter selection" data-es-aria-label="Borrar la selección de intérprete" hidden><span class="en" lang="en">Clear</span><span class="es" lang="es">Borrar</span></button>
-                </div>
-                <!-- shows while a search pick narrows the list, js/interpreters-panel.js fills in the label -->
-                <div class="interpreters-filter" id="interpreters-filter" hidden>
-                    <p><span class="en" lang="en">Showing interpreters for</span><span class="es" lang="es">Intérpretes para</span>
-                        <strong id="interpreters-filter-label"></strong></p>
-                    <button class="interpreters-show-all" id="interpreters-show-all" type="button"><span class="en" lang="en">Show all</span><span class="es" lang="es">Ver todos</span></button>
-                </div>
-                <p class="interpreters-empty" id="interpreters-empty" hidden>
-                    <span class="en" lang="en">No interpreters are listed for <strong class="interpreters-empty-label"></strong> yet.</span><span class="es" lang="es">Todavía no hay intérpretes registrados para <strong class="interpreters-empty-label"></strong>.</span>
-                </p>
-                <ul id="interpreters-list"></ul>
-                <p class="visually-hidden" id="interpreters-status" role="status" aria-live="polite"></p>
-            </section>
-            <!-- most likely languages at a clicked or searched point, js/language-estimate.js fills it in -->
-            <section class="language-estimate" id="language-estimate" slot="bottom-right" aria-live="polite" hidden>
-                <div class="language-estimate-header">
-                    <h2><span class="en" lang="en">Likely languages here</span><span class="es" lang="es">Lenguas probables aquí</span></h2>
-                    <button class="language-estimate-close" id="language-estimate-close" type="button" aria-label="Close"
-                        data-en-aria-label="Close" data-es-aria-label="Cerrar">×</button>
-                </div>
-                <div id="language-estimate-body"></div>
-                <p class="language-estimate-note"><span class="en" lang="en">Estimated from research performed in Oregon, with no outside census or data source.</span><span class="es" lang="es">Estimado a partir de investigación realizada en Oregón, sin censos ni otras fuentes de datos externas.</span></p>
-            </section>
         </arcgis-map>
     </main>
 </body>
