@@ -16,6 +16,7 @@
 .step {
     flex: none;
     width: min(46rem, calc(100vw - 2rem)); /* wide enough for step 2's two columns from the start */
+    max-width: 100%; /* gives way to the steps' scrollbar once they scroll, instead of scrolling sideways under it */
     padding: 0.6rem;
     border: 1px solid var(--border);
     background: var(--surface);
@@ -132,6 +133,7 @@
     display: flex;
     align-items: flex-start;
     gap: 0.75rem;
+    max-width: 100%; /* so step 1 in it gives way to the scrollbar too */
 }
 
 /* places on the left, the picked place's languages on the right */
