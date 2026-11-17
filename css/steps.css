@@ -235,6 +235,12 @@
     display: none;
 }
 
+/* the interpreters panel's hint under its heading, in place of the old footer note */
+.interpreters-hint {
+    margin-top: 0.3rem;
+    font-size: var(--text-sm);
+}
+
 /* step 3 keeps the interpreters panel's own styles, .step's width wins over its fixed one */
 
 .interpreters-header .step-heading {
