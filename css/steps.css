@@ -173,6 +173,25 @@
     white-space: normal;
 }
 
+/* a language search's groups and languages sit indented under the family or group they belong to */
+.step-option[data-depth="1"] {
+    padding-left: 2rem;
+}
+
+.step-option[data-depth="2"] {
+    padding-left: 3.2rem;
+}
+
+/* families and groups open to show what's under them, the arrow turns down once they do */
+.step-option-chevron {
+    flex: none;
+    color: var(--text-muted);
+}
+
+.step-option[aria-expanded="true"] .step-option-chevron {
+    transform: rotate(90deg);
+}
+
 .step-option[aria-pressed="true"] {
     background: color-mix(in srgb, var(--accent-bright) 12%, transparent);
     box-shadow: inset 3px 0 0 var(--accent-bright);
