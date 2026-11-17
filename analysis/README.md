@@ -20,6 +20,8 @@ rebuilds everything in about 4 minutes. It writes `data/language-probability.tif
 ## Method
 
 1. **Observations** (`prep_sites.py`). Each record is one (respondent, place, language).
+   - Only towns of origin (`town_origin`, the + points on the map) are used. `intelligible_place` reports are left out,
+     matching the map's `ORIGIN_ONLY` filter in `js/map-layers.js`.
    - Rows with a blank `Language` are recovered from the survey `iso_code`, mostly Todos Santos Mam.
    - Five languages exist only in survey codes and are added here (Southern Mam, Central Mam,
      Sierra Negra Nahuatl, Silacayoapan Mixtec, San Vicente Coatlán Zapotec).
@@ -27,7 +29,6 @@ rebuilds everything in about 4 minutes. It writes `data/language-probability.tif
    - A place naming k languages gives each 1/k.
    - Duplicates within a respondent collapse.
    - Each respondent's total weight is capped at 3, so one prolific respondent can't dominate an area.
-   - `town_origin` and `intelligible_place` are weighted equally.
 2. **Distance** (`terrain_cost.py`). Walking time over a 1 km DEM from the AWS Terrarium tiles, using
    Tobler's hiking function on an 8-neighbour grid (Dijkstra). Sea cells are impassable.
 3. **Model** (`build_raster.py`). A Gaussian kernel on walking time, bandwidth 3 h.
@@ -37,8 +38,8 @@ rebuilds everything in about 4 minutes. It writes `data/language-probability.tif
    - **Effective respondents:** each respondent counts once, at their nearest report's kernel weight,
      so a single report right here counts as about 1.
    - **"Another language":** the share of held-out reports, at that level of effective respondents,
-     whose language was missing from the nearby reports. It runs from about 47% with almost no evidence to
-     31% at about 1 respondent and about 6% at 8 or more. `validate.py` measures it and writes it to
+     whose language was missing from the nearby reports. It runs from about 61% with almost no evidence to
+     33% at about 1 respondent and about 12% at 8 or more. `validate.py` measures it and writes it to
      `output/calibration.json`.
    - Shown percentage = share × (1 − another language). The remainder shows as "Another language".
 
@@ -49,25 +50,27 @@ reports within a gap of 5, 15 or 30 km are hidden too, which mimics clicking an 
 
 | Model | gap 5 km top-3 | gap 15 km top-3 | gap 30 km top-3 |
 |---|---|---|---|
-| Straight-line Gaussian 10 km | 0.85 | 0.61 | 0.44 |
-| **Terrain Gaussian 3 h (used)** | **0.86** | **0.63** | **0.50** |
-| Most common language overall | 0.36 | 0.36 | 0.36 |
+| Straight-line Gaussian 10 km | 0.77 | 0.45 | 0.25 |
+| **Terrain Gaussian 3 h (used)** | **0.78** | **0.46** | **0.26** |
+| Most common 3 languages overall | 0.32 | 0.32 | 0.32 |
 
-A paired, respondent-level bootstrap on these held-out sets (2000 draws, run while choosing the model) favours
-terrain at the 15 and 30 km gaps, with log-loss and top-3 confidence intervals above zero. At 5 km there's no difference.
+With towns of origin only there are 204 reports from 198 respondents (it was 553 from 212 with intelligible places),
+so held-out accuracy at the larger gaps is lower than before. Terrain still edges out straight-line at every gap, most
+clearly in log loss, so the model is unchanged. A paired, respondent-level bootstrap (2000 draws, run on the original
+data while choosing the model) favoured terrain at the 15 and 30 km gaps.
 
 Accuracy depends on distance to the nearest report **and** on how many independent people
-reported nearby. A share near 100% from a single respondent was right only about 43–58% of the time,
-but about 96–99% with 2 or more. Calibrated percentages track what actually happened
-(`validation_calibration.csv`). For example, shown ≈ 57% was right 54% of the time, where the uncalibrated model claimed 86%.
+reported nearby, so a share near 100% from a single respondent overstates it. Calibrated percentages track what
+actually happened (`validation_calibration.csv`). For example, shown ≈ 59% was right 62% of the time, where the
+uncalibrated model claimed 82%.
 
 The confidence level needs both conditions (`calibration.json`):
 
 | Level | Rule | Top-3 hit rate | Top-1 hit rate |
 |---|---|---|---|
-| High | ≤ 10 km and ≥ 2.5 effective respondents | ~90% | ~78% |
-| Medium | ≤ 25 km and ≥ 1 effective respondent | ~69% | ~50% |
-| Low | anything else within 60 km | ~43% | ~26% |
+| High | ≤ 10 km and ≥ 2.5 effective respondents | ~85% | ~73% |
+| Medium | ≤ 25 km and ≥ 1 effective respondent | ~70% | ~59% |
+| Low | anything else within 60 km | ~37% | ~28% |
 | No estimate | > 60 km from any report | | |
 
 ## Outputs
