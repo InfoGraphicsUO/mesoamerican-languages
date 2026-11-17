@@ -159,10 +159,14 @@
     text-align: left;
 }
 
-.step-option:hover,
+/* a light wash of the site purple on hover, the picked row below gets a stronger one and the bar */
+.step-option:hover {
+    background: color-mix(in srgb, var(--accent-bright) 6%, transparent);
+}
+
 .step-option:focus-visible {
-    background: rgb(25 34 29 / 7%);
-    outline: none;
+    outline: 2px solid var(--accent-bright);
+    outline-offset: -2px;
 }
 
 /* the tag goes under the name in the narrower columns, so long ones like Verified place of origin fit */
