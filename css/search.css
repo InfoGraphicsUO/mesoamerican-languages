@@ -1,4 +1,4 @@
-/* step 1's search bar w/ its place | language switch, and the result rows step 2 reuses, markup in index.html, js/search.js, and js/matches-panel.js */
+/* step 1's location | language | coverage choices and search bar, and the result rows step 2 reuses, markup in index.html, js/search.js, and js/matches-panel.js */
 
 /* esri's zoom and home buttons, styled to match the bar
    they're calcite buttons inside shadow dom, so only calcite's own css variables reach them
@@ -21,11 +21,96 @@
     border: 1px solid var(--border);
 }
 
-/* the field w/ the arrow button on its right */
+/* three big choices, the picked one gets filled in like the english/spanish switch in css/main.css */
+.search-choices {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+.search-choice {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 5.5rem;
+    padding: 0.75rem 0.5rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--text);
+    font: 600 1rem/1.2 var(--font);
+    text-align: center;
+    cursor: pointer;
+    transition: color var(--motion-duration) var(--motion-ease), background var(--motion-duration) var(--motion-ease),
+        border-color var(--motion-duration) var(--motion-ease);
+}
+
+.search-choice-icon {
+    color: var(--accent-bright);
+    font-size: 1.6rem;
+    transition: color var(--motion-duration) var(--motion-ease);
+}
+
+.search-choice-label {
+    padding-top: 0.15rem; /* josefin sans sits high */
+}
+
+.search-choice:hover {
+    border-color: var(--accent-bright);
+    background: color-mix(in srgb, var(--accent-bright) 6%, var(--surface));
+}
+
+.search-choice:focus-visible {
+    outline: 2px solid var(--accent-bright);
+    outline-offset: 2px;
+}
+
+.search-choice[aria-pressed="true"] {
+    border-color: var(--accent-bright);
+    background: var(--accent-bright);
+    color: white;
+}
+
+.search-choice[aria-pressed="true"] .search-choice-icon {
+    color: white;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .search-choice,
+    .search-choice-icon {
+        transition: none;
+    }
+}
+
+/* tighter on phones so all three still fit across */
+@media (max-width: 600px) {
+    .search-choices {
+        gap: 0.35rem;
+    }
+
+    .search-choice {
+        min-height: 4.75rem;
+        padding-inline: 0.3rem;
+        font-size: var(--text-sm);
+    }
+
+    .search-choice-icon {
+        font-size: 1.35rem;
+    }
+}
+
+/* the field w/ the arrow button on its right, shows under the choices once location or language is picked */
 .map-search {
     display: flex;
+    margin-top: 0.6rem;
     font-family: var(--font);
     color: var(--text);
+}
+
+.map-search[hidden] {
+    display: none;
 }
 
 /* the type tags and row heights are shared w/ step 2's lists */
@@ -38,61 +123,6 @@
 .map-search-field {
     position: relative;
     flex: 1;
-}
-
-/* place | language switch on the left of the field, the same look as the english/spanish switch in css/main.css */
-.search-mode {
-    display: grid;
-    flex: none;
-    grid-template-columns: auto auto;
-    height: 2.75rem;
-    margin-right: -1px; /* shares its right border w/ the field */
-    padding: 0;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background: var(--surface);
-    backdrop-filter: var(--blur);
-    color: var(--text);
-    font: 600 var(--text-sm)/1 var(--font);
-    cursor: pointer;
-}
-
-.search-mode-option {
-    display: grid;
-    height: 100%;
-    padding: 0.15rem 0.9rem 0; /* josefin sans sits high, nudge the text down so it looks centered */
-    place-items: center;
-    transition: color var(--motion-duration) var(--motion-ease), background var(--motion-duration) var(--motion-ease);
-}
-
-.search-mode-option + .search-mode-option {
-    border-left: 1px solid var(--border);
-}
-
-.search-mode[aria-checked="false"] .search-mode-option-place,
-.search-mode[aria-checked="true"] .search-mode-option-language {
-    background: var(--accent-bright);
-    color: white;
-}
-
-.search-mode:focus-visible {
-    position: relative; /* above the field, so its outline isnt covered */
-    outline: 2px solid var(--accent-bright);
-    outline-offset: 2px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .search-mode-option {
-        transition: none;
-    }
-}
-
-/* tighter on phones so the field keeps room to type */
-@media (max-width: 600px) {
-    .search-mode-option {
-        padding-inline: 0.6rem;
-    }
 }
 
 .map-search-submit {

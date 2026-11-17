@@ -97,9 +97,17 @@
     font-size: 1rem;
 }
 
-/* copy for the search mode that isn't picked, js/search.js sets data-search-mode */
-.steps[data-search-mode="place"] .search-mode-language,
+/* copy for the search mode that isn't picked, js/search.js sets data-search-mode
+   location's copy shows until language is picked, so show all steps has one hint to show */
+.steps:not([data-search-mode="language"]) .search-mode-language,
 .steps[data-search-mode="language"] .search-mode-place {
+    display: none;
+}
+
+/* interpreter coverage skips step 2, so the interpreters are step 2 instead of 3 */
+.steps[data-search-mode="coverage"] #step-matches,
+.steps[data-search-mode="coverage"] .step-number-search,
+.steps:not([data-search-mode="coverage"]) .step-number-coverage {
     display: none;
 }
 
