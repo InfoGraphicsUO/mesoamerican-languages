@@ -21,11 +21,11 @@
     border: 1px solid var(--border);
 }
 
-/* three big choices, the picked one gets filled in like the english/spanish switch in css/main.css */
+/* three big square choices w/ the icon up front, the picked one gets filled in like the english/spanish switch in css/main.css */
 .search-choices {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem;
+    grid-template-columns: repeat(3, 9.5rem);
+    gap: 0.6rem;
 }
 
 .search-choice {
@@ -33,14 +33,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    min-height: 5.5rem;
-    padding: 0.75rem 0.5rem 0.6rem;
+    gap: 0.7rem;
+    aspect-ratio: 1;
+    padding: 0.75rem 0.6rem 0.6rem;
     border: 1px solid var(--border);
     border-radius: var(--radius);
     background: var(--surface);
     color: var(--text);
-    font: 600 1rem/1.2 var(--font);
+    font: 600 var(--text-sm)/1.2 var(--font);
     text-align: center;
     cursor: pointer;
     transition: color var(--motion-duration) var(--motion-ease), background var(--motion-duration) var(--motion-ease),
@@ -49,11 +49,13 @@
 
 .search-choice-icon {
     color: var(--accent-bright);
-    font-size: 1.6rem;
+    font-size: 3rem;
     transition: color var(--motion-duration) var(--motion-ease);
 }
 
+/* room for two lines on every label, so the icons line up when one wraps */
 .search-choice-label {
+    min-height: 2.4em;
     padding-top: 0.15rem; /* josefin sans sits high */
 }
 
@@ -84,20 +86,21 @@
     }
 }
 
-/* tighter on phones so all three still fit across */
+/* on phones the squares share the width so all three still fit across */
 @media (max-width: 600px) {
     .search-choices {
+        grid-template-columns: repeat(3, 1fr);
         gap: 0.35rem;
     }
 
     .search-choice {
-        min-height: 4.75rem;
+        gap: 0.45rem;
         padding-inline: 0.3rem;
-        font-size: var(--text-sm);
+        font-size: var(--text-xs);
     }
 
     .search-choice-icon {
-        font-size: 1.35rem;
+        font-size: 2.25rem;
     }
 }
 
