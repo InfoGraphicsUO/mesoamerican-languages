@@ -10,7 +10,8 @@ import { initRasterOverlay } from './raster-overlay.js';
 import { initMatchesPanel } from './matches-panel.js';
 
 // coordinates js files on site load
-// three steps down the left: (1) search for a place, (2) pick a language or place, (3) find an interpreter
+// three steps down the left: (1) search for a place or a language, (2) pick a place then a language, or a language,
+// (3) find an interpreter
 
 // the site opens in english, the switch in the top right flips everything to spanish and back
 setLanguage('en');
@@ -64,7 +65,7 @@ const matches = initMatchesPanel({
 });
 
 initSearch({
-    onSubmit: (query) => matches.search(query),
+    onSubmit: (query, mode) => matches.search(query, mode),
     onClear: () => {
         matches.clear();
         searchFocus.then((focus) => focus.clear(), () => {});

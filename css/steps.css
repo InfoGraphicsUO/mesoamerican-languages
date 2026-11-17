@@ -97,6 +97,12 @@
     font-size: 1rem;
 }
 
+/* copy for the search mode that isn't picked, js/search.js sets data-search-mode */
+.steps[data-search-mode="place"] .search-mode-language,
+.steps[data-search-mode="language"] .search-mode-place {
+    display: none;
+}
+
 /* step 1 w/ zoom, home, and the temporary checkbox beside it */
 .steps-row {
     display: flex;
@@ -153,10 +159,14 @@
     text-align: left;
 }
 
-.step-option:hover,
+/* a light wash of the site purple on hover, the picked row below gets a stronger one and the bar */
+.step-option:hover {
+    background: color-mix(in srgb, var(--accent-bright) 6%, transparent);
+}
+
 .step-option:focus-visible {
-    background: rgb(25 34 29 / 7%);
-    outline: none;
+    outline: 2px solid var(--accent-bright);
+    outline-offset: -2px;
 }
 
 /* the tag goes under the name in the narrower columns, so long ones like Verified place of origin fit */
@@ -165,6 +175,25 @@
     font-size: var(--text-xs);
     text-align: left;
     white-space: normal;
+}
+
+/* a language search's groups and languages sit indented under the family or group they belong to */
+.step-option[data-depth="1"] {
+    padding-left: 2rem;
+}
+
+.step-option[data-depth="2"] {
+    padding-left: 3.2rem;
+}
+
+/* families and groups open to show what's under them, the arrow turns down once they do */
+.step-option-chevron {
+    flex: none;
+    color: var(--text-muted);
+}
+
+.step-option[aria-expanded="true"] .step-option-chevron {
+    transform: rotate(90deg);
 }
 
 .step-option[aria-pressed="true"] {
