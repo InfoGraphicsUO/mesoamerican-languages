@@ -15,8 +15,7 @@
 
 .step {
     flex: none;
-    width: min(25rem, calc(100vw - 2rem));
-    transition: width var(--motion-duration) var(--motion-ease);
+    width: min(46rem, calc(100vw - 2rem)); /* wide enough for step 2's two columns from the start */
     padding: 0.6rem;
     border: 1px solid var(--border);
     background: var(--surface);
@@ -96,11 +95,6 @@
     background: var(--accent-bright);
     color: white;
     font-size: 1rem;
-}
-
-/* step 2 needs room for its two columns, so the whole column widens once it shows */
-.steps:has(#step-matches:not([hidden])) .step {
-    width: min(46rem, calc(100vw - 2rem));
 }
 
 /* step 1 w/ zoom, home, and the temporary checkbox beside it */
@@ -192,12 +186,6 @@
 
 .interpreters-header .step-heading {
     margin-bottom: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .step {
-        transition: none;
-    }
 }
 
 /* on phones the language switch sits above the steps on the right */
