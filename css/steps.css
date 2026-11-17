@@ -26,6 +26,22 @@
     display: none;
 }
 
+/* step 1 hugs its three square choices instead of leaving space to their right, the search under them fills the same width
+   it never changes size, so the panels still dont jump once step 2 shows
+   coverage's interpreter list matches it, the place and language steps keep the full width for step 2's two columns */
+.steps {
+    --choice-size: 8rem;
+    --choice-gap: 0.5rem;
+    --step-narrow: calc(3 * var(--choice-size) + 2 * var(--choice-gap) + 1.2rem + 2px); /* choices, padding, border */
+}
+
+@media (min-width: 601px) {
+    #step-search,
+    .steps[data-search-mode="coverage"] #step-interpreters {
+        width: var(--step-narrow);
+    }
+}
+
 /* temporary show all steps checkbox, css below handles what it shows */
 .steps-show-all {
     display: flex;

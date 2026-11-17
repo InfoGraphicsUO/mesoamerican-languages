@@ -24,8 +24,8 @@
 /* three big square choices w/ the icon up front, the picked one gets filled in like the english/spanish switch in css/main.css */
 .search-choices {
     display: grid;
-    grid-template-columns: repeat(3, 9.5rem);
-    gap: 0.6rem;
+    grid-template-columns: repeat(3, var(--choice-size));
+    gap: var(--choice-gap);
 }
 
 .search-choice {
@@ -33,7 +33,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.7rem;
+    gap: 0.55rem;
     aspect-ratio: 1;
     padding: 0.75rem 0.6rem 0.6rem;
     border: 1px solid var(--border);
@@ -49,7 +49,7 @@
 
 .search-choice-icon {
     color: var(--accent-bright);
-    font-size: 3rem;
+    font-size: 2.5rem;
     transition: color var(--motion-duration) var(--motion-ease);
 }
 
