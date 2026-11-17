@@ -27,16 +27,23 @@
     <main class="app">
         <!-- basemap, center, and zoom get set from MAP in js/map.js -->
         <arcgis-map id="map" aria-label="Interactive map" data-en-aria-label="Interactive map" data-es-aria-label="Mapa interactivo">
-            <!-- the three steps down the left, step 2 shows after a search and step 3 after a pick in step 2 -->
-            <div class="steps" slot="top-left">
+            <!-- the three steps down the left, step 2 shows after a search and step 3 after a pick in step 2
+                 data-search-mode is place or language, js/search.js sets it and css shows the copy that goes w/ it -->
+            <div class="steps" slot="top-left" data-search-mode="place">
                 <!-- step 1 w/ zoom, home, and the temporary show all steps checkbox on its right -->
                 <div class="steps-row">
                     <!-- step 1, js/search.js -->
                     <section class="step" id="step-search" aria-labelledby="step-search-heading">
                         <h2 class="step-heading" id="step-search-heading"><span class="step-number" aria-hidden="true">1</span>
-                            <span class="en" lang="en">Start here: Search for a location</span><span class="es" lang="es">Empieza aquí: busca un lugar</span></h2>
+                            <span class="en" lang="en">Start here: Search for a location or a language</span><span class="es" lang="es">Empieza aquí: busca un lugar o una lengua</span></h2>
                         <form class="map-search" id="search" role="search">
-                            <label class="visually-hidden" for="search-input"><span class="en" lang="en">Search for a location</span><span class="es" lang="es">Buscar un lugar</span></label>
+                            <!-- place or language search, both always showing w/ the current one filled in like the english/spanish switch -->
+                            <button class="search-mode" id="search-mode" type="button" role="switch" aria-checked="false"
+                                aria-label="Search by language" data-en-aria-label="Search by language" data-es-aria-label="Buscar por lengua">
+                                <span class="search-mode-option search-mode-option-place"><span class="en" lang="en">Place</span><span class="es" lang="es">Lugar</span></span>
+                                <span class="search-mode-option search-mode-option-language"><span class="en" lang="en">Language</span><span class="es" lang="es">Lengua</span></span>
+                            </button>
+                            <label class="visually-hidden" for="search-input"><span class="search-mode-place"><span class="en" lang="en">Search for a location</span><span class="es" lang="es">Buscar un lugar</span></span><span class="search-mode-language"><span class="en" lang="en">Search for a language</span><span class="es" lang="es">Buscar una lengua</span></span></label>
                             <div class="map-search-field">
                                 <input class="map-search-input" id="search-input" type="text"
                                     placeholder="Town, village, hamlet, or rancho…"
@@ -69,20 +76,22 @@
                 <!-- step 2, js/matches-panel.js lists the places, then the languages at the one picked -->
                 <section class="step step-panel" id="step-matches" aria-labelledby="step-matches-heading" hidden>
                     <h2 class="step-heading" id="step-matches-heading"><span class="step-number" aria-hidden="true">2</span>
-                        <span class="en" lang="en">Select a location/language</span><span class="es" lang="es">Elige un lugar/lengua</span></h2>
-                    <p class="step-note step-waiting"><span class="en" lang="en">Search for a location first.</span><span class="es" lang="es">Primero busca un lugar.</span></p>
+                        <span class="search-mode-place"><span class="en" lang="en">Select a location/language</span><span class="es" lang="es">Elige un lugar/lengua</span></span><span class="search-mode-language"><span class="en" lang="en">Select a language/community</span><span class="es" lang="es">Elige una lengua/comunidad</span></span></h2>
+                    <p class="step-note step-waiting"><span class="search-mode-place"><span class="en" lang="en">Search for a location first.</span><span class="es" lang="es">Primero busca un lugar.</span></span><span class="search-mode-language"><span class="en" lang="en">Search for a language first.</span><span class="es" lang="es">Primero busca una lengua.</span></span></p>
+                    <!-- place search: places, then the picked place's languages
+                         language search: languages, families, and groups, then the picked one's communities of origin -->
                     <div class="step-columns">
                         <div class="step-column">
-                            <h3 class="step-subheading" id="matches-places-heading"></h3>
-                            <ul class="step-list" id="matches-places" aria-labelledby="matches-places-heading"></ul>
+                            <h3 class="step-subheading" id="matches-results-heading"></h3>
+                            <ul class="step-list" id="matches-results" aria-labelledby="matches-results-heading"></ul>
                         </div>
                         <div class="step-column">
-                            <h3 class="step-subheading" id="matches-languages-heading"></h3>
-                            <ul class="step-list" id="matches-languages" aria-labelledby="matches-languages-heading"></ul>
-                            <p class="step-note" id="matches-languages-note"></p>
+                            <h3 class="step-subheading" id="matches-details-heading"></h3>
+                            <ul class="step-list" id="matches-details" aria-labelledby="matches-details-heading"></ul>
+                            <p class="step-note" id="matches-details-note"></p>
                         </div>
                     </div>
-                    <p class="step-note"><span class="en" lang="en">Likely languages are estimated from research performed in Oregon.</span><span class="es" lang="es">Las lenguas probables se estiman a partir de investigación realizada en Oregón.</span></p>
+                    <p class="step-note search-mode-place"><span class="en" lang="en">Likely languages are estimated from research performed in Oregon.</span><span class="es" lang="es">Las lenguas probables se estiman a partir de investigación realizada en Oregón.</span></p>
                     <p class="visually-hidden" id="matches-status" role="status" aria-live="polite"></p>
                 </section>
 
