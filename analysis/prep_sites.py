@@ -5,7 +5,6 @@ Reads the hosted feature layer export (GeoJSON, EPSG:4326) and writes one row pe
   - survey-only rows (blank Language) are recovered from the survey iso_code
   - Spanish/English and Mexican Sign Language are dropped (not tied to a region)
   - US sites are dropped (diaspora, outside the study area)
-  - only towns of origin are kept, matching the + points on the map (js/map-layers.js ORIGIN_ONLY)
   - a site naming k languages gives each 1/k
   - duplicate (respondent, location, language) rows collapse to one
   - each respondent's total weight is capped at RESPONDENT_CAP
@@ -29,7 +28,6 @@ EXTRA_LANGUAGES = {
     'zpt': ('San Vicente Coatlán Zapotec', 'sanv1242', 'Otomanguean', 'Zapotec'),
 }
 DROP_CODES = {'spa', 'eng', 'mfs'}
-KEEP_ROLES = {'town_origin'}  # intelligible_place reports are left out, same as on the map
 
 
 def survey_codes(raw, glotto_to_iso):
@@ -57,7 +55,7 @@ def main(src, dst):
     unknown = defaultdict(int)
     for f in features:
         p = f['properties']
-        if p['country'] == 'United States' or p['place_role'] not in KEEP_ROLES:
+        if p['country'] == 'United States':
             continue
         if (p['Language'] or '').strip():
             codes = [p['ISO_Code_1']]
