@@ -6,6 +6,11 @@
     <title data-en-text="Mesoamerican Languages" data-es-text="Lenguas mesoamericanas">Mesoamerican Languages</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
+    <!-- font awesome kit, the same one as the other IGL sites
+         it has to run before the arcgis sdk, once the sdk sets up its amd define the kit registers as a module and never loads -->
+    <link rel="preconnect" href="https://kit.fontawesome.com" crossorigin>
+    <script defer src="https://kit.fontawesome.com/be4ea184d4.js" crossorigin="anonymous"></script>
+
     <!-- ArcGIS Maps SDK for JavaScript, loads the map components used below -->
     <link rel="stylesheet" href="https://js.arcgis.com/5.1/esri/themes/light/main.css">
     <script type="module" src="https://js.arcgis.com/5.1/"></script>
@@ -28,21 +33,31 @@
         <!-- basemap, center, and zoom get set from MAP in js/map.js -->
         <arcgis-map id="map" aria-label="Interactive map" data-en-aria-label="Interactive map" data-es-aria-label="Mapa interactivo">
             <!-- the three steps down the left, step 2 shows after a search and step 3 after a pick in step 2
-                 data-search-mode is place or language, js/search.js sets it and css shows the copy that goes w/ it -->
-            <div class="steps" slot="top-left" data-search-mode="place">
+                 data-search-mode is place, language, or coverage once one of step 1's choices is picked, js/search.js sets it
+                 and css shows the copy that goes w/ it, coverage skips step 2 and shows every interpreter as step 2 -->
+            <div class="steps" slot="top-left">
                 <!-- step 1 w/ zoom, home, and the temporary show all steps checkbox on its right -->
                 <div class="steps-row">
                     <!-- step 1, js/search.js -->
                     <section class="step" id="step-search" aria-labelledby="step-search-heading">
                         <h2 class="step-heading" id="step-search-heading"><span class="step-number" aria-hidden="true">1</span>
-                            <span class="en" lang="en">Start here: Search for a location or a language</span><span class="es" lang="es">Empieza aquí: busca un lugar o una lengua</span></h2>
-                        <form class="map-search" id="search" role="search">
-                            <!-- place or language search, both always showing w/ the current one filled in like the english/spanish switch -->
-                            <button class="search-mode" id="search-mode" type="button" role="switch" aria-checked="false"
-                                aria-label="Search by language" data-en-aria-label="Search by language" data-es-aria-label="Buscar por lengua">
-                                <span class="search-mode-option search-mode-option-place"><span class="en" lang="en">Place</span><span class="es" lang="es">Lugar</span></span>
-                                <span class="search-mode-option search-mode-option-language"><span class="en" lang="en">Language</span><span class="es" lang="es">Lengua</span></span>
+                            <span class="en" lang="en">Start here: Choose how to begin</span><span class="es" lang="es">Empieza aquí: elige cómo empezar</span></h2>
+                        <!-- location and language show the search under them, coverage goes straight to the interpreters -->
+                        <div class="search-choices" role="group" aria-labelledby="step-search-heading">
+                            <button class="search-choice" type="button" data-mode="place" aria-pressed="false">
+                                <i class="search-choice-icon fa-solid fa-location-dot" aria-hidden="true"></i>
+                                <span class="search-choice-label"><span class="en" lang="en">Search by location</span><span class="es" lang="es">Buscar por lugar</span></span>
                             </button>
+                            <button class="search-choice" type="button" data-mode="language" aria-pressed="false">
+                                <i class="search-choice-icon fa-solid fa-comment" aria-hidden="true"></i>
+                                <span class="search-choice-label"><span class="en" lang="en">Search by language</span><span class="es" lang="es">Buscar por lengua</span></span>
+                            </button>
+                            <button class="search-choice" type="button" data-mode="coverage" aria-pressed="false">
+                                <i class="search-choice-icon fa-solid fa-circle-info" aria-hidden="true"></i>
+                                <span class="search-choice-label"><span class="en" lang="en">View interpreter coverage</span><span class="es" lang="es">Ver la cobertura de intérpretes</span></span>
+                            </button>
+                        </div>
+                        <form class="map-search" id="search" role="search" hidden>
                             <label class="visually-hidden" for="search-input"><span class="search-mode-place"><span class="en" lang="en">Search for a location</span><span class="es" lang="es">Buscar un lugar</span></span><span class="search-mode-language"><span class="en" lang="en">Search for a language</span><span class="es" lang="es">Buscar una lengua</span></span></label>
                             <div class="map-search-field">
                                 <input class="map-search-input" id="search-input" type="text"
@@ -95,10 +110,11 @@
                     <p class="visually-hidden" id="matches-status" role="status" aria-live="polite"></p>
                 </section>
 
-                <!-- step 3, js/interpreters-panel.js -->
+                <!-- step 3, or step 2 for coverage, js/interpreters-panel.js -->
                 <section class="step step-panel interpreters-panel" id="step-interpreters" aria-labelledby="step-interpreters-heading" hidden>
                     <div class="interpreters-header">
-                        <h2 class="step-heading" id="step-interpreters-heading"><span class="step-number" aria-hidden="true">3</span>
+                        <!-- step 2 when coverage skips the search -->
+                        <h2 class="step-heading" id="step-interpreters-heading"><span class="step-number" aria-hidden="true"><span class="step-number-coverage">2</span><span class="step-number-search">3</span></span>
                             <span class="en" lang="en">Find an interpreter</span><span class="es" lang="es">Encuentra un intérprete</span></h2>
                         <button class="interpreters-clear" id="interpreters-clear" type="button" aria-label="Clear interpreter selection"
                             data-en-aria-label="Clear interpreter selection" data-es-aria-label="Borrar la selección de intérprete" hidden><span class="en" lang="en">Clear</span><span class="es" lang="es">Borrar</span></button>

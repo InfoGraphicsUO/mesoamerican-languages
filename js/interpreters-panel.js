@@ -6,6 +6,7 @@ import { html, languageText } from './ui.js';
 // clicking one highlights the sites of the languages they cover
 // clicking it again, the clear button, or escape inside the panel clears it
 // step 3, a language or place picked in step 2 filters the list down to the interpreters who cover it
+// step 2 when interpreter coverage is picked in step 1, the full list w/ no filter
 
 // sql text value, quotes in names like K'iche' have to be doubled
 const sqlText = (value) => `'${value.replaceAll("'", "''")}'`;
@@ -176,8 +177,9 @@ export async function initInterpretersPanel(view, siteGlow, { onSelect = () => {
 
     // label: what was picked, plain text or a localized() pair
     // languages: language names for the pick, none means no interpreters match and the empty message shows
-    function filter({ label, languages }) {
-        current = { label, languages: new Set([...languages].filter(Boolean)) };
+    // null goes back to the full list, for interpreter coverage
+    function filter(pick) {
+        current = pick && { label: pick.label, languages: new Set([...pick.languages].filter(Boolean)) };
         refresh();
     }
 

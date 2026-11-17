@@ -12,6 +12,7 @@ import { initMatchesPanel } from './matches-panel.js';
 // coordinates js files on site load
 // three steps down the left: (1) search for a place or a language, (2) pick a place then a language, or a language,
 // (3) find an interpreter
+// or, (1) view interpreter coverage, (2) every interpreter, w/ no search in between
 
 // the site opens in english, the switch in the top right flips everything to spanish and back
 setLanguage('en');
@@ -64,11 +65,29 @@ const matches = initMatchesPanel({
     }
 });
 
+// coverage shows the full interpreter list right away, leaving it hides the list until a step 2 pick
+function showCoverage() {
+    interpretersStep.hidden = false;
+    interpretersPanel.then((panel) => {
+        panel.clear();
+        panel.filter(null);
+    }, () => {});
+}
+
+function hideCoverage() {
+    interpretersStep.hidden = true;
+    interpretersPanel.then((panel) => panel.clear(), () => {});
+}
+
 initSearch({
     onSubmit: (query, mode) => matches.search(query, mode),
     onClear: () => {
         matches.clear();
         searchFocus.then((focus) => focus.clear(), () => {});
+    },
+    onModeChange: (mode, previous) => {
+        if (mode === 'coverage') showCoverage();
+        else if (previous === 'coverage') hideCoverage();
     }
 });
 
