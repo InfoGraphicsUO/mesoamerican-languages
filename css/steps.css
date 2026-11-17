@@ -97,6 +97,12 @@
     font-size: 1rem;
 }
 
+/* copy for the search mode that isn't picked, js/search.js sets data-search-mode */
+.steps[data-search-mode="place"] .search-mode-language,
+.steps[data-search-mode="language"] .search-mode-place {
+    display: none;
+}
+
 /* step 1 w/ zoom, home, and the temporary checkbox beside it */
 .steps-row {
     display: flex;
