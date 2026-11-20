@@ -6,6 +6,7 @@ import { locatePlace } from './place-search.js';
 // families, groups, and languages: zoom to all their sites and glow them
 // documented places: zoom in, glow the site, and open its popup
 // other places: zoom to the geocoded spot and drop a pin
+// spots clicked on the map: drop a pin and leave the view where it is
 // exports createSearchFocus
 
 const SITE_ZOOM = 11; // closest our sites get framed
@@ -177,8 +178,28 @@ export async function createSearchFocus(view, { pickedPopup }) {
         glow([]);
     }
 
+    function pin(point, name) {
+        pins.add(new Graphic({
+            geometry: point,
+            symbol: {
+                type: 'picture-marker',
+                url: `${PATHS.markers}/place-pin.svg`,
+                width: '32px',
+                height: '32px',
+                yoffset: '13px' // tip of the pin sits on the place, not its middle
+            },
+            attributes: { name }
+        }));
+    }
+
     async function show(result) {
         const current = reset();
+
+        if (result.source === 'map') {
+            glow([]);
+            pin(result.point, result.label);
+            return result.point;
+        }
 
         if (result.source === 'data') {
             const { item } = result;
@@ -208,17 +229,7 @@ export async function createSearchFocus(view, { pickedPopup }) {
         if (!location || current !== pick) return null;
 
         const point = new Point({ x: location.x, y: location.y, spatialReference: { wkid: 4326 } });
-        pins.add(new Graphic({
-            geometry: point,
-            symbol: {
-                type: 'picture-marker',
-                url: `${PATHS.markers}/place-pin.svg`,
-                width: '32px',
-                height: '32px',
-                yoffset: '13px' // tip of the pin sits on the place, not its middle
-            },
-            attributes: { name: result.label }
-        }));
+        pin(point, result.label);
 
         // states and municipalities come back w/ a big extent, towns w/ a small one that the zoom cap handles
         if (!canFrame()) {

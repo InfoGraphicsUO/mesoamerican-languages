@@ -8,11 +8,13 @@ import { createSearchFocus } from './search-focus.js';
 import { initLanguageEstimate } from './language-estimate.js';
 import { initRasterOverlay } from './raster-overlay.js';
 import { initMatchesPanel } from './matches-panel.js';
+import { initMapClick } from './map-click.js';
 
 // coordinates js files on site load
 // three steps down the left: (1) search for a place or a language, (2) pick a place then a language, or a language,
 // (3) find an interpreter
 // or, (1) view interpreter coverage, (2) every interpreter, w/ no search in between
+// clicking the map asks whether to list the spot's languages, yes starts a location search at step 2 w/ that spot
 
 // the site opens in english, the switch in the top right flips everything to spanish and back
 setLanguage('en');
@@ -79,7 +81,7 @@ function hideCoverage() {
     interpretersPanel.then((panel) => panel.clear(), () => {});
 }
 
-initSearch({
+const search = initSearch({
     onSubmit: (query, mode) => matches.search(query, mode),
     onClear: () => {
         matches.clear();
@@ -90,6 +92,13 @@ initSearch({
         else if (previous === 'coverage') hideCoverage();
     }
 });
+
+layers.then((mapLayers) => initMapClick(view, mapLayers, {
+    onConfirm: (spot) => {
+        search.startFromMap();
+        matches.pickOnMap(spot);
+    }
+}), () => {});
 
 layers.catch((error) => console.error('Unable to add map layers:', error));
 interpretersPanel.catch((error) => console.error('Unable to load interpreters panel:', error));

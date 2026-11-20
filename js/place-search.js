@@ -3,7 +3,7 @@ import { COUNTRY_LABELS, localized, localizedLookup, textFor } from './language.
 
 // looks up places that arent in our data w/ esri's World Geocoding Service
 // lets someone find a town we havent documented yet and see what's spoken nearby
-// exports suggestPlaces, locatePlace
+// exports suggestPlaces, locatePlace, placeNear
 
 // the keyless geocode.arcgis.com host is what the sdk's own search uses w/o an api key
 // geocode-api.arcgis.com is the same service but needs a key
@@ -87,4 +87,22 @@ export async function locatePlace({ text, magicKey }, { signal } = {}) {
     const [candidate] = candidates;
     if (!candidate) return null;
     return { ...candidate.location, extent: candidate.extent };
+}
+
+// the nearest named place to a clicked spot, for step 2's heading
+// a town when the geocoder knows one, its municipality when it only has a postal code there
+// returns { label, context } like a suggestion, or null on water or outside the study area
+export async function placeNear(longitude, latitude, { signal } = {}) {
+    let address = null;
+    try {
+        ({ address } = await request('reverseGeocode', { location: `${longitude},${latitude}`, outSR: 4326 }, signal));
+    } catch {
+        return null; // the geocoder answers w/ an error when there's no address nearby, like out at sea
+    }
+    if (!address || !STUDY_COUNTRIES[address.CountryCode]) return null;
+
+    const label = address.City || address.Neighborhood || address.Subregion || address.PlaceName;
+    if (!label) return null;
+    const context = [address.Subregion, address.Region].filter((part) => part && part !== label);
+    return splitSuggestion([label, ...context, address.CountryCode].join(', '));
 }
