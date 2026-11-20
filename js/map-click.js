@@ -8,7 +8,7 @@ import { html, languageText } from './ui.js';
 // exports initMapClick
 
 const TEXT = {
-    question: localized('View nearby languages to this location?', '¿Ver las lenguas cercanas a este lugar?'),
+    question: localized('View languages near this location?', '¿Ver las lenguas cerca de este lugar?'),
     yes: localized('Yes', 'Sí'),
     no: localized('No', 'No')
 };
@@ -40,7 +40,8 @@ export function initMapClick(view, { sites, pickedPopup, hover }, { onConfirm = 
 
         pending = { point: feature?.geometry || event.mapPoint, objectId: feature?.getObjectId() };
         hover.hide(); // the prompt repeats the site, and would sit under the hover box
-        pickedPopup.show(pending.point, prompt(feature && sitePopup(feature)));
+        // the tip clears a marker, or touches the clicked spot on empty map
+        pickedPopup.show(pending.point, prompt(feature && sitePopup(feature)), { gap: feature ? undefined : 0 });
     });
 
     // a double click zooms the map, it isnt asking about a spot

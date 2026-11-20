@@ -10,7 +10,7 @@ import { html, languageText } from './ui.js';
 const TOUCH_LAYOUT = '(max-width: 600px), (hover: none), (pointer: coarse)';
 const isTouchLayout = () => window.matchMedia(TOUCH_LAYOUT).matches;
 
-const OFFSET = 10; // gap between the feature and the popup tip, in px
+const OFFSET = 10; // gap between the feature and the popup tip, in px, so the tip doesnt cover the marker
 const EDGE_PADDING = 8; // closest the popup gets to the edge of the map, in px
 
 // creates the detailed info section of a popup
@@ -79,6 +79,7 @@ export function createPopup(view, { closeButton = false } = {}) {
     mapElement.parentElement.append(element); // sits beside the map, positioned over it by css
 
     let location = null; // map point the popup is attached to
+    let offset = OFFSET; // gap for the current point, none when there's no marker to clear
 
     function position() {
         if (!location) return;
@@ -90,7 +91,7 @@ export function createPopup(view, { closeButton = false } = {}) {
         const height = element.offsetHeight;
 
         // sit above the feature, or flip below it when there isnt room
-        const above = screen.y - OFFSET - height >= EDGE_PADDING;
+        const above = screen.y - offset - height >= EDGE_PADDING;
         element.classList.toggle('map-popup-below', !above);
 
         // center on the feature, but keep the whole popup on the map
@@ -98,14 +99,16 @@ export function createPopup(view, { closeButton = false } = {}) {
             Math.max(screen.x - width / 2, EDGE_PADDING),
             Math.max(view.width - width - EDGE_PADDING, EDGE_PADDING)
         );
-        const top = above ? screen.y - OFFSET - height : screen.y + OFFSET;
+        const top = above ? screen.y - offset - height : screen.y + offset;
 
         element.style.transform = `translate(${Math.round(left)}px, ${Math.round(top)}px)`;
         element.style.setProperty('--tip-x', `${Math.round(screen.x - left)}px`); // tip keeps pointing at the feature
     }
 
-    function show(point, markup) {
+    // gap: px between the point and the tip, defaults to clearing a marker
+    function show(point, markup, { gap = OFFSET } = {}) {
         location = point;
+        offset = gap;
         body.innerHTML = String(markup);
         element.hidden = false;
         position();
