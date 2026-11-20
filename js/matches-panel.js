@@ -1,12 +1,13 @@
 import { PATHS } from './map.js';
 import { FAMILIES, OTOMANGUEAN_GROUPS, FIELDS } from './map-layers.js';
 import { KINDS, markerSlug } from './search-index.js';
-import { suggestPlaces } from './place-search.js';
+import { placeNear, suggestPlaces } from './place-search.js';
 import { classification } from './language-estimate.js';
 import { localized, textFor } from './language.js';
 import { html, languageText } from './ui.js';
 
 // step 2, two columns that work one of two ways depending on step 1's place | language switch
+// a spot picked on the map (js/map-click.js) works like a place search that found just that spot
 // place search: the places that match, then the languages at whichever place gets picked
 //   languages are the ones we've verified at the place, then the ones the estimate says are likely nearby
 //   picking a language hands it to step 3
@@ -36,7 +37,11 @@ const TEXT = {
     pickLanguage: localized('Select a language to see its communities of origin.', 'Elige una lengua para ver sus comunidades de origen.'),
     noCommunities: localized('No communities of origin are mapped for this yet.', 'Todavía no hay comunidades de origen en el mapa para esto.'),
     verified: localized('Verified here', 'Verificada aquí'),
-    place: localized('Place', 'Lugar')
+    place: localized('Place', 'Lugar'),
+    onMap: localized('Selected on the map', 'Elegido en el mapa'),
+    nearestPlace: localized('Nearest place', 'Lugar más cercano'),
+    selectedSpot: localized('Selected spot', 'Lugar seleccionado'),
+    nearSelectedSpot: localized('Languages near the selected spot', 'Lenguas cerca del lugar seleccionado')
 };
 
 // the estimate's share in words, a percent read as more exact than it is
@@ -77,6 +82,19 @@ const geocoderResult = (suggestion) => ({
     tag: TEXT.place,
     icon: PIN_ICON,
     suggestion
+});
+
+// a clicked spot that isnt a documented site, named after the nearest place the geocoder knows
+// the languages come from the clicked point itself, the name is only there to say roughly where it is
+const mapSpotResult = (point, near) => ({
+    source: 'map',
+    kind: 'map-spot',
+    label: near ? near.label : TEXT.selectedSpot,
+    context: near ? near.context : '',
+    tag: near ? TEXT.nearestPlace : '',
+    heading: near ? null : TEXT.nearSelectedSpot,
+    icon: PIN_ICON,
+    point
 });
 
 // one key per family, group, or language, names are unique within each kind
@@ -183,7 +201,7 @@ function option(kind, i, { icon, label, context, tag, tagColor, depth = 0, expan
                 <span class="search-result-text">
                     <span class="search-result-name">${languageText(label)}</span>
                     ${textFor(context) ? html`<span class="search-result-context">${languageText(context)}</span>` : ''}
-                    <span class="search-result-tag"${tagColor ? html` style="color: ${tagColor}"` : ''}>${languageText(tag)}</span>
+                    ${textFor(tag) ? html`<span class="search-result-tag"${tagColor ? html` style="color: ${tagColor}"` : ''}>${languageText(tag)}</span>` : ''}
                 </span>
                 ${expandable ? CHEVRON : ''}
             </button>
@@ -372,16 +390,47 @@ export function initMatchesPanel({ index, estimate, focus, center, onPick = () =
         const current = ++run;
         onReset();
         details = [];
-        renderDetails(languagesNear(place.label), { text: TEXT.finding, loading: true });
+        const heading = place.heading || languagesNear(place.label);
+        renderDetails(heading, { text: TEXT.finding, loading: true });
         const point = await (await focus).show(place);
         const found = await languagesAt(place, point);
         if (current !== run) return;
         details = found.languages.map(nearbyLanguage);
-        renderDetails(languagesNear(place.label), { text: details.length ? null : TEXT.noLanguages, footnote: found.note });
+        renderDetails(heading, { text: details.length ? null : TEXT.noLanguages, footnote: found.note });
         status.textContent = textFor(localized(
             `${details.length} ${details.length === 1 ? 'language' : 'languages'} near ${textFor(place.label, 'en')}`,
             `${details.length} ${details.length === 1 ? 'lengua' : 'lenguas'} cerca de ${textFor(place.label, 'es')}`
         ));
+    }
+
+    // a spot clicked on the map, objectId when it was a site marker
+    // a site is picked as its documented place, anywhere else as the clicked point named after the nearest place
+    async function pickOnMap({ point, objectId }) {
+        const current = ++run;
+        mode = 'place';
+        lastQuery = '';
+        topLevel = [];
+        expanded = new Set();
+        pickedKey = 'map'; // the one row the left list gets is shown picked
+        onReset();
+        step.hidden = false;
+        results = [];
+        details = [];
+        renderResults(TEXT.onMap, TEXT.searching);
+        renderDetails(TEXT.languages, { text: TEXT.finding, loading: true });
+
+        let place = null;
+        if (objectId !== undefined) {
+            const data = await dataIndex();
+            const item = data?.entries.find((entry) => entry.kind === 'place' && entry.sites.some((site) => site.objectId === objectId));
+            if (item) place = documentedResult(item);
+        }
+        if (!place) place = mapSpotResult(point, await placeNear(point.longitude, point.latitude));
+        if (current !== run) return;
+
+        results = [{ ...place, key: 'map' }];
+        renderResults(TEXT.onMap);
+        pickPlace(results[0]);
     }
 
     // a language, group, or family glows on the map, step 3 lists its interpreters,
@@ -453,5 +502,5 @@ export function initMatchesPanel({ index, estimate, focus, center, onPick = () =
         onReset();
     }
 
-    return { search, clear };
+    return { search, pickOnMap, clear };
 }

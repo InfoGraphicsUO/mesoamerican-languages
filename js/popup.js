@@ -4,9 +4,9 @@ import { html, languageText } from './ui.js';
 
 // hover boxes for map features, with each layer supplying render(graphic)
 // these replace the sdk's own popup, so layers using them need popupEnabled: false
-// exports detailList, hoverBox, hoverPopup, clickPopup
+// exports detailList, hoverBox, createPopup, featureAt, hoverPopup
 
-// layouts where hovering isnt possible, these get click popups
+// layouts where hovering isnt possible, a tap opens js/map-click.js's prompt w/ the site instead
 const TOUCH_LAYOUT = '(max-width: 600px), (hover: none), (pointer: coarse)';
 const isTouchLayout = () => window.matchMedia(TOUCH_LAYOUT).matches;
 
@@ -61,7 +61,7 @@ export function hoverBox({ title, subtitle, rows = [] }) {
 
 // builds one popup element that sits over the map and follows a map location
 // closeButton: adds an x button, used by click popups
-function createPopup(view, { closeButton = false } = {}) {
+export function createPopup(view, { closeButton = false } = {}) {
     const element = document.createElement('div');
     element.className = 'map-popup';
     element.hidden = true;
@@ -138,7 +138,7 @@ function createPopup(view, { closeButton = false } = {}) {
 }
 
 // find the top feature from one layer under a pointer or click event
-async function featureAt(view, layer, event) {
+export async function featureAt(view, layer, event) {
     const { results } = await view.hitTest(event, { include: [layer] });
     return results.find((result) => result.type === 'graphic')?.graphic || null;
 }
@@ -147,7 +147,8 @@ async function featureAt(view, layer, event) {
 // view: MapView from ready in js/map.js
 // layer: map layer to watch
 // render: func that converts a feature (graphic) to popup html
-export function hoverPopup(view, layer, render) {
+// isPaused(): true while another popup sits on the marker, like the map click prompt
+export function hoverPopup(view, layer, render, { isPaused = () => false } = {}) {
     const popup = createPopup(view);
 
     let shownId = null; // feature the popup is showing, so moving within one marker doesnt rebuild it
@@ -171,7 +172,7 @@ export function hoverPopup(view, layer, render) {
             const feature = await featureAt(view, layer, event).catch(() => null);
             if (latest) continue; // mouse already moved, check the newer position
 
-            if (!feature || left) {
+            if (!feature || left || isPaused()) {
                 clear();
                 continue;
             }
@@ -193,7 +194,7 @@ export function hoverPopup(view, layer, render) {
 
     // listen for mouse movement and display the layer's popup
     view.on('pointer-move', (event) => {
-        if (isTouchLayout() || event.pointerType !== 'mouse') return; // touches get the click popup
+        if (isTouchLayout() || event.pointerType !== 'mouse') return; // touches get the map click prompt
         left = false;
         latest = event;
         if (!checking) check();
@@ -205,34 +206,6 @@ export function hoverPopup(view, layer, render) {
         clear();
     });
 
-    return popup;
-}
-
-// connect a click popup to a map layer
-// view: MapView from ready in js/map.js
-// layer: map layer to watch for clicks
-// render: func that converts a feature (graphic) to popup html
-// options: touchOnly limits clicks to touch layouts
-export function clickPopup(view, layer, render, options = {}) {
-    const { touchOnly = false } = options;
-    const popup = createPopup(view, { closeButton: true });
-
-    view.on('click', async (event) => {
-        if (touchOnly && !(event.native?.pointerType === 'touch' || isTouchLayout())) return;
-
-        const feature = await featureAt(view, layer, event).catch(() => null);
-
-        // clicking empty map closes the popup
-        if (!feature) {
-            popup.hide();
-            return;
-        }
-
-        const content = render(feature);
-        if (!content) return;
-
-        popup.show(feature.geometry, content);
-    });
-
-    return popup;
+    // hide() also forgets the shown feature, so hovering the same marker again brings it back
+    return { ...popup, hide: clear };
 }

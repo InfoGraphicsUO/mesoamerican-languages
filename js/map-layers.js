@@ -1,5 +1,5 @@
 import { MAP, PATHS } from './map.js';
-import { hoverPopup, clickPopup, hoverBox } from './popup.js';
+import { createPopup, hoverPopup, hoverBox } from './popup.js';
 import { COUNTRY_LABELS, FAMILY_LABELS, GROUP_LABELS, localized, localizedLookup, localizedPlaceName } from './language.js';
 
 // language families in the mapped data, slug matches the marker file names
@@ -194,8 +194,12 @@ export async function addMapLayers(view) {
     view.map.addMany([siteGlow, sites]); // glow goes first so it draws directly behind the markers
     await view.whenLayerView(sites);
 
-    hoverPopup(view, sites, sitePopup); // connect sitePopup func to layer, for hovering
-    const pickedPopup = clickPopup(view, sites, sitePopup, { touchOnly: true }); // search opens this one too
+    // clicked or searched sites, js/map-click.js asks about a clicked spot's languages in it and search opens it too
+    const pickedPopup = createPopup(view, { closeButton: true });
+    // hovering waits while the click prompt is up, or the two would sit on top of each other
+    const hover = hoverPopup(view, sites, sitePopup, {
+        isPaused: () => pickedPopup.isOpen() && Boolean(pickedPopup.element.querySelector('.map-prompt'))
+    });
 
-    return { sites, siteGlow, pickedPopup };
+    return { sites, siteGlow, pickedPopup, hover };
 }

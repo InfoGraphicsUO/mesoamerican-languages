@@ -3,6 +3,7 @@ import { applyLocalizedAttributes } from './language.js';
 // step 1, three choices: search by location, search by language, or view interpreter coverage
 // location and language show a search bar under the choices, coverage skips the search
 // typing does nothing on its own, enter or the arrow button runs the search and step 2 lists what it found
+// a spot picked on the map switches to location and empties the bar, step 2 lists that spot instead
 // exports initSearch
 
 // placeholder for each search mode, in both languages
@@ -87,5 +88,13 @@ export function initSearch({ onSubmit = () => {}, onClear = () => {}, onModeChan
         if (event.key === 'Escape' && input.value) clear();
     });
 
-    return { clear };
+    // for a spot picked on the map, step 2 gets filled by js/matches-panel.js instead of a search
+    function startFromMap() {
+        input.value = '';
+        clearButton.hidden = true;
+        searched = false;
+        if (mode !== 'place') setMode('place');
+    }
+
+    return { clear, startFromMap };
 }

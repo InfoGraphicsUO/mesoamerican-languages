@@ -134,3 +134,65 @@
     margin: 0;
     color: var(--text-soft);
 }
+
+/* map click prompt from js/map-click.js, yes and no stand in for the close button */
+.map-popup:has(.map-prompt) .map-popup-close {
+    display: none;
+}
+
+.map-popup:has(.map-prompt) .popup h2 {
+    padding-right: 0;
+}
+
+/* under a clicked site's details, set off by a rule */
+.popup + .map-prompt {
+    margin-top: 0.6rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid var(--border);
+}
+
+.map-prompt {
+    min-width: 12rem;
+}
+
+.map-prompt-question {
+    margin: 0;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.map-prompt-actions {
+    display: flex;
+    gap: var(--space-xs);
+    margin-top: 0.5rem;
+}
+
+.map-prompt-button {
+    flex: 1;
+    padding: 0.4rem 0.75rem 0.25rem; /* josefin sans sits high, nudge the text down so it looks centered */
+    border: 1px solid var(--accent-bright);
+    border-radius: var(--radius);
+    background: none;
+    color: var(--accent-bright);
+    font: inherit;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.map-prompt-button:hover,
+.map-prompt-button:focus-visible {
+    background: color-mix(in srgb, var(--accent-bright) 10%, transparent);
+    outline: none;
+}
+
+.map-prompt-yes {
+    background: var(--accent-bright);
+    color: white;
+}
+
+.map-prompt-yes:hover,
+.map-prompt-yes:focus-visible {
+    background: color-mix(in srgb, var(--accent-bright) 85%, black);
+}
