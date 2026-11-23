@@ -1,4 +1,4 @@
-import { initLanguageSwitch, setLanguage } from './language.js';
+import { initLanguageSwitch, initSiteLanguage, setLanguage } from './language.js';
 import { ready } from './map.js';
 import { addMapLayers } from './map-layers.js';
 import { initInterpretersPanel } from './interpreters-panel.js';
@@ -18,8 +18,10 @@ import { initMapClick } from './map-click.js';
 // clicking the map asks whether to list the spot's languages, yes starts a location search at step 2 w/ that spot
 
 // the site opens in english, the switch in the top right flips everything to spanish and back
+// embedded on invisiblenomore.uoregon.edu, the site's own english/español buttons switch it too
 setLanguage('en');
 initLanguageSwitch(document.getElementById('language-switch'));
+initSiteLanguage();
 
 let view = null;
 
