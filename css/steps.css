@@ -43,48 +43,6 @@
     }
 }
 
-/* temporary show all steps checkbox, css below handles what it shows */
-.steps-show-all {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    flex: none;
-    padding: 0.35rem 0.6rem 0.2rem;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    font-size: var(--text-sm);
-    cursor: pointer;
-}
-
-.steps-show-all input {
-    margin: 0 0 0.15rem;
-    accent-color: var(--accent-bright);
-}
-
-/* steps not reached yet show their heading and a short hint, dimmed */
-.steps.is-showing-all .step[hidden] {
-    display: block;
-}
-
-.steps.is-showing-all .step[hidden] > * {
-    opacity: 0.6; /* on the contents, so the panel stays solid over the map */
-}
-
-.steps.is-showing-all .step[hidden] > :not(.step-heading, .interpreters-header, .step-waiting) {
-    display: none;
-}
-
-.step-waiting,
-.steps.is-showing-all .step:not([hidden]) .step-waiting {
-    display: none;
-}
-
-.steps.is-showing-all .step[hidden] .step-waiting {
-    display: block;
-    margin: 0;
-    font-size: var(--text-sm);
-}
-
 /* purple heading w/ the step number in a filled dot */
 .steps .step-heading {
     display: flex;
@@ -114,8 +72,7 @@
     font-size: 1rem;
 }
 
-/* copy for the search mode that isn't picked, js/search.js sets data-search-mode
-   location's copy shows until language is picked, so show all steps has one hint to show */
+/* copy for the search mode that isn't picked, js/search.js sets data-search-mode */
 .steps:not([data-search-mode="language"]) .search-mode-language,
 .steps[data-search-mode="language"] .search-mode-place {
     display: none;
@@ -128,7 +85,7 @@
     display: none;
 }
 
-/* step 1 w/ zoom, home, and the temporary checkbox beside it */
+/* step 1 w/ zoom and home beside it */
 .steps-row {
     display: flex;
     align-items: flex-start;

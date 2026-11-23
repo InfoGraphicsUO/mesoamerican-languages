@@ -43,12 +43,6 @@ const interpretersPanel = layers.then(({ siteGlow }) => initInterpretersPanel(vi
 
 const interpretersStep = document.getElementById('step-interpreters');
 
-// temporary checkbox that shows steps 2 and 3 before they're reached
-const steps = document.querySelector('.steps');
-document.getElementById('steps-show-all').addEventListener('change', (event) => {
-    steps.classList.toggle('is-showing-all', event.target.checked);
-});
-
 const matches = initMatchesPanel({
     index: searchIndex,
     estimate: languageEstimate,
