@@ -11,7 +11,8 @@ import { initMatchesPanel } from './matches-panel.js';
 import { initMapClick } from './map-click.js';
 
 // coordinates js files on site load
-// three steps down the left: (1) search for a place or a language, (2) pick a place then a language, or a language,
+// three steps down the left: (1) search for a place or a language, typing suggests some to jump straight to,
+// (2) pick a place then a language, or a language,
 // (3) find an interpreter
 // or, (1) view interpreter coverage, (2) every interpreter, w/ no search in between
 // clicking the map asks whether to list the spot's languages, yes starts a location search at step 2 w/ that spot
@@ -82,7 +83,10 @@ function hideCoverage() {
 }
 
 const search = initSearch({
+    index: searchIndex,
+    center: () => view && [view.center.longitude, view.center.latitude],
     onSubmit: (query, mode) => matches.search(query, mode),
+    onChoose: (result, mode) => matches.choose(result, mode),
     onClear: () => {
         matches.clear();
         searchFocus.then((focus) => focus.clear(), () => {});
