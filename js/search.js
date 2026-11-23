@@ -23,7 +23,7 @@ const MAX_LANGUAGES = 8; // languages, groups, and families suggested
 const GEOCODER_MIN_LENGTH = 3; // shorter queries return mostly noise from the geocoder
 const GEOCODER_DELAY = 250; // ms of no typing before asking the geocoder
 const LIST_GAP = 6; // px between the bar and the suggestions
-const LIST_ROWS = 5.5; // rows that show before the list scrolls, the half row hints that it does
+const LIST_ROWS = 2.5; // rows that show before the list scrolls, the half row hints that it does
 const LIST_MARGIN = 16; // px kept clear under the list at the bottom of the page
 
 // copy for the note row under the suggestions
