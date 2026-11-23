@@ -2,7 +2,7 @@
 // static copy sits side by side in .en/.es spans, the class on <html> decides which one shows
 // attributes (aria-label, placeholder, title) hold both versions in data-en-*/data-es-* pairs
 // exports localized, isLocalizedText, textFor, localizedLookup, localizedPlaceName, FAMILY_LABELS, GROUP_LABELS, COUNTRY_LABELS,
-// getLanguage, applyLocalizedAttributes, setLanguage, toggleLanguage, onLanguageChange, initLanguageSwitch
+// getLanguage, applyLocalizedAttributes, setLanguage, toggleLanguage, onLanguageChange, initLanguageSwitch, initSiteLanguage
 
 const SUPPORTED_LANGUAGES = new Set(['en', 'es']);
 const listeners = new Set();
@@ -152,4 +152,25 @@ export function initLanguageSwitch(button) {
     onLanguageChange((language) => {
         button.setAttribute('aria-checked', String(language === 'es'));
     }, { immediate: true });
+}
+
+// the map sits in an iframe on invisiblenomore.uoregon.edu, whose english/español menu buttons also switch the map
+// the site's script posts { type: 'site-language', language: 'english' | 'spanish' } into the iframe whenever its language is set,
+// and the map asks for it once on load w/ { type: 'site-language-request' } in case the site posted before the map was listening
+// a copy of the site's script is saved as Code/language_blocks.js in the project's Website Development folder
+const SITE_ORIGINS = ['https://invisiblenomore.uoregon.edu'];
+const SITE_LANGUAGES = { english: 'en', spanish: 'es', en: 'en', es: 'es' };
+
+export function initSiteLanguage() {
+    if (window.parent === window) return; // opened on its own, not embedded
+
+    window.addEventListener('message', (event) => {
+        if (event.source !== window.parent || !SITE_ORIGINS.includes(event.origin)) return;
+        if (event.data?.type !== 'site-language') return;
+        const language = SITE_LANGUAGES[event.data.language];
+        if (language) setLanguage(language);
+    });
+
+    // a message to the wrong origin is dropped, so only the real site ever gets this
+    for (const origin of SITE_ORIGINS) window.parent.postMessage({ type: 'site-language-request' }, origin);
 }
