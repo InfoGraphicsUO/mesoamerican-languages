@@ -60,7 +60,8 @@
                         <form class="map-search" id="search" role="search" hidden>
                             <label class="visually-hidden" for="search-input"><span class="search-mode-place"><span class="en" lang="en">Search for a location</span><span class="es" lang="es">Buscar un lugar</span></span><span class="search-mode-language"><span class="en" lang="en">Search for a language</span><span class="es" lang="es">Buscar una lengua</span></span></label>
                             <div class="map-search-field">
-                                <input class="map-search-input" id="search-input" type="text"
+                                <input class="map-search-input" id="search-input" type="text" role="combobox"
+                                    aria-autocomplete="list" aria-expanded="false" aria-controls="search-suggestions"
                                     placeholder="Town, village, hamlet, or rancho…"
                                     data-en-placeholder="Town, village, hamlet, or rancho…"
                                     data-es-placeholder="Pueblo, aldea, caserío o rancho…"
@@ -74,6 +75,7 @@
                                     <path d="M2.5 8h11M9 3.5 13.5 8 9 12.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
                                 </svg>
                             </button>
+                            <p class="visually-hidden" id="search-status" role="status" aria-live="polite"></p>
                         </form>
                     </section>
                     <!-- zoom and home sit beside the search like before -->
@@ -139,6 +141,10 @@
                 <span class="language-option language-option-es" lang="es">Español</span>
             </button>
         </arcgis-map>
+        <!-- suggestions while typing in step 1's search, js/search.js fills them in and lines them up under the bar
+             out here so the steps' scrolling and blur dont clip them, picking one skips straight to it in step 2 -->
+        <ul class="map-search-results" id="search-suggestions" role="listbox" aria-label="Suggestions"
+            data-en-aria-label="Suggestions" data-es-aria-label="Sugerencias" hidden></ul>
     </main>
 </body>
 

@@ -116,8 +116,9 @@
     display: none;
 }
 
-/* the type tags and row heights are shared w/ step 2's lists */
-.steps {
+/* the type tags and row heights are shared w/ step 2's lists and the suggestions */
+.steps,
+.map-search-results {
     --search-accent: var(--accent-bright); /* focus border, and type tags from our data that have no family color */
     --search-other: var(--text); /* type tag for geocoder places */
     --search-row: 3.1rem;
@@ -219,7 +220,37 @@
 }
 
 .search-result[aria-selected="true"] {
-    background: rgb(25 34 29 / 7%);
+    background: color-mix(in srgb, var(--accent-bright) 8%, transparent);
+}
+
+/* suggestions while typing, drop over the steps and map under the bar
+   js/search.js sets top, left, width, and max-height from the bar, the list sits outside the steps so they cant clip it */
+.map-search-results {
+    position: absolute;
+    z-index: 10;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-solid);
+    box-shadow: 0 6px 18px rgb(25 34 29 / 14%);
+    color: var(--text);
+    font-family: var(--font);
+    list-style: none;
+}
+
+.map-search-results[hidden] {
+    display: none;
+}
+
+/* the tag goes under the name like step 2's rows, so long ones like Verified place of origin fit the narrow bar */
+.map-search-results .search-result-tag {
+    padding-top: 0.1rem;
+    font-size: var(--text-xs);
+    text-align: left;
+    white-space: normal;
 }
 
 .search-result-icon {

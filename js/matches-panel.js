@@ -15,7 +15,8 @@ import { html, languageText } from './ui.js';
 //   matches whose family or group also matched are tucked under it, families and groups open to show
 //   every group and language under them, and picking any of them hands it to step 3 right away
 //   picking a community shows it on the map
-// exports initMatchesPanel
+// a suggestion picked from step 1's dropdown works like a search that found just that one, already picked
+// exports initMatchesPanel, and documentedResult, geocoderResult, languageResult for step 1's suggestions
 
 const MAX_DOCUMENTED = 8; // documented places listed before the geocoder's other places
 const MAX_LANGUAGES = 30; // top level languages, groups, and families listed for a language search
@@ -39,6 +40,7 @@ const TEXT = {
     verified: localized('Verified here', 'Verificada aquí'),
     place: localized('Place', 'Lugar'),
     onMap: localized('Selected on the map', 'Elegido en el mapa'),
+    fromSearch: localized('Selected in the search', 'Elegido en la búsqueda'),
     nearestPlace: localized('Nearest place', 'Lugar más cercano'),
     selectedSpot: localized('Selected spot', 'Lugar seleccionado'),
     nearSelectedSpot: localized('Languages near the selected spot', 'Lenguas cerca del lugar seleccionado')
@@ -63,7 +65,7 @@ const countText = (count, [enOne, enMany], [esOne, esMany], [enRest, esRest] = [
 // language names on a set of sites, each once, in data order
 const languageNames = (sites) => [...new Set(sites.map((site) => String(site.attributes[FIELDS.language] ?? '').trim()).filter(Boolean))];
 
-const documentedResult = (item) => ({
+export const documentedResult = (item) => ({
     source: 'data',
     kind: 'place',
     label: item.display,
@@ -74,7 +76,7 @@ const documentedResult = (item) => ({
     item
 });
 
-const geocoderResult = (suggestion) => ({
+export const geocoderResult = (suggestion) => ({
     source: 'geocoder',
     kind: 'other-place',
     label: suggestion.label,
@@ -140,7 +142,7 @@ const languageCount = (count) => localized(
 
 // a language, group, or family from our data, for a language search
 // depth: how far it's nested under a family or group, expandable: it has groups or languages under it
-function languageResult(item, { depth = 0, expandable = false, expanded = false } = {}) {
+export function languageResult(item, { depth = 0, expandable = false, expanded = false } = {}) {
     // a group's context names its family, and gets how many languages it holds like a family's does
     const context = item.kind === 'group'
         ? localized(
@@ -228,6 +230,7 @@ export function initMatchesPanel({ index, estimate, focus, center, onPick = () =
     let results = []; // left list, places or languages
     let details = []; // right list, the picked result's languages or communities
     let lastQuery = '';
+    let treeHeading = null; // over the language tree, the search it came from or that it was picked in step 1
 
     // language search tree: top level matches, which families and groups are open, and the picked row
     let tree = null;
@@ -283,7 +286,7 @@ export function initMatchesPanel({ index, estimate, focus, center, onPick = () =
             if (open) children.forEach((child) => walk(child, depth + 1));
         };
         topLevel.forEach((item) => walk(item, 0));
-        renderResults(languagesMatching(lastQuery));
+        renderResults(treeHeading);
     }
 
     // text: a note in place of the rows, loading adds a spinner to it
@@ -369,6 +372,7 @@ export function initMatchesPanel({ index, estimate, focus, center, onPick = () =
         const current = ++run;
         mode = nextMode;
         lastQuery = query;
+        treeHeading = languagesMatching(query);
         topLevel = [];
         expanded = new Set();
         pickedKey = null;
@@ -431,6 +435,40 @@ export function initMatchesPanel({ index, estimate, focus, center, onPick = () =
         results = [{ ...place, key: 'map' }];
         renderResults(TEXT.onMap);
         pickPlace(results[0]);
+    }
+
+    // a suggestion picked from step 1's dropdown, a row from documentedResult, geocoderResult, or languageResult
+    // step 2 lists just that one, picked, so its languages or communities show right away
+    // a family or group comes open to show what's under it
+    async function choose(result, nextMode) {
+        const current = ++run;
+        mode = nextMode;
+        lastQuery = textFor(result.label);
+        topLevel = [];
+        expanded = new Set();
+        onReset();
+        focus.then((searchFocus) => searchFocus.clear(), () => {}); // the last pick's pin or glow, a mode switch would leave it behind
+        step.hidden = false;
+        details = [];
+
+        if (mode === 'place') {
+            pickedKey = 'search';
+            results = [{ ...result, key: 'search' }];
+            renderResults(TEXT.fromSearch);
+            pickPlace(results[0]);
+            return;
+        }
+
+        const data = await dataIndex(); // loaded already, the suggestion came from it
+        if (current !== run || !data) return;
+        const { item } = result;
+        tree = hierarchy(data);
+        topLevel = [item];
+        pickedKey = keyOf(item);
+        if (tree.children(item).length) expanded.add(pickedKey);
+        treeHeading = TEXT.fromSearch;
+        renderLanguageTree();
+        pickLanguage(results[0]);
     }
 
     // a language, group, or family glows on the map, step 3 lists its interpreters,
@@ -502,5 +540,5 @@ export function initMatchesPanel({ index, estimate, focus, center, onPick = () =
         onReset();
     }
 
-    return { search, pickOnMap, clear };
+    return { search, pickOnMap, choose, clear };
 }
