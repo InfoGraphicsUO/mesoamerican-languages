@@ -21,21 +21,19 @@
     border: 1px solid var(--border);
 }
 
-/* three big square choices w/ the icon up front, the picked one gets filled in like the english/spanish switch in css/main.css */
+/* three big choices w/ the icon up front, the picked one gets filled in like the english/spanish switch in css/main.css */
 .search-choices {
     display: grid;
-    grid-template-columns: repeat(3, var(--choice-size));
+    grid-template-columns: repeat(3, var(--choice-width));
     gap: var(--choice-gap);
 }
 
+/* the icon and labels are placed by hand so they can slide from the big choice to the short row, css/steps.css sets the sizes */
 .search-choice {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.55rem;
-    aspect-ratio: 1;
-    padding: 0.75rem 0.6rem 0.6rem;
+    position: relative;
+    height: var(--choice-size);
+    padding: 0;
+    overflow: hidden;
     border: 1px solid var(--border);
     border-radius: var(--radius);
     background: var(--surface);
@@ -44,19 +42,67 @@
     text-align: center;
     cursor: pointer;
     transition: color var(--motion-duration) var(--motion-ease), background var(--motion-duration) var(--motion-ease),
-        border-color var(--motion-duration) var(--motion-ease);
+        border-color var(--motion-duration) var(--motion-ease), height var(--collapse-duration) var(--motion-ease);
 }
 
 .search-choice-icon {
+    position: absolute;
+    top: 0.85rem;
+    left: 50%;
     color: var(--accent-bright);
-    font-size: 2.5rem;
-    transition: color var(--motion-duration) var(--motion-ease);
+    font-size: 2rem;
+    line-height: 1;
+    transform: translateX(-50%);
+    transition: color var(--motion-duration) var(--motion-ease), top var(--collapse-duration) var(--motion-ease),
+        left var(--collapse-duration) var(--motion-ease), transform var(--collapse-duration) var(--motion-ease),
+        font-size var(--collapse-duration) var(--motion-ease);
 }
 
 /* room for two lines on every label, so the icons line up when one wraps */
 .search-choice-label {
+    position: absolute;
+    right: 0.4rem;
+    bottom: 0.5rem;
+    left: 0.4rem;
+    display: flex;
+    justify-content: center;
     min-height: 2.4em;
     padding-top: 0.15rem; /* josefin sans sits high */
+    transition: opacity calc(var(--collapse-duration) / 2) var(--motion-ease);
+}
+
+/* one word beside the icon once collapsed, the full label stays in the button for screen readers */
+.search-choice-short {
+    position: absolute;
+    top: 50%;
+    left: 2rem;
+    padding-top: 0.15rem; /* josefin sans sits high */
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(-50%);
+    transition: opacity calc(var(--collapse-duration) / 2) var(--motion-ease);
+}
+
+/* collapsed once a choice is picked, still there to switch to another one */
+.steps[data-search-mode] .search-choice {
+    height: var(--choice-collapsed);
+}
+
+.steps[data-search-mode] .search-choice-icon {
+    top: 50%;
+    left: 0.7rem;
+    font-size: 1rem;
+    transform: translateY(-50%);
+}
+
+.steps[data-search-mode] .search-choice-label {
+    opacity: 0;
+}
+
+/* fades in once the row has mostly shrunk */
+.steps[data-search-mode] .search-choice-short {
+    opacity: 1;
+    transition-delay: calc(var(--collapse-duration) / 2);
 }
 
 .search-choice:hover {
@@ -81,12 +127,14 @@
 
 @media (prefers-reduced-motion: reduce) {
     .search-choice,
-    .search-choice-icon {
-        transition: none;
+    .search-choice-icon,
+    .search-choice-label,
+    .search-choice-short {
+        transition: none !important;
     }
 }
 
-/* on phones the squares share the width so all three still fit across */
+/* on phones the choices share the width so all three still fit across */
 @media (max-width: 600px) {
     .search-choices {
         grid-template-columns: repeat(3, 1fr);
@@ -94,20 +142,26 @@
     }
 
     .search-choice {
-        gap: 0.45rem;
-        padding-inline: 0.3rem;
         font-size: var(--text-xs);
     }
+}
 
-    .search-choice-icon {
-        font-size: 2.25rem;
+/* the smallest phones have no room for the icon beside interpreters once collapsed, so the word goes in the middle alone */
+@media (max-width: 360px) {
+    .steps[data-search-mode] .search-choice-icon {
+        opacity: 0;
+    }
+
+    .steps[data-search-mode] .search-choice-short {
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 }
 
 /* the field w/ the arrow button on its right, shows under the choices once location or language is picked */
 .map-search {
     display: flex;
-    margin-top: 0.6rem;
+    margin-top: 0.5rem;
     font-family: var(--font);
     color: var(--text);
 }
@@ -121,7 +175,7 @@
 .map-search-results {
     --search-accent: var(--accent-bright); /* focus border, and type tags from our data that have no family color */
     --search-other: var(--text); /* type tag for geocoder places */
-    --search-row: 3.1rem;
+    --search-row: 2.75rem;
 }
 
 .map-search-field {
@@ -132,8 +186,8 @@
 .map-search-submit {
     display: grid;
     flex: none;
-    width: 2.75rem;
-    height: 2.75rem;
+    width: var(--bar-height);
+    height: var(--bar-height);
     place-items: center;
     padding: 0;
     border: 1px solid var(--accent-bright);
@@ -152,15 +206,15 @@
 .map-search-input {
     display: block;
     width: 100%;
-    height: 2.75rem;
-    padding: 0.2rem 2.5rem 0 0.9rem; /* josefin sans sits high, nudge the text down so it looks centered */
+    height: var(--bar-height);
+    padding: 0.2rem 2.25rem 0 0.75rem; /* josefin sans sits high, nudge the text down so it looks centered */
     border: 1px solid var(--border);
     border-radius: var(--radius);
     background: var(--surface);
     backdrop-filter: var(--blur);
     color: var(--text);
     font: inherit;
-    font-size: 1rem;
+    font-size: 0.9375rem;
 }
 
 .map-search-input::placeholder {
@@ -206,7 +260,7 @@
     align-items: center;
     gap: 0.6rem;
     min-height: var(--search-row);
-    padding: 0.45rem 0.8rem;
+    padding: 0.35rem 0.7rem;
     border-bottom: 1px solid var(--border);
 }
 
@@ -275,7 +329,7 @@
 }
 
 .search-result-name {
-    font-size: 1rem;
+    font-size: 0.9375rem;
     line-height: 1.2;
 }
 
