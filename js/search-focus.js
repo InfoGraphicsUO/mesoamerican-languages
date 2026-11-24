@@ -9,8 +9,8 @@ import { locatePlace } from './place-search.js';
 // spots clicked on the map: drop a pin and leave the view where it is
 // exports createSearchFocus
 
-const SITE_ZOOM = 11; // closest our sites get framed
-const PLACE_ZOOM = 12; // closest a geocoded place gets framed, town extents would otherwise zoom to street level
+const SITE_ZOOM = 10; // closest our sites get framed
+const PLACE_ZOOM = 11; // closest a geocoded place gets framed, town extents would otherwise zoom to street level
 const FRAME_GUTTER = 48; // px kept clear between framed results and the map edge or panels
 
 // panels that sit over the map, results get framed in the part of the map they leave open
