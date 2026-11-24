@@ -354,8 +354,9 @@ export function initSearch({ index, center, onSubmit = () => {}, onChoose = () =
         if (!form.contains(event.relatedTarget) && !list.contains(event.relatedTarget)) close();
     });
 
-    // keep the list under the bar when the steps scroll or the page resizes
+    // keep the list under the bar when the steps scroll, step 1's choices finish collapsing, or the page resizes
     steps.addEventListener('scroll', place, { passive: true });
+    steps.addEventListener('transitionend', place);
     window.addEventListener('resize', place);
 
     // the suggestions and notes switch on their own thru the .en/.es spans, a re-render keeps the status in step

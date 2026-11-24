@@ -3,21 +3,30 @@
 .steps {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    align-items: flex-start;
-    max-width: calc(100vw - 2rem);
+    gap: 0.5rem;
+    align-items: flex-end; /* the left edge, it's flipped by the rtl below */
+    max-width: calc(100vw - 2rem + var(--scroll-gutter));
     max-height: calc(100vh - 2rem);
+    margin-left: calc(-1 * var(--scroll-gutter)); /* the gutter sits in the map's own padding, so the steps dont move over */
+    padding-left: var(--scroll-gutter); /* room for mac's overlay scrollbar, so it doesnt draw over the step numbers */
     overflow-y: auto;
     overscroll-behavior: contain;
+    direction: rtl; /* puts the scrollbar on the left edge, out of the way of the map */
+    --scroll-gutter: 0.6rem;
     font-family: var(--font);
     color: var(--text);
 }
 
+/* the steps themselves read left to right as usual */
+.steps > * {
+    direction: ltr;
+}
+
 .step {
     flex: none;
-    width: min(46rem, calc(100vw - 2rem)); /* wide enough for step 2's two columns from the start */
+    width: min(40rem, calc(100vw - 2rem)); /* wide enough for step 2's two columns from the start */
     max-width: 100%; /* gives way to the steps' scrollbar once they scroll, instead of scrolling sideways under it */
-    padding: 0.6rem;
+    padding: 0.5rem;
     border: 1px solid var(--border);
     background: var(--surface);
     backdrop-filter: var(--blur);
@@ -27,13 +36,16 @@
     display: none;
 }
 
-/* step 1 hugs its three square choices instead of leaving space to their right, the search under them fills the same width
+/* step 1 hugs its three choices instead of leaving space to their right, the search under them fills the same width
    it never changes size, so the panels still dont jump once step 2 shows
    coverage's interpreter list matches it, the place and language steps keep the full width for step 2's two columns */
 .steps {
-    --choice-size: 8rem;
-    --choice-gap: 0.5rem;
-    --step-narrow: calc(3 * var(--choice-size) + 2 * var(--choice-gap) + 1.2rem + 2px); /* choices, padding, border */
+    --choice-width: 7.5rem; /* wide enough for view interpreter coverage on two lines */
+    --choice-size: 6rem; /* a choice's height, css/search.css */
+    --choice-collapsed: 2rem; /* its height once one is picked */
+    --choice-gap: 0.4rem;
+    --collapse-duration: 360ms;
+    --step-narrow: calc(3 * var(--choice-width) + 2 * var(--choice-gap) + 1rem + 2px); /* choices, padding, border */
 }
 
 @media (min-width: 601px) {
@@ -47,10 +59,10 @@
 .steps .step-heading {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    margin: 0 0 0.6rem;
+    gap: 0.45rem;
+    margin: 0 0 0.5rem;
     color: var(--accent-bright);
-    font-size: 1.15rem;
+    font-size: 1rem;
     font-weight: 700;
     line-height: 1.2;
 }
@@ -62,14 +74,14 @@
 .step-number {
     display: grid;
     flex: none;
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 1.5rem;
+    height: 1.5rem;
     place-items: center;
     padding-top: 0.15rem;
     border-radius: 50%;
     background: var(--accent-bright);
     color: white;
-    font-size: 1rem;
+    font-size: 0.875rem;
 }
 
 /* copy for the search mode that isn't picked, js/search.js sets data-search-mode */
@@ -89,7 +101,7 @@
 .steps-row {
     display: flex;
     align-items: flex-start;
-    gap: 0.75rem;
+    gap: 0.5rem;
     max-width: 100%; /* so step 1 in it gives way to the scrollbar too */
 }
 
@@ -116,7 +128,7 @@
 }
 
 .step-list {
-    max-height: calc(var(--search-row) * 6); /* rows are taller w/ the tag under the name */
+    max-height: min(calc(var(--search-row) * 6), 35vh); /* rows are taller w/ the tag under the name, and the iframe is short */
     margin: 0;
     padding: 0;
     overflow-y: auto;
@@ -210,11 +222,11 @@
 @media (max-width: 600px) {
     .steps {
         max-height: calc(100vh - 6rem);
-        margin-top: 3.25rem;
+        margin-top: 2.75rem;
     }
 
     .steps .step-heading {
-        font-size: 1rem;
+        font-size: 0.9375rem;
     }
 
     .step-columns {

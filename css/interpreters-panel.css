@@ -45,7 +45,7 @@
 
 .interpreters-panel ul {
     position: relative; /* keeps the site links' hidden labels clipped in here, or they push the steps into scrolling */
-    max-height: 24rem;
+    max-height: min(20rem, 45vh); /* the iframe on invisiblenomore is short, leave room for steps 1 and 2 */
     margin: 0;
     padding: 0;
     overflow-y: auto;
@@ -97,11 +97,12 @@
     justify-content: space-between;
     gap: var(--space-xs);
     width: 100%;
-    padding: var(--space-xs) 0;
+    padding: 0.3rem 0;
     border: 0;
     background: none;
     color: inherit;
     font: inherit;
+    font-size: 0.9375rem;
     text-align: left;
     cursor: pointer;
 }
@@ -122,8 +123,8 @@
 .interpreter-site {
     display: grid;
     flex: none;
-    width: 2rem;
-    height: 2rem;
+    width: 1.75rem;
+    height: 1.75rem;
     place-items: center;
     border: 1px solid transparent;
     border-radius: var(--radius);

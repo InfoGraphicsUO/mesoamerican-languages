@@ -42,19 +42,23 @@
                     <section class="step" id="step-search" aria-labelledby="step-search-heading">
                         <h2 class="step-heading" id="step-search-heading"><span class="step-number" aria-hidden="true">1</span>
                             <span class="en" lang="en">Start here: Choose how to begin</span><span class="es" lang="es">Empieza aquí: elige cómo empezar</span></h2>
-                        <!-- location and language show the search under them, coverage goes straight to the interpreters -->
+                        <!-- location and language show the search under them, coverage goes straight to the interpreters
+                             once one is picked the choices shrink to a short row w/ the short label, css/search.css -->
                         <div class="search-choices" role="group" aria-labelledby="step-search-heading">
                             <button class="search-choice" type="button" data-mode="place" aria-pressed="false">
                                 <i class="search-choice-icon fa-solid fa-location-dot" aria-hidden="true"></i>
                                 <span class="search-choice-label"><span class="en" lang="en">Search by location</span><span class="es" lang="es">Buscar por lugar</span></span>
+                                <span class="search-choice-short" aria-hidden="true"><span class="en" lang="en">Location</span><span class="es" lang="es">Lugar</span></span>
                             </button>
                             <button class="search-choice" type="button" data-mode="language" aria-pressed="false">
                                 <i class="search-choice-icon fa-solid fa-comment" aria-hidden="true"></i>
                                 <span class="search-choice-label"><span class="en" lang="en">Search by language</span><span class="es" lang="es">Buscar por lengua</span></span>
+                                <span class="search-choice-short" aria-hidden="true"><span class="en" lang="en">Language</span><span class="es" lang="es">Lengua</span></span>
                             </button>
                             <button class="search-choice" type="button" data-mode="coverage" aria-pressed="false">
                                 <i class="search-choice-icon fa-solid fa-circle-info" aria-hidden="true"></i>
                                 <span class="search-choice-label"><span class="en" lang="en">View interpreter coverage</span><span class="es" lang="es">Ver la cobertura de intérpretes</span></span>
+                                <span class="search-choice-short" aria-hidden="true"><span class="en" lang="en">Coverage</span><span class="es" lang="es">Cobertura</span></span>
                             </button>
                         </div>
                         <form class="map-search" id="search" role="search" hidden>

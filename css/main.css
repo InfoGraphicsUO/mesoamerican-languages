@@ -20,6 +20,8 @@
     --text-xs: 0.75rem;
     --text-sm: 0.8125rem;
     --text-lg: 1rem;
+
+    --bar-height: 2.25rem; /* search bar, its arrow button, and the english/spanish switch */
 }
 
 * {
@@ -59,7 +61,7 @@ html.lang-es .en {
 .language-switch {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    height: 2.75rem; /* lines up w/ the search bar */
+    height: var(--bar-height);
     padding: 0;
     overflow: hidden;
     border: 1px solid var(--border);
@@ -74,7 +76,7 @@ html.lang-es .en {
 .language-option {
     display: grid;
     height: 100%;
-    padding: 0.15rem 0.9rem 0; /* josefin sans sits high, nudge the text down so it looks centered */
+    padding: 0.15rem 0.75rem 0; /* josefin sans sits high, nudge the text down so it looks centered */
     place-items: center;
     transition: color var(--motion-duration) var(--motion-ease), background var(--motion-duration) var(--motion-ease);
 }
@@ -103,6 +105,6 @@ html.lang-es .language-option-es {
 /* on phones the switch sits above the steps, css/steps.css leaves room for it */
 @media (max-width: 600px) {
     .language-switch {
-        height: 2.25rem;
+        height: 2rem;
     }
 }
