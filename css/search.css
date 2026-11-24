@@ -146,6 +146,18 @@
     }
 }
 
+/* the smallest phones have no room for the icon beside interpreters once collapsed, so the word goes in the middle alone */
+@media (max-width: 360px) {
+    .steps[data-search-mode] .search-choice-icon {
+        opacity: 0;
+    }
+
+    .steps[data-search-mode] .search-choice-short {
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
 /* the field w/ the arrow button on its right, shows under the choices once location or language is picked */
 .map-search {
     display: flex;
