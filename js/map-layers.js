@@ -154,8 +154,6 @@ export function sitePopup(feature) {
         rows: [
             [localized('Family', 'Familia'), localizedLookup(value(FIELDS.family), FAMILY_LABELS)],
             [localized('Group', 'Grupo'), localizedLookup(value(FIELDS.group), GROUP_LABELS)],
-            ['ISO 639-3', value(FIELDS.isoCode) || value(FIELDS.surveyIsoCode)],
-            [localized('Glottocode', 'Glotocódigo'), value(FIELDS.glottocode) || value(FIELDS.surveyGlottocode)],
             [localized('Area', 'Área'), localizedPlaceName(value(FIELDS.adminArea))],
             [localized('Country', 'País'), localizedLookup(value(FIELDS.country), COUNTRY_LABELS)]
         ]
