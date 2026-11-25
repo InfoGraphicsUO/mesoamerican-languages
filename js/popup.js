@@ -132,6 +132,14 @@ export function createPopup(view, { closeButton = false } = {}) {
         content.append(button);
     }
 
+    // scrolling over a click popup zooms the map like scrolling anywhere else on it
+    // without this the wheel falls thru to the page, which scrolls the whole site when the map is in an iframe
+    // hover popups ignore the mouse, so the wheel already reaches the map under them
+    element.addEventListener('wheel', (event) => {
+        event.preventDefault();
+        view.surface?.dispatchEvent(new WheelEvent('wheel', event)); // the sdk zooms toward the cursor like a real wheel
+    }, { passive: false });
+
     // keep the popup on its feature while the map moves
     $arcgis.import('@arcgis/core/core/reactiveUtils.js').then((reactiveUtils) => {
         reactiveUtils.watch(() => [view.extent, view.size], position);
