@@ -154,11 +154,12 @@ export function initLanguageSwitch(button) {
     }, { immediate: true });
 }
 
-// the map sits in an iframe on invisiblenomore.uoregon.edu, whose english/español menu buttons also switch the map
+// the map sits in an iframe on invisiblenomore.uoregon.edu (and the sandbox copy at blogs.uoregon.edu/invisiblenomore-sandbox), whose english/español menu buttons also switch the map
 // the site's script posts { type: 'site-language', language: 'english' | 'spanish' } into the iframe whenever its language is set,
 // and the map asks for it once on load w/ { type: 'site-language-request' } in case the site posted before the map was listening
 // a copy of the site's script is saved as Code/language_blocks.js in the project's Website Development folder
-const SITE_ORIGINS = ['https://invisiblenomore.uoregon.edu'];
+// the sandbox shares blogs.uoregon.edu w/ other uo blogs, which can at most switch the map's language
+const SITE_ORIGINS = ['https://invisiblenomore.uoregon.edu', 'https://blogs.uoregon.edu'];
 const SITE_LANGUAGES = { english: 'en', spanish: 'es', en: 'en', es: 'es' };
 
 export function initSiteLanguage() {
